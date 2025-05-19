@@ -1,21 +1,34 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase'; // we'll add this shortly
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { ref as storageRef, getStorage, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 function AdminDashboard() {
   const [projects, setProjects] = useState([]);
-  const [form, setForm] = useState({ title: '', description: '', tech: '' });
+  const [form, setForm] = useState({
+    title: '',
+    description: '',
+    tech: '',
+    featured: false,
+    images: [],
+    demoUrl: '',
+    codeUrl: ''
+  });
+  const [imageFiles, setImageFiles] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editForm, setEditForm] = useState({
     title: '',
     description: '',
     tech: '',
-    featured: false
+    featured: false,
+    demoUrl: '',
+    codeUrl: '',
+    images: []
   });
+  const [editImageFiles, setEditImageFiles] = useState([]);
 
   const projectsRef = collection(db, 'projects');
 
-  // Fetch projects on load
   useEffect(() => {
     const unsubscribe = onSnapshot(projectsRef, (snapshot) => {
       const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -31,16 +44,29 @@ function AdminDashboard() {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    if (!form.title || !form.description) return;
-
+    const storage = getStorage();
+    const imageUrls = [];
+  
+    for (let i = 0; i < imageFiles.length; i++) {
+      const file = imageFiles[i];
+      const storageRef = storageRef(storage, `projects/${Date.now()}_${file.name}`)
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(storageRef);
+      imageUrls.push(url);
+    }
+  
     await addDoc(projectsRef, {
       title: form.title,
       description: form.description,
       tech: form.tech.split(',').map(t => t.trim()),
-      featured: form.featured
+      featured: form.featured,
+      images: imageUrls,
+      demoUrl: form.demoUrl || '',
+      codeUrl: form.codeUrl || '',
     });
-
-    setForm({ title: '', description: '', tech: '' });
+  
+    setForm({ title: '', description: '', tech: '', featured: false });
+    setImageFiles([]);
   };
 
   const handleEditClick = (project) => {
@@ -49,22 +75,44 @@ function AdminDashboard() {
       title: project.title,
       description: project.description,
       tech: project.tech.join(', '),
-      featured: project.featured || false
+      featured: project.featured || false,
+      demoUrl: project.demoUrl || '',
+      codeUrl: project.codeUrl || '',
+      images: project.images || []
     });
   };
   
   const handleUpdate = async (e) => {
     e.preventDefault();
-  
-    const ref = doc(db, 'projects', editId);
-    await updateDoc(ref, {
+    const docRef = doc(db, 'projects', editId);
+    const updates = {
       title: editForm.title,
       description: editForm.description,
       tech: editForm.tech.split(',').map(t => t.trim()),
-      featured: editForm.featured
-    });
+      featured: editForm.featured,
+      demoUrl: editForm.demoUrl,
+      codeUrl: editForm.codeUrl
+    };
+  
+    if (editImageFiles.length > 0) {
+      const storage = getStorage();
+      const newImageUrls = [];
+
+      for (let i = 0; i < editImageFiles.length; i++) {
+        const file = editImageFiles[i];
+        const imageRef = storageRef(storage, `projects/${Date.now()}_${file.name}`);
+        await uploadBytes(imageRef, file);
+        const url = await getDownloadURL(imageRef);
+        newImageUrls.push(url);
+      }
+
+      updates.images = newImageUrls;
+    }
+  
+    await updateDoc(docRef, updates);
   
     setEditId(null);
+    setEditImageFiles([]);
   };
 
   const handleEditChange = (e) => {
@@ -119,6 +167,29 @@ function AdminDashboard() {
           onChange={handleChange}
           className="w-full mb-4 p-2 rounded bg-gray-700 text-white"
         />
+
+          <input
+            type="file"
+            multiple
+            onChange={(e) => setImageFiles([...e.target.files])}
+            className="mb-4"
+          />
+
+        <input
+          name="demoUrl"
+          placeholder="Live Demo URL (optional)"
+          value={form.demoUrl}
+          onChange={handleChange}
+          className="w-full mb-4 p-2 rounded bg-gray-700 text-white"
+         />
+
+        <input
+          name="codeUrl"
+          placeholder="Source Code URL (e.g. GitHub)"
+          value={form.codeUrl}
+          onChange={handleChange}
+          className="w-full mb-4 p-2 rounded bg-gray-700 text-white"
+         />
         <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white">
           Add Project
         </button>
@@ -159,6 +230,43 @@ function AdminDashboard() {
                   />
                   Featured on homepage
                 </label>
+                <input
+                  name="demoUrl"
+                  placeholder="Live Demo URL (optional)"
+                  value={editForm.demoUrl}
+                  onChange={handleEditChange}
+                  className="w-full p-2 rounded bg-gray-700 text-white"
+                />
+
+                <input
+                  name="codeUrl"
+                  placeholder="Source Code URL (e.g. GitHub)"
+                  value={editForm.codeUrl}
+                  onChange={handleEditChange}
+                  className="w-full p-2 rounded bg-gray-700 text-white"
+                />
+                {editForm.images?.length > 0 && (
+                  <div className="grid grid-cols-2 gap-2 mb-2">
+                    {editForm.images.map((url, i) => (
+                      <img
+                        key={i}
+                        src={url}
+                        alt={`Preview ${i}`}
+                        className="rounded w-full object-cover max-h-32"
+                      />
+                    ))}
+                  </div>
+                )}
+
+              <label className="block text-sm text-white mb-2">Replace Images</label>
+              <input
+                type="file"
+                multiple
+                onChange={(e) => setEditImageFiles([...e.target.files])}
+                className="mb-4"
+              />
+              <p className="text-xs text-gray-400 mb-2">Selecting files will replace current images</p>
+
                 <div className="flex gap-3">
                   <button type="submit" className="bg-blue-600 px-4 py-1 rounded text-white">
                     Save

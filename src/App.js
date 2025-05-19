@@ -6,6 +6,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
+    
     <Router>
       <AppContent
         isLoggedIn={isLoggedIn}

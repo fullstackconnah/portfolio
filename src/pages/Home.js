@@ -3,6 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import ProjectCard from '../components/ProjectCard';
 import { Link } from 'react-router-dom';
+import ParticlesBackground from '../components/ParticlesBackground';
 
 function Home() {
   const [projects, setProjects] = useState([]);
@@ -12,27 +13,40 @@ function Home() {
       const snapshot = await getDocs(collection(db, 'projects'));
       const list = snapshot.docs
         .map(doc => ({ id: doc.id, ...doc.data() }))
-        .filter(project => project.featured); // 👈 only show featured
+        .filter(project => project.featured);
       setProjects(list);
     };
   
     fetchProjects();
   }, []);
+
+  
+
+
   return (
     <div className="px-6 py-10 max-w-5xl mx-auto transition-colors duration-300">
       {/* Hero Section */}
-      <section className="mb-16 text-center bg-white dark:bg-[#121212] rounded-lg py-10 px-6 shadow-sm transition-colors duration-300">
-        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">Hi, I'm Connah 👋</h1>
-        <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-          I build scalable full-stack apps, custom WordPress sites, and solve real-world problems with code.
-        </p>
-        <Link
-          to="/projects"
-          className="inline-block mt-6 px-6 py-3 bg-gray-900 text-white rounded hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 transition"
-        >
-          View My Work
-        </Link>
-      </section>
+      <section className="relative overflow-hidden mb-16 text-center bg-white dark:bg-[#121212] rounded-lg py-10 px-6 shadow-sm transition-colors duration-300 min-h-[400px]">
+      {/* Background layers */}
+      <div className="absolute top-0 left-0 w-full h-full z-[-1] pointer-events-none">
+        <svg viewBox="0 0 800 600" className="w-[120%] h-auto opacity-10">
+          <path fill="#4f46e5" d="M0,300 Q400,100 800,300 Q400,500 0,300Z" />
+        </svg>
+      </div>
+      {/* Content */}
+      <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">
+        Hi, I'm Connah <span className="inline-block animate-wave origin-[70%_70%]">👋</span>
+      </h1>
+      <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+        I build scalable full-stack apps, custom WordPress sites, and solve real-world problems with code.
+      </p>
+      <Link
+        to="/projects"
+        className="inline-block mt-6 px-6 py-3 bg-gray-900 text-white rounded hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 transition"
+      >
+        View My Work
+      </Link>
+    </section>
 
       {/* About Section */}
       <section className="mb-14 bg-white dark:bg-[#181818] rounded-lg p-6 transition-colors duration-300">
