@@ -2,17 +2,27 @@ import { Link } from 'react-router-dom';
 
 function ProjectCard({ title, description, tech, link }) {
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 flex flex-col justify-between">
+    <div className="hover:bg-gray-100 dark:hover:bg-[#2a2a2a] bg-white dark:bg-[#1e1e1e] text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-xl shadow-md hover:shadow-lg p-6 flex flex-col justify-between transition-colors duration-300">
       <div>
-        <h3 className="text-2xl font-semibold text-gray-800 mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4">{description}</p>
-        <p className="text-sm text-gray-500 mb-4">
-          <span className="font-semibold">Tech:</span> {tech.join(', ')}
-        </p>
+        <h3 className="text-xl font-semibold mb-2">{title}</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{description}</p>
+
+        {/* Pill Tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {tech.map((item, i) => (
+            <span
+              key={i}
+              className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
+
       <Link
         to={link}
-        className="text-blue-600 hover:text-blue-800 font-medium mt-auto"
+        className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium mt-auto"
       >
         View Project →
       </Link>
