@@ -6,11 +6,13 @@ import Home from './pages/Home.js';
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-      <Footer />
+      <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+        <Footer />
+      </div>
     </Router>
   );
 }
