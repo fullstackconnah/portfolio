@@ -1,13 +1,10 @@
-import { Link } from 'react-router-dom';
 
-function ProjectCard({ title, description, tech, link }) {
+function ProjectCard({ title, description, tech = [], link = "#" }) {
   return (
-    <div className="hover:bg-gray-100 dark:hover:bg-[#2a2a2a] bg-white dark:bg-[#1e1e1e] text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-xl shadow-md hover:shadow-lg p-6 flex flex-col justify-between transition-colors duration-300">
+    <div className="bg-white dark:bg-[#1e1e1e] text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-xl shadow-md hover:shadow-lg hover:bg-gray-100 dark:hover:bg-[#2a2a2a] p-6 flex flex-col justify-between transition-colors duration-300">
       <div>
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
         <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{description}</p>
-
-        {/* Pill Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
           {tech.map((item, i) => (
             <span
@@ -19,15 +16,17 @@ function ProjectCard({ title, description, tech, link }) {
           ))}
         </div>
       </div>
-
-      <Link
-        to={link}
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
         className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium mt-auto"
       >
         View Project →
-      </Link>
+      </a>
     </div>
   );
 }
+
 
 export default ProjectCard;
