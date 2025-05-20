@@ -5,9 +5,8 @@ export default function BootSplash({ onFinish }) {
   const [progress, setProgress] = useState(0);
   const current = useRef(0);
   const totalTime = useRef(0);
-  const maxTime = 6000; // extend slightly for dramatic pause
+  const maxTime = 6000;
 
-  // Boot steps (some include styling instructions)
   const bootSequence = [
     { text: '> sudo init --launch', className: '' },
     { text: 'Booting Connah.dev OS v1.0.3...', className: '' },

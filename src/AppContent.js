@@ -15,8 +15,10 @@ import BootSplash from './components/BootSplash';
 
 function AppContent({ isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
-    const [showBootSplash, setShowBootSplash] = useState(true);
-  
+    const [showBootSplash, setShowBootSplash] = useState(() => {
+        return localStorage.getItem('bootPlayed') !== 'true';
+      });  
+
     const handleLogout = () => {
       signOut(auth).then(() => {
         setIsLoggedIn(false);
@@ -27,8 +29,11 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
     return (
       <div className="relative min-h-screen bg-white dark:bg-black transition-colors duration-300 flex flex-col overflow-hidden">
         {showBootSplash ? (
-          <BootSplash onFinish={() => setShowBootSplash(false)} />
-        ) : (
+            <BootSplash onFinish={() => {
+            localStorage.setItem('bootPlayed', 'true');
+            setShowBootSplash(false);
+            }} />
+                ) : (
           <>
             <MatrixRain />
             {/* Optional: scanline overlay */}
