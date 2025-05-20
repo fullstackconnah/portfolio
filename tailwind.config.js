@@ -6,22 +6,26 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      animation: {
+        'fade-in-slow': 'fadeIn 2s ease-out forwards',
+        'terminal': 'flicker 3s infinite',
+        'scanlines': 'scanlines 1s linear infinite',
+      },
       keyframes: {
-        wave: {
-          '0%': { transform: 'rotate(0deg)' },
-          '15%': { transform: 'rotate(14deg)' },
-          '30%': { transform: 'rotate(-8deg)' },
-          '40%': { transform: 'rotate(14deg)' },
-          '50%': { transform: 'rotate(-4deg)' },
-          '60%': { transform: 'rotate(10deg)' },
-          '70%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(0deg)' },
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        flicker: {
+          '0%, 100%': { boxShadow: '0 0 8px #39FF14' },
+          '50%': { boxShadow: '0 0 4px #39FF14' },
+        },
+        scanlines: {
+          '0%': { backgroundPosition: '0 0' },
+          '100%': { backgroundPosition: '0 2px' },
         },
       },
-      animation: {
-        wave: 'wave 2s ease-in-out infinite',
-      },
-    },
+    },    
   },
   plugins: [],
 };

@@ -44,40 +44,15 @@ function Navbar({ loggedIn, onLogout }) {
               Login
             </Link>
           )}
+          <button
+            onClick={toggleTheme}
+            className="ml-4 px-3 py-2 text-sm font-medium bg-gray-200 dark:bg-[#333] text-black dark:text-white rounded transition"
+          >
+            {darkMode ? '🌞 Light' : '🌙 Dark'}
+          </button>
         </ul>
       </nav>
     );
   }
-
-const styles = {
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '1rem 2rem',
-  },
-  logo: {
-    fontWeight: 'bold',
-    fontSize: '1.25rem',
-  },
-  navList: {
-    listStyle: 'none',
-    display: 'flex',
-    gap: '1rem',
-    alignItems: 'center',
-    margin: 0,
-    padding: 0,
-  },
-  link: {
-    textDecoration: 'none',
-    color: 'inherit',
-  },
-  button: {
-    background: 'none',
-    border: 'none',
-    fontSize: '1rem',
-    cursor: 'pointer',
-  }
-};
 
 export default Navbar;

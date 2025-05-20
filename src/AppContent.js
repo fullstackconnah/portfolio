@@ -1,6 +1,7 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
+import { useState, useEffect } from 'react';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -9,11 +10,12 @@ import Login from './pages/Login';
 import Projects from './pages/ProjectDetail';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import ParticlesBackground from './components/ParticlesBackground';
-
+import MatrixRain from './components/MatrixRain';
+import BootSplash from './components/BootSplash';
 
 function AppContent({ isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
+    const [showBootSplash, setShowBootSplash] = useState(true);
   
     const handleLogout = () => {
       signOut(auth).then(() => {
@@ -24,25 +26,34 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
   
     return (
       <div className="relative min-h-screen bg-white dark:bg-black transition-colors duration-300 flex flex-col overflow-hidden">
-        {/* Global Background */}
-        <ParticlesBackground />
+        {showBootSplash ? (
+          <BootSplash onFinish={() => setShowBootSplash(false)} />
+        ) : (
+          <>
+            <MatrixRain />
+            {/* Optional: scanline overlay */}
+            <div className="fixed inset-0 z-0 pointer-events-none bg-[linear-gradient(transparent_95%,#39FF1433_98%,transparent_100%)] bg-[length:100%_2px] animate-scanlines opacity-10" />
   
-        <Navbar loggedIn={isLoggedIn} onLogout={handleLogout} />
-        
-        <div className="flex-grow relative z-10">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
-            {isLoggedIn && <Route path="/admin" element={<AdminDashboard />} />}
-            <Route path="/admin" element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <AdminDashboard />
-              </ProtectedRoute>} />
-            <Route path="/projects/:id" element={<Projects />} />
-          </Routes>
-        </div>
-  
-        <Footer />
+            <Navbar loggedIn={isLoggedIn} onLogout={handleLogout} />
+            <div className="flex-grow relative z-10">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+                {isLoggedIn && <Route path="/admin" element={<AdminDashboard />} />}
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedRoute isLoggedIn={isLoggedIn}>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/projects/:id" element={<Projects />} />
+              </Routes>
+            </div>
+            <Footer />
+          </>
+        )}
       </div>
     );
   }

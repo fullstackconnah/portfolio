@@ -9,7 +9,7 @@ export function ThemeProvider({ children }) {
     const stored = localStorage.getItem('theme');
     if (stored === 'dark') {
       setDarkMode(true);
-      document.body.classList.add('dark');
+      document.documentElement.classList.add('dark');
     }
   }, []);
 
@@ -17,7 +17,7 @@ export function ThemeProvider({ children }) {
     const newTheme = !darkMode;
     setDarkMode(newTheme);
     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-    document.body.classList.toggle('dark', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme);
   };
 
   return (
