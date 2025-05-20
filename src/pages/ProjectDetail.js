@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 function ProjectDetail() {
   const { id } = useParams();
@@ -24,14 +26,6 @@ function ProjectDetail() {
     <div className="max-w-4xl mx-auto py-10 px-4">
       <h1 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{project.title}</h1>
 
-      {project.image && (
-        <img
-          src={project.image}
-          alt={project.title}
-          className="rounded-lg mb-6 w-full max-h-[400px] object-cover"
-        />
-      )}
-
       <p className="text-gray-700 dark:text-gray-300 mb-6">{project.description}</p>
 
       <div className="flex flex-wrap gap-2 mb-6">
@@ -44,6 +38,16 @@ function ProjectDetail() {
           </span>
         ))}
       </div>
+
+      {project.images?.length > 0 && (
+        <Swiper spaceBetween={20} slidesPerView={1} className="mb-6">
+            {project.images.map((url, i) => (
+            <SwiperSlide key={i}>
+                <img src={url} alt={`Slide ${i}`} className="rounded-lg w-full object-cover max-h-[400px]" />
+            </SwiperSlide>
+            ))}
+        </Swiper>
+        )}
 
       <div className="flex gap-6">
         {project.demoUrl && (
