@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer style={styles.footer}>
+    <footer className="z-50" style={styles.footer}>
       <p>© {new Date().getFullYear()} Connah Trotman. All rights reserved.</p>
     </footer>
   );

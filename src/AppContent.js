@@ -12,6 +12,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import MatrixRain from './components/MatrixRain';
 import BootSplash from './components/BootSplash';
+import NotFound from './pages/404';
 
 function AppContent({ isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
           <>
             <MatrixRain />
             {/* Optional: scanline overlay */}
-            <div className="fixed inset-0 z-0 pointer-events-none bg-[linear-gradient(transparent_95%,#39FF1433_98%,transparent_100%)] bg-[length:100%_2px] animate-scanlines opacity-10" />
+            <div className="dark fixed inset-0 z-0 pointer-events-none bg-[linear-gradient(transparent_95%,#39FF1433_98%,transparent_100%)] bg-[length:100%_2px] animate-scanlines opacity-10" />
   
             <Navbar loggedIn={isLoggedIn} onLogout={handleLogout} />
             <div className="flex-grow relative z-10">
@@ -54,6 +55,8 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
                   }
                 />
                 <Route path="/projects/:id" element={<Projects />} />
+                <Route path="*" element={<NotFound />} />
+
               </Routes>
             </div>
             <Footer />

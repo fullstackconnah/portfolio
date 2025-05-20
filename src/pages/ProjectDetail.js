@@ -23,41 +23,50 @@ function ProjectDetail() {
   if (!project) return <p className="text-center py-10 text-gray-500">Loading project...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4">
-      <h1 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{project.title}</h1>
-
-      <p className="text-gray-700 dark:text-gray-300 mb-6">{project.description}</p>
-
+    <div className="max-w-4xl mx-auto py-10 px-4 font-mono text-[#39FF14]">
+        <span className="text-xs block mb-2 text-[#39FF14]"> opening project/{project.title}...</span>
+      <h1 className="text-3xl font-bold mb-4 border-b border-[#39FF14] pb-2">
+        {project.title}
+      </h1>
+  
+      <p className="mb-6 whitespace-pre-line">
+        {project.description}
+      </p>
+  
       <div className="flex flex-wrap gap-2 mb-6">
         {project.tech.map((t, i) => (
           <span
             key={i}
-            className="bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-full text-xs text-gray-800 dark:text-gray-200"
+            className="bg-black border border-[#39FF14] px-3 py-1 rounded-full text-xs tracking-wide"
           >
-            {t}
+            &gt; {t}
           </span>
         ))}
       </div>
-
+  
       {project.images?.length > 0 && (
-        <Swiper spaceBetween={20} slidesPerView={1} className="mb-6">
-            {project.images.map((url, i) => (
+        <Swiper spaceBetween={20} slidesPerView={1} className="mb-10">
+          {project.images.map((url, i) => (
             <SwiperSlide key={i}>
-                <img src={url} alt={`Slide ${i}`} className="rounded-lg w-full object-cover max-h-[400px]" />
+              <img
+                src={url}
+                alt={`Slide ${i}`}
+                className="rounded-lg w-full object-cover max-h-[400px] border border-[#39FF14] shadow-[0_0_10px_#39FF14]"
+                />
             </SwiperSlide>
-            ))}
+          ))}
         </Swiper>
-        )}
-
-      <div className="flex gap-6">
+      )}
+  
+      <div className="flex gap-6 mt-6">
         {project.demoUrl && (
           <a
             href={project.demoUrl}
             target="_blank"
             rel="noreferrer"
-            className="text-blue-600 dark:text-blue-400 underline"
-          >
-            Live Demo
+            className="border border-[#39FF14] text-[#39FF14] px-4 py-2 rounded hover:bg-[#39FF14] hover:text-black transition font-mono"
+            >
+            View Demo
           </a>
         )}
         {project.codeUrl && (
@@ -65,12 +74,17 @@ function ProjectDetail() {
             href={project.codeUrl}
             target="_blank"
             rel="noreferrer"
-            className="text-blue-600 dark:text-blue-400 underline"
-          >
-            Source Code
+            className="border border-[#39FF14] text-[#39FF14] px-4 py-2 rounded hover:bg-[#39FF14] hover:text-black transition font-mono"
+            >
+            View Code
           </a>
         )}
       </div>
+      <div className="mt-8 text-xs text-[#39FF14]">
+            <p>&gt; cat README.md</p>
+            <p>Project by Connah — built with React and Firebase</p>
+            <p>&gt; run deploy.sh — Success ✅</p>
+        </div>
     </div>
   );
 }

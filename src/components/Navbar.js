@@ -1,10 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { ThemeContext } from '../contexts/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 
 function Navbar({ loggedIn, onLogout }) {
-  const { darkMode, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -12,47 +10,50 @@ function Navbar({ loggedIn, onLogout }) {
     onLogout();
   }
 
-    return (
-      <nav className="bg-white dark:bg-[#121212] px-6 py-4 flex justify-between items-center shadow">
-        <h1 className="text-xl font-bold text-blue-700 dark:text-white">Connah.dev</h1>
-        <ul className="flex gap-6 text-gray-700 dark:text-gray-200">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/projects">Projects</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+  return (
+    <nav className="z-50 bg-black border-b border-[#39FF14] px-4 py-2 font-mono text-[#39FF14] text-sm shadow-md">
+      <div className="flex justify-between items-center">
+      <span className="text-[#39FF14] tracking-wide">
+        ┌─[<span className="font-bold">
+          {loggedIn ? 'admin@connah.dev' : 'guest@connah.dev'}
+        </span>]──[~]
+      </span>
+  
+        <div className="flex items-center gap-4">
+          <Link to="/" className="hover:underline">Home</Link>
+          <Link to="/projects" className="hover:underline">Projects</Link>
+          <Link to="/about" className="hover:underline">About</Link>
+          <Link to="/contact" className="hover:underline">Contact</Link>
   
           {loggedIn && (
-            <li>
-              <Link to="/admin" className="text-blue-600 dark:text-blue-400 font-semibold">
-                Admin
-              </Link>
-            </li>
+            <Link to="/admin" className="hover:underline text-green-400 font-semibold">
+              Admin
+            </Link>
           )}
-
+  
           {loggedIn ? (
             <button
-            onClick={handleLogout}
-              className="text-sm px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded"
+              onClick={handleLogout}
+              className="ml-2 px-2 py-1 border border-[#39FF14] text-[#39FF14] hover:bg-[#39FF14] hover:text-black rounded transition"
             >
               Logout
             </button>
           ) : (
             <Link
               to="/login"
-              className="text-sm px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded"
+              className="ml-2 px-2 py-1 border border-[#39FF14] text-[#39FF14] hover:bg-[#39FF14] hover:text-black rounded transition"
             >
               Login
             </Link>
           )}
-          <button
-            onClick={toggleTheme}
-            className="ml-4 px-3 py-2 text-sm font-medium bg-gray-200 dark:bg-[#333] text-black dark:text-white rounded transition"
-          >
-            {darkMode ? '🌞 Light' : '🌙 Dark'}
-          </button>
-        </ul>
-      </nav>
-    );
+        </div>
+      </div>
+  
+      <div className="text-[#39FF14] mt-1">└────────────────────────────────────────</div>
+    </nav>
+  );
+  
   }
+
 
 export default Navbar;
