@@ -1,0 +1,19 @@
+@keyframes terminalFlicker {
+    0%, 100% { opacity: 1; }
+    25% { opacity: 0.9; }
+    50% { opacity: 1; }
+    75% { opacity: 0.95; }
+  }
+  
+  .animate-terminalFlicker {
+    animation: terminalFlicker 0.8s ease-in-out;
+  }
+  
+  .blinking-cursor {
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }

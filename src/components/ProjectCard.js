@@ -1,32 +1,42 @@
 import { Link } from 'react-router-dom';
+import '../css/TerminalCard.css'; 
 
 function ProjectCard({ title, description, tech = [], id }) {
   return (
-    <div className="bg-white dark:bg-[#1e1e1e] text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-xl shadow-md hover:shadow-lg hover:bg-gray-100 dark:hover:bg-[#2a2a2a] p-6 flex flex-col justify-between transition-colors duration-300">
-      <div>
-        <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{description}</p>
+    <div className="relative group bg-black border border-[#39FF14] text-[#39FF14] font-mono rounded-lg p-5 shadow-[0_0_10px_#39FF14] transition duration-300 hover:animate-terminalFlicker overflow-hidden">
+
+      {/* Top-left terminal label */}
+      <span className="absolute top-0 left-0 px-2 py-0.5 text-xs bg-black border-b border-r border-[#39FF14] rounded-br-sm z-10 font-bold">
+        PROJECT
+      </span>
+
+      {/* Scanlines overlay */}
+      <div className="pointer-events-none absolute inset-0 opacity-5 z-0 bg-[linear-gradient(rgba(57,255,20,0.1)_50%,transparent_50%)] bg-[length:100%_2px]"></div>
+
+      <div className="relative z-10">
+        <h3 className="text-lg font-bold mb-2">{title}</h3>
+        <p className="text-sm text-[#39FF14]/80 mb-4 leading-relaxed">{description}</p>
+
         <div className="flex flex-wrap gap-2 mb-4">
           {tech.map((item, i) => (
             <span
               key={i}
-              className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full"
+              className="bg-[#0f0f0f] border border-[#39FF14] text-xs px-2 py-1 rounded shadow-[0_0_4px_#39FF14] whitespace-nowrap"
             >
               {item}
             </span>
           ))}
         </div>
-      </div>
-      <Link
-        to={`/projects/${id}`}
-        className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium mt-auto"
-      >
-        View Project →
-      </Link>
 
+        <Link
+          to={`/projects/${id}`}
+          className="text-sm underline hover:text-green-300 transition inline-block"
+        >
+          &gt; View Project <span className="blinking-cursor">█</span>
+        </Link>
+      </div>
     </div>
   );
 }
-
 
 export default ProjectCard;

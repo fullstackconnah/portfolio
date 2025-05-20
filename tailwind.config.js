@@ -6,6 +6,17 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      colors:{      
+        terminalGreen: '#39FF14',
+        terminalBg: '#000000',
+        terminalGray: '#1a1a1a',
+      },
+      fontFamily: {
+        mono: ['"Fira Code"', 'monospace'],
+      },
+      boxShadow: {
+        glow: '0 0 10px #39FF14',
+      },
       animation: {
         'fade-in-slow': 'fadeIn 2s ease-out forwards',
         'terminal': 'flicker 3s infinite',
