@@ -3,14 +3,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function TerminalNavigator() {
-  const asciiArt = [
-    '   ______                        __         __         ',
-    '  / ____/___  ____  ____  ____ _/ /_   ____/ /__ _   __',
-    ' / /   / __ \/ __ \/ __ \/ __ `/ __ \ / __  / _ \ | / /',
-    '/ /___/ /_/ / / / / / / / /_/ / / / // /_/ /  __/ |/ / ',
-    '\____/\____/_/ /_/_/ /_/\__,_/_/ /_(_)__,_/\___/|___/  '
-  ];
-
   const navigate = useNavigate();
   const scrollRef = useRef(null);
 
@@ -27,28 +19,29 @@ export default function TerminalNavigator() {
   ];
 
   const bootSequence = [
-    ...asciiArt,
-    '',
     'Authenticating...',
     'User verified: GUEST',
     'Session ID: 0xC0D3C0NN4H',
     'Loading environment...',
     'Status: Terminal ready. Awaiting input. Type help for commands'
-];
+    ];
 
-  useEffect(() => {
-    let idx = 0;
-    const interval = setInterval(() => {
-      setLines(prev => [...prev, bootSequence[idx]]);
-      idx++;
-      if (idx >= bootSequence.length) {
-        clearInterval(interval);
-        setIsBootComplete(true);
-        setLines(prev => [...prev, '$']);
-      }
-    }, 400);
-    return () => clearInterval(interval);
-  }, []);
+    useEffect(() => {
+        const idxRef = { current: 0 };
+        const interval = setInterval(() => {
+        if (idxRef.current < bootSequence.length) {
+            const line = bootSequence[idxRef.current];
+            setLines(prev => [...prev, line]);
+            idxRef.current += 1;
+        } else {
+            clearInterval(interval);
+            setIsBootComplete(true);
+        }
+        }, 400);
+    
+        return () => clearInterval(interval);
+    }, []);
+  
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -166,9 +159,21 @@ export default function TerminalNavigator() {
         ref={scrollRef}
         className="flex-1 overflow-y-auto whitespace-pre-wrap mb-2 pr-2 scrollbar-thin scrollbar-thumb-[#39FF14]/60 scrollbar-track-transparent"
       >
-        {lines.map((line, i) => (
-          <div key={i} className="leading-relaxed">{line}</div>
-        ))}
+       {lines.map((line, i) => {
+        if (line.includes('Type help for commands')) {
+            return (
+            <div key={i} className="leading-relaxed">
+                Status: Terminal ready. Awaiting input. Type{' '}
+                <span className="text-[#39FF14] underline animate-pulse font-bold drop-shadow-[0_0_5px_#39FF14]">
+                help
+                </span>{' '}
+                for commands
+            </div>
+            );
+        }
+        return <div key={i} className="leading-relaxed">{line}</div>;
+    })}
+
       </div>
       {isBootComplete && (
         <form onSubmit={handleSubmit} className="flex items-center gap-2">

@@ -1,11 +1,20 @@
 import TerminalNavigator from './TerminalNavigator';
 
-export default function HeroSection() {
+const asciiArt = [
+  '    ______                        __         __         ',
+  '   / ____/___  ____  ____  ____ _/ /_   ____/ /__ _   __',
+  '  / /   / __ \\/ __ \\/ __ \\/ __ `/ __ \\ / __  / _ \\ | / /',
+  ' / /___/ /_/ / / / / / / / /_/ / / / // /_/ /  __/ |/ / ',
+  ' \\____/\\____/_/ /_/_/ /_/\\__,_/_/ /_(_)__,_/\\___/|___/  '
+];
+
+export default function Hero() {
   return (
-    <section className="flex flex-col items-center justify-start min-h-[70vh] text-left relative z-10 px-6 pt-16 md:pt-24">
-      <div className="w-full">
-        <TerminalNavigator />
-      </div>
+    <section className="p-4">
+      <pre className="text-[#39FF14] font-mono text-sm leading-tight mb-4">
+        {asciiArt.join('\n')}
+      </pre>
+      <TerminalNavigator />
     </section>
   );
 }
