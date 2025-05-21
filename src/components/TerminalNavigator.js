@@ -173,16 +173,17 @@ export default function TerminalNavigator() {
       </div>
 
       {isBootComplete && (
-        <form onSubmit={handleSubmit} className="flex items-center gap-2">
-          <span className="text-[#39FF14]">$</span>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="bg-black text-[#39FF14] outline-none flex-1 w-full text-sm sm:text-base"
-            autoFocus
-          />
+        <form onSubmit={handleSubmit} className="flex items-center gap-2 border-t border-[#39FF14]/40 pt-2 mt-2">
+            <span className="text-[#39FF14] font-bold drop-shadow-[0_0_4px_#39FF14]">$</span>
+            <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="bg-transparent text-[#39FF14] outline-none flex-1 border-b border-[#39FF14] placeholder:text-[#39FF14]/40 caret-[#39FF14]"
+                placeholder="Enter command..."
+                autoFocus
+            />
         </form>
       )}
     </div>
