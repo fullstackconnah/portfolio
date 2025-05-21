@@ -11,9 +11,11 @@ const asciiArt = [
 export default function Hero() {
   return (
     <section className="p-4">
-      <pre className="text-[10px] sm:text-sm md:text-base lg:text-lg leading-none tracking-tight overflow-x-auto">
-        {asciiArt.join('\n')}
-      </pre>
+      <div className="max-w-full overflow-x-auto px-2 sm:px-4">
+        <pre className="text-[10px] sm:text-sm font-mono text-[#39FF14] leading-tight">
+          {asciiArt.join('\n')}
+        </pre>
+      </div>
       <TerminalNavigator />
     </section>
   );
