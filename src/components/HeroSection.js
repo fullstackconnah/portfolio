@@ -11,7 +11,7 @@ const asciiArt = [
 export default function Hero() {
   return (
     <section className="p-4">
-      <pre className="text-[#39FF14] font-mono text-sm leading-tight mb-4">
+      <pre className="text-[10px] sm:text-sm md:text-base lg:text-lg leading-none tracking-tight overflow-x-auto">
         {asciiArt.join('\n')}
       </pre>
       <TerminalNavigator />
