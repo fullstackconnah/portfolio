@@ -41,3 +41,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           local-dir: out/
+          include-dotfiles: true
