@@ -28,11 +28,6 @@ jobs:
           npm install
           npm run build
 
-      - name: Build the site
-        run: |
-          npm install
-          npm run build
-
       - name: Prepare deploy folder
         run: |
           mkdir out
