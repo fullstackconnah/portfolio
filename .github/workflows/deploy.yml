@@ -18,12 +18,17 @@ jobs:
           npm install
           npm run build
 
+      - name: Prepare deploy folder
+        run: |
+          mkdir out
+          cp -r build/* out
+
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.2
         with:
           server: ftp.connah.com.au
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: build/
           protocol: ftps
+          local-dir: out/
           server-dir: /public_html/
