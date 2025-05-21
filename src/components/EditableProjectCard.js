@@ -1,8 +1,4 @@
-// components/EditableProjectCard.js
-import { useState } from 'react';
-
 export default function EditableProjectCard({ editForm, setEditForm, setEditImageFiles, onCancel, onSubmit }) {
-  const [deletedIndexes, setDeletedIndexes] = useState([]);
 
   const handleEditChange = (e) => {
     const { name, value, type, checked } = e.target;

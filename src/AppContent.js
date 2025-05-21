@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';

@@ -1,4 +1,3 @@
-// components/ProjectForm.js
 import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';

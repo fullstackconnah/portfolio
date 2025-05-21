@@ -7,7 +7,6 @@ export default function MatrixRain() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
-    // Set canvas to full screen
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
@@ -18,11 +17,10 @@ export default function MatrixRain() {
         Math.floor(Math.random() * canvas.height / fontSize)
       );
     const draw = () => {
-      // Black translucent background for trail effect
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#39FF14'; // Neon green
+      ctx.fillStyle = '#39FF14';
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
@@ -42,7 +40,6 @@ export default function MatrixRain() {
 
     const interval = setInterval(draw, 50);
 
-    // Cleanup on unmount
     return () => clearInterval(interval);
   }, []);
 

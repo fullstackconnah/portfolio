@@ -1,4 +1,3 @@
-// components/ProjectList.js
 import { useState } from 'react';
 import EditableProjectCard from './EditableProjectCard';
 
