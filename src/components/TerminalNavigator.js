@@ -3,27 +3,63 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function TerminalNavigator() {
+  const asciiArt = [
+    '   ______                        __         __         ',
+    '  / ____/___  ____  ____  ____ _/ /_   ____/ /__ _   __',
+    ' / /   / __ \/ __ \/ __ \/ __ `/ __ \ / __  / _ \ | / /',
+    '/ /___/ /_/ / / / / / / / /_/ / / / // /_/ /  __/ |/ / ',
+    '\____/\____/_/ /_/_/ /_/\__,_/_/ /_(_)__,_/\___/|___/  '
+  ];
+
+  const navigate = useNavigate();
+  const scrollRef = useRef(null);
+
+  const [lines, setLines] = useState([]);
   const [input, setInput] = useState('');
-  const [lines, setLines] = useState(['Welcome to connah.dev CLI. Type "help" for options.']);
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(null);
   const [autocompleteMatches, setAutocompleteMatches] = useState([]);
   const [autocompleteIndex, setAutocompleteIndex] = useState(0);
-  const navigate = useNavigate();
-  const scrollRef = useRef(null);
+  const [isBootComplete, setIsBootComplete] = useState(false);
 
   const commandList = [
     'help', 'about', 'projects', 'contact', 'login', 'admin', 'clear', 'history', 'echo', 'cd', 'ls'
   ];
 
+  const bootSequence = [
+    ...asciiArt,
+    '',
+    'Authenticating...',
+    'User verified: GUEST',
+    'Session ID: 0xC0D3C0NN4H',
+    'Loading environment...',
+    'Status: Terminal ready. Awaiting input. Type help for commands'
+];
+
+  useEffect(() => {
+    let idx = 0;
+    const interval = setInterval(() => {
+      setLines(prev => [...prev, bootSequence[idx]]);
+      idx++;
+      if (idx >= bootSequence.length) {
+        clearInterval(interval);
+        setIsBootComplete(true);
+        setLines(prev => [...prev, '$']);
+      }
+    }, 400);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [lines]);
+
   const escapeHTML = (str) =>
-    str.replace(/[&<>"']/g, (match) => (
+    str.replace(/[&<>"]'/g, match => (
       {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;',
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
       }[match]
     ));
 
@@ -46,9 +82,9 @@ export default function TerminalNavigator() {
     contact: () => navigate('/contact'),
     login: () => navigate('/login'),
     admin: () => navigate('/admin'),
-    clear: () => setLines([]),
-    history: () => setLines(prev => [...prev, ...history.map((h, i) => `${i + 1}: ${h}`)]),
-    ls: () => setLines(prev => [...prev, '> ls', 'about/', 'projects/', 'contact/', 'login/', 'admin/'])
+    clear: () => setLines(['$']),
+    history: () => setLines(prev => [...prev.filter(l => l !== '$'), ...history.map((h, i) => `${i + 1}: ${h}`), '$']),
+    ls: () => setLines(prev => [...prev.filter(l => l !== '$'), '> ls', 'about/', 'projects/', 'contact/', 'login/', 'admin/', '$'])
   };
 
   const handleCommand = (cmd) => {
@@ -57,14 +93,14 @@ export default function TerminalNavigator() {
     setHistoryIndex(null);
 
     if (normalized.startsWith('echo ')) {
-      const message = escapeHTML(cmd.slice(5));
-      setLines(prev => [...prev, `> ${escapeHTML(cmd)}`, message]);
+      const msg = escapeHTML(cmd.slice(5));
+      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, msg, '$']);
       return;
     }
 
     if (normalized.startsWith('cd ')) {
       const path = cmd.slice(3).trim();
-      setLines(prev => [...prev, `> ${escapeHTML(cmd)}`, `navigating to /${path}`]);
+      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, `navigating to /${path}`, '$']);
       navigate(`/${path}`);
       return;
     }
@@ -72,12 +108,12 @@ export default function TerminalNavigator() {
     if (commands[normalized]) {
       if (typeof commands[normalized] === 'function') {
         commands[normalized]();
-        setLines(prev => [...prev, `> ${escapeHTML(cmd)}`]);
+        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, '$']);
       } else {
-        setLines(prev => [...prev, `> ${escapeHTML(cmd)}`, ...commands[normalized]]);
+        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, ...commands[normalized], '$']);
       }
     } else {
-      setLines(prev => [...prev, `> ${escapeHTML(cmd)}`, 'Command not found. Try "help".']);
+      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, 'Command not found. Try "help".', '$']);
     }
   };
 
@@ -95,7 +131,7 @@ export default function TerminalNavigator() {
 
       if (matches.length > 0) {
         setInput(matches[autocompleteIndex % matches.length]);
-        setAutocompleteIndex((prev) => prev + 1);
+        setAutocompleteIndex(prev => prev + 1);
       }
     } else if (e.key === 'ArrowUp') {
       if (history.length > 0) {
@@ -124,14 +160,8 @@ export default function TerminalNavigator() {
     setAutocompleteIndex(0);
   };
 
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [lines]);
-
   return (
-    <div className="bg-black text-[#39FF14] p-4 border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono mt-8 h-[400px] max-h-[400px] overflow-hidden flex flex-col">
+    <div className="bg-black text-[#39FF14] p-4 border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono mt-8 h-[500px] max-h-[500px] overflow-hidden flex flex-col">
       <div
         ref={scrollRef}
         className="flex-1 overflow-y-auto whitespace-pre-wrap mb-2 pr-2 scrollbar-thin scrollbar-thumb-[#39FF14]/60 scrollbar-track-transparent"
@@ -140,17 +170,19 @@ export default function TerminalNavigator() {
           <div key={i} className="leading-relaxed">{line}</div>
         ))}
       </div>
-      <form onSubmit={handleSubmit} className="flex items-center gap-2">
-        <span className="text-[#39FF14]">$</span>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          className="bg-black text-[#39FF14] outline-none flex-1"
-          autoFocus
-        />
-      </form>
+      {isBootComplete && (
+        <form onSubmit={handleSubmit} className="flex items-center gap-2">
+          <span className="text-[#39FF14]">$</span>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="bg-black text-[#39FF14] outline-none flex-1"
+            autoFocus
+          />
+        </form>
+      )}
     </div>
   );
 }

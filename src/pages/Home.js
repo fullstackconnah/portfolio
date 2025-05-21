@@ -25,7 +25,6 @@ function Home() {
       <HeroSection />
       <AboutSection />
       <ProjectsSection projects={projects} />
-      <TerminalNavigator />
     </div>
   );
 }
