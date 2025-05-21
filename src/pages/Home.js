@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import HeroSection from '../components/HeroSection';
 import AboutSection from '../components/AboutSection';
 import ProjectsSection from '../components/ProjectsSection';
+import TerminalNavigator from '../components/TerminalNavigator';
 
 function Home() {
   const [projects, setProjects] = useState([]);
@@ -24,6 +25,7 @@ function Home() {
       <HeroSection />
       <AboutSection />
       <ProjectsSection projects={projects} />
+      <TerminalNavigator />
     </div>
   );
 }
