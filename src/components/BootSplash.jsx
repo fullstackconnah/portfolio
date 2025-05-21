@@ -1,13 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 
-export default function BootSplash({ onFinish }) {
-  const [lines, setLines] = useState([]);
-  const [progress, setProgress] = useState(0);
-  const current = useRef(0);
-  const totalTime = useRef(0);
-  const maxTime = 6000;
-
-  const bootSequence = [
+const bootSequence = [
     { text: '> sudo init --launch', className: '' },
     { text: 'Booting Connah.dev OS v1.0.3...', className: '' },
     { text: '> systemctl --start modules', className: '' },
@@ -23,6 +16,13 @@ export default function BootSplash({ onFinish }) {
     { text: 'Finalizing...', className: '' },
     { text: 'Welcome.', className: '' },
   ];
+
+export default function BootSplash({ onFinish }) {
+  const [lines, setLines] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const current = useRef(0);
+  const totalTime = useRef(0);
+  const maxTime = 6000;
 
   useEffect(() => {
     const typeNextLine = () => {
@@ -60,7 +60,6 @@ export default function BootSplash({ onFinish }) {
         ))}
       </div>
 
-      {/* Glowing Progress Bar */}
       <div className="w-full max-w-md h-3 border border-[#39FF14] mt-4">
         <div
           className="h-full transition-all duration-500 ease-out"

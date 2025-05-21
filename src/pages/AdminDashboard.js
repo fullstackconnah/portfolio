@@ -10,9 +10,10 @@ import {
 import ProjectForm from '../components/ProjectForm';
 import ProjectList from '../components/ProjectList';
 
+const projectsRef = collection(db, 'projects');
+
 function AdminDashboard() {
   const [projects, setProjects] = useState([]);
-  const projectsRef = collection(db, 'projects');
 
   useEffect(() => {
     const unsubscribe = onSnapshot(projectsRef, (snapshot) => {

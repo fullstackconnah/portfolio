@@ -2,6 +2,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const bootSequence = [
+    'Authenticating...',
+    'User verified: GUEST',
+    'Session ID: 0xC0D3C0NN4H',
+    'Loading environment...',
+    'Status: Terminal ready. Awaiting input. Type help for commands'
+    ];
+
+  const commandList = [
+    'help', 'about', 'projects', 'contact', 'login', 'admin', 'clear', 'history', 'echo', 'cd', 'ls'
+  ];    
+
 export default function TerminalNavigator() {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
@@ -13,18 +25,6 @@ export default function TerminalNavigator() {
   const [autocompleteMatches, setAutocompleteMatches] = useState([]);
   const [autocompleteIndex, setAutocompleteIndex] = useState(0);
   const [isBootComplete, setIsBootComplete] = useState(false);
-
-  const commandList = [
-    'help', 'about', 'projects', 'contact', 'login', 'admin', 'clear', 'history', 'echo', 'cd', 'ls'
-  ];
-
-  const bootSequence = [
-    'Authenticating...',
-    'User verified: GUEST',
-    'Session ID: 0xC0D3C0NN4H',
-    'Loading environment...',
-    'Status: Terminal ready. Awaiting input. Type help for commands'
-    ];
 
     useEffect(() => {
         const idxRef = { current: 0 };
