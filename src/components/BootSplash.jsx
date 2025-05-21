@@ -22,7 +22,7 @@ export default function BootSplash({ onFinish }) {
   const [progress, setProgress] = useState(0);
   const current = useRef(0);
   const totalTime = useRef(0);
-  const maxTime = 6000;
+  const maxTime = 4000;
 
   useEffect(() => {
     const typeNextLine = () => {
@@ -31,7 +31,7 @@ export default function BootSplash({ onFinish }) {
         return;
       }
 
-      const delay = Math.floor(Math.random() * 800) + 400;
+      const delay = Math.floor(Math.random() * 400) + 400;
       totalTime.current += delay;
 
       setTimeout(() => {

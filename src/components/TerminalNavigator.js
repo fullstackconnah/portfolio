@@ -77,7 +77,7 @@ export default function TerminalNavigator() {
     admin: () => navigate('/admin'),
     clear: () => setLines(['$']),
     history: () => setLines(prev => [...prev.filter(l => l !== '$'), ...history.map((h, i) => `${i + 1}: ${h}`), '$']),
-    ls: () => setLines(prev => [...prev.filter(l => l !== '$'), '> ls', 'about/', 'projects/', 'contact/', 'login/', 'admin/', '$'])
+    ls: () => setLines(prev => [...prev.filter(l => l !== '$'), '> ls', 'about/', 'projects/', 'contact/', 'login/', 'admin/'])
   };
 
   const handleCommand = (cmd) => {
@@ -87,13 +87,13 @@ export default function TerminalNavigator() {
 
     if (normalized.startsWith('echo ')) {
       const msg = escapeHTML(cmd.slice(5));
-      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, msg, '$']);
+      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, msg]);
       return;
     }
 
     if (normalized.startsWith('cd ')) {
       const path = cmd.slice(3).trim();
-      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, `navigating to /${path}`, '$']);
+      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, `navigating to /${path}`]);
       navigate(`/${path}`);
       return;
     }
@@ -101,12 +101,12 @@ export default function TerminalNavigator() {
     if (commands[normalized]) {
       if (typeof commands[normalized] === 'function') {
         commands[normalized]();
-        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, '$']);
+        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`]);
       } else {
-        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, ...commands[normalized], '$']);
+        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, ...commands[normalized]]);
       }
     } else {
-      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, 'Command not found. Try "help".', '$']);
+      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, 'Command not found. Try "help".']);
     }
   };
 
