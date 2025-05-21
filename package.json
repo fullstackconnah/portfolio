@@ -1,5 +1,6 @@
 {
   "name": "my-portfolio",
+  "homepage": "https://connah.com.au",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
