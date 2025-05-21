@@ -157,18 +157,37 @@ export default function TerminalNavigator() {
     className="flex-1 overflow-y-auto whitespace-pre-wrap break-words leading-tight mb-2 pr-2 scrollbar-thin scrollbar-thumb-[#39FF14]/60 scrollbar-track-transparent"
     >
         {lines.map((line, i) => {
-          if (line.includes('Type help for commands')) {
+            const baseClass =
+                "leading-relaxed opacity-0 animate-fadeIn";
+            const delayStyle = {
+                animationDelay: `${i * 0.05}s`,
+                animationFillMode: 'forwards'
+            };
+
+            if (line.includes("Type help for commands")) {
+                return (
+                <div
+                    key={i}
+                    className={`${baseClass}`}
+                    style={delayStyle}
+                >
+                    Status: Terminal ready. Awaiting input. Type{' '}
+                    <span className="text-[#39FF14] underline animate-pulse font-bold drop-shadow-[0_0_5px_#39FF14]">
+                    help
+                    </span>{' '}
+                    for commands
+                </div>
+                );
+            }
             return (
-              <div key={i} className="leading-relaxed">
-                Status: Terminal ready. Awaiting input. Type{' '}
-                <span className="text-[#39FF14] underline animate-pulse font-bold drop-shadow-[0_0_5px_#39FF14]">
-                  help
-                </span>{' '}
-                for commands
-              </div>
+                <div
+                key={i}
+                className={`${baseClass}`}
+                style={delayStyle}
+                >
+                {line}
+                </div>
             );
-          }
-          return <div key={i} className="leading-relaxed">{line}</div>;
         })}
       </div>
 

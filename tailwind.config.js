@@ -19,6 +19,7 @@ module.exports = {
       },
       animation: {
         'fade-in-slow': 'fadeIn 2s ease-out forwards',
+        'fadeIn': 'fadeIn 0.3s ease-in forwards',
         'terminal': 'flicker 3s infinite',
         'scanlines': 'scanlines 1s linear infinite',
       },
