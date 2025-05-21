@@ -1,18 +1,18 @@
-// components/TerminalNavigator.js
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const bootSequence = [
-    'Authenticating...',
-    'User verified: GUEST',
-    'Session ID: 0xC0D3C0NN4H',
-    'Loading environment...',
-    'Status: Terminal ready. Awaiting input. Type help for commands'
-    ];
+  'Authenticating...',
+  'User verified: GUEST',
+  'Session ID: 0xC0D3C0NN4H',
+  'Loading environment...',
+  'Status: Terminal ready. Awaiting input. Type help for commands'
+];
 
-  const commandList = [
-    'help', 'about', 'projects', 'contact', 'login', 'admin', 'clear', 'history', 'echo', 'cd', 'ls'
-  ];    
+const commandList = [
+  'help', 'about', 'projects', 'contact', 'login', 'admin',
+  'clear', 'history', 'echo', 'cd', 'ls'
+];
 
 export default function TerminalNavigator() {
   const navigate = useNavigate();
@@ -26,22 +26,21 @@ export default function TerminalNavigator() {
   const [autocompleteIndex, setAutocompleteIndex] = useState(0);
   const [isBootComplete, setIsBootComplete] = useState(false);
 
-    useEffect(() => {
-        const idxRef = { current: 0 };
-        const interval = setInterval(() => {
-        if (idxRef.current < bootSequence.length) {
-            const line = bootSequence[idxRef.current];
-            setLines(prev => [...prev, line]);
-            idxRef.current += 1;
-        } else {
-            clearInterval(interval);
-            setIsBootComplete(true);
-        }
-        }, 400);
-    
-        return () => clearInterval(interval);
-    }, []);
-  
+  useEffect(() => {
+    const idxRef = { current: 0 };
+    const interval = setInterval(() => {
+      if (idxRef.current < bootSequence.length) {
+        const line = bootSequence[idxRef.current];
+        setLines(prev => [...prev, line]);
+        idxRef.current += 1;
+      } else {
+        clearInterval(interval);
+        setIsBootComplete(true);
+      }
+    }, 400);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -51,9 +50,7 @@ export default function TerminalNavigator() {
 
   const escapeHTML = (str) =>
     str.replace(/[&<>"]'/g, match => (
-      {
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-      }[match]
+      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[match]
     ));
 
   const commands = {
@@ -154,27 +151,27 @@ export default function TerminalNavigator() {
   };
 
   return (
-    <div className="bg-black text-[#39FF14] p-4 border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono mt-8 h-[500px] max-h-[500px] overflow-hidden flex flex-col">
-      <div
-        ref={scrollRef}
-        className="flex-1 overflow-y-auto whitespace-pre-wrap mb-2 pr-2 scrollbar-thin scrollbar-thumb-[#39FF14]/60 scrollbar-track-transparent"
-      >
-       {lines.map((line, i) => {
-        if (line.includes('Type help for commands')) {
+<div className="bg-black text-[#39FF14] p-3 sm:p-4 border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono mt-6 sm:mt-8 h-[40vh] max-h-[50vh] sm:h-[500px] sm:max-h-[500px] overflow-hidden flex flex-col text-xs sm:text-sm">
+    <div
+    ref={scrollRef}
+    className="flex-1 overflow-y-auto whitespace-pre-wrap break-words leading-tight mb-2 pr-2 scrollbar-thin scrollbar-thumb-[#39FF14]/60 scrollbar-track-transparent"
+    >
+        {lines.map((line, i) => {
+          if (line.includes('Type help for commands')) {
             return (
-            <div key={i} className="leading-relaxed">
+              <div key={i} className="leading-relaxed">
                 Status: Terminal ready. Awaiting input. Type{' '}
                 <span className="text-[#39FF14] underline animate-pulse font-bold drop-shadow-[0_0_5px_#39FF14]">
-                help
+                  help
                 </span>{' '}
                 for commands
-            </div>
+              </div>
             );
-        }
-        return <div key={i} className="leading-relaxed">{line}</div>;
-    })}
-
+          }
+          return <div key={i} className="leading-relaxed">{line}</div>;
+        })}
       </div>
+
       {isBootComplete && (
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
           <span className="text-[#39FF14]">$</span>
@@ -183,7 +180,7 @@ export default function TerminalNavigator() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="bg-black text-[#39FF14] outline-none flex-1"
+            className="bg-black text-[#39FF14] outline-none flex-1 w-full text-sm sm:text-base"
             autoFocus
           />
         </form>

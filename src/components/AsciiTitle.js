@@ -16,7 +16,7 @@ export default function AsciiTitleGlitch({ asciiArt }) {
       container.style.fontSize = `${size}px`;
   
       while (container.scrollWidth > parentWidth && size > 4) {
-        size -= 0.1;
+        size -= 2;
         container.style.fontSize = `${size}px`;
       }
   
