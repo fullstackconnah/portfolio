@@ -37,7 +37,6 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
                 ) : (
           <>
             <MatrixRain />
-            {/* Optional: scanline overlay */}
             <div className="dark fixed inset-0 z-0 pointer-events-none bg-[linear-gradient(transparent_95%,#39FF1433_98%,transparent_100%)] bg-[length:100%_2px] animate-scanlines opacity-10" />
   
             <Navbar loggedIn={isLoggedIn} onLogout={handleLogout} />

@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import HeroSection from '../components/HeroSection';
 import AboutSection from '../components/AboutSection';
 import ProjectsSection from '../components/ProjectsSection';
+import TechStackSection from '../components/TechStackSection';
 
 function Home() {
   const [projects, setProjects] = useState([]);
@@ -23,6 +24,7 @@ function Home() {
     <div className="px-6 py-10 max-w-5xl mx-auto font-mono text-[#39FF14]">
       <HeroSection />
       <AboutSection />
+      <TechStackSection />
       <ProjectsSection projects={projects} />
     </div>
   );

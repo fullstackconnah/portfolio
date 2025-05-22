@@ -20,35 +20,27 @@ const bootSequence = [
 export default function BootSplash({ onFinish }) {
   const [lines, setLines] = useState([]);
   const [progress, setProgress] = useState(0);
-  const [asciiProgress, setAsciiProgress] = useState('');
   const current = useRef(0);
-  const totalTime = useRef(0);
+  const startTime = useRef(Date.now());
   const maxTime = 4000;
 
   useEffect(() => {
     const typeNextLine = () => {
       if (current.current >= bootSequence.length) {
-        setTimeout(onFinish, 1200);
+        setProgress(100);
+        setTimeout(onFinish, 1000);
         return;
       }
 
-      const delay = Math.floor(Math.random() * 400) + 400;
-      totalTime.current += delay;
+      const delay = Math.floor(Math.random() * 400) + 300;
 
       setTimeout(() => {
-        setLines(lines => [...lines, bootSequence[current.current]]);
-        const newProgress = Math.min(
-          Math.round((totalTime.current / maxTime) * 100),
-          100
-        );
-        setProgress(newProgress);
-
-        const barLength = 24;
-        const filledLength = Math.floor((newProgress / 100) * barLength);
-        const bar = '█'.repeat(filledLength) + '░'.repeat(barLength - filledLength);
-        setAsciiProgress(bar);
-
+        setLines(prev => [...prev, bootSequence[current.current]]);
         current.current++;
+
+        const totalLines = bootSequence.length;
+        const newProgress = Math.floor((current.current / totalLines) * 100);
+        setProgress(newProgress);
         typeNextLine();
       }, delay);
     };
@@ -66,8 +58,17 @@ export default function BootSplash({ onFinish }) {
         ))}
       </div>
 
-      <div className="font-mono text-[#39FF14] text-xs sm:text-sm w-full max-w-md border border-[#39FF14] mt-4 px-2 py-1 bg-black">
-        <div className="whitespace-pre">{asciiProgress}</div>
+      {/* Retro-styled CSS loading bar */}
+      <div className="w-full max-w-md mt-4 border border-[#39FF14] bg-black h-4 overflow-hidden relative">
+        <div
+          className="h-full bg-[#39FF14] transition-all duration-200"
+          style={{
+            width: `${progress}%`,
+            boxShadow: '0 0 4px #39FF14, 0 0 8px #39FF14',
+          }}
+        />
+        {/* Optional scanline effect (add keyframes to global CSS if desired) */}
+        {/* <div className="absolute inset-0 pointer-events-none bg-[repeating-linear-gradient(to bottom, transparent, transparent 1px, rgba(0,255,0,0.1) 2px)] animate-[scanline_2s_linear_infinite]" /> */}
       </div>
 
       <div className="text-xs text-green-400 mt-1 animate-pulse">
