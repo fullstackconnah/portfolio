@@ -1,7 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function MatrixRain() {
   const canvasRef = useRef();
+  const overlayRef = useRef();
+  const [mouse, setMouse] = useState({ x: -9999, y: -9999 }); // offscreen init
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -14,8 +16,9 @@ export default function MatrixRain() {
     const fontSize = 14;
     const columns = Math.floor(canvas.width / fontSize);
     const drops = Array.from({ length: columns }, () =>
-        Math.floor(Math.random() * canvas.height / fontSize)
-      );
+      Math.floor(Math.random() * canvas.height / fontSize)
+    );
+
     const draw = () => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -38,15 +41,34 @@ export default function MatrixRain() {
       }
     };
 
-    const interval = setInterval(draw, 50);
-
+    const interval = setInterval(draw, 100);
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMouse({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
-    <canvas
-    ref={canvasRef}
-    className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none blur-[2px]"
-    />
+    <div className="fixed inset-0 z-0 pointer-events-none">
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full blur-[2px]"
+      />
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 bg-black opacity-80"
+        style={{
+          maskImage: `radial-gradient(circle 150px at ${mouse.x}px ${mouse.y}px, transparent 0%, black 100%)`,
+          WebkitMaskImage: `radial-gradient(circle 150px at ${mouse.x}px ${mouse.y}px, transparent 0%, black 100%)`,
+          transition: 'mask-image 0.05s, -webkit-mask-image 0.05s',
+        }}
+      />
+    </div>
   );
 }

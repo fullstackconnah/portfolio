@@ -35,7 +35,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
     };
   
     return (
-      <div className={`doom-container ${isTearing ? 'doom-tear' : ''}`}>
+      <div className={`group doom-container ${isTearing ? 'doom-tear' : ''}`}>
         <div className="relative min-h-screen bg-black transition-colors duration-300 flex flex-col overflow-hidden">
           {/* BootSplash or App */}
           {showBootSplash ? (
@@ -45,7 +45,9 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
             }} />
           ) : (
             <>
+            <div className="group relative min-h-screen bg-black flex flex-col overflow-hidden">
               <MatrixRain />
+
               <div className="dark fixed inset-0 z-0 pointer-events-none bg-[linear-gradient(transparent_95%,#39FF1433_98%,transparent_100%)] bg-[length:100%_2px] animate-scanlines opacity-10" />
 
               <Navbar loggedIn={isLoggedIn} onLogout={handleLogout} />
@@ -72,7 +74,9 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </div>
+
               <Footer />
+            </div>
             </>
           )}
         </div>

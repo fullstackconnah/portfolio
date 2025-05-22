@@ -3,6 +3,6 @@
   50% { opacity: 0.85; }
 }
 
-.hover\\:animate-terminalFlicker:hover {
+.hover:animate-terminalFlicker:hover {
   animation: terminalFlicker 0.2s steps(1, end) infinite;
 }

@@ -20,11 +20,11 @@
   
   @keyframes fall {
     0% {
-      transform: translateY(0) rotate(0deg);
+      transform: translateY(0);
       opacity: 1;
     }
     100% {
-      transform: translateY(120vh) rotate(5deg);
-      opacity: 0;
+      transform: translateY(120vh);
+      opacity: 1;
     }
   }
