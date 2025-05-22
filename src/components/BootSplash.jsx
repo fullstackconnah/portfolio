@@ -21,8 +21,6 @@ export default function BootSplash({ onFinish }) {
   const [lines, setLines] = useState([]);
   const [progress, setProgress] = useState(0);
   const current = useRef(0);
-  const startTime = useRef(Date.now());
-  const maxTime = 4000;
 
   useEffect(() => {
     const typeNextLine = () => {
