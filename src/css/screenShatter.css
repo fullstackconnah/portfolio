@@ -1,0 +1,30 @@
+.shatter-container {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow: hidden;
+    pointer-events: none;
+    background: black;
+  }
+  
+  .shard {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transform-origin: top;
+  }
+  
+  .falling {
+    animation: fall 0.6s ease-in forwards;
+  }
+  
+  @keyframes fall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(120vh) rotate(5deg);
+      opacity: 0;
+    }
+  }

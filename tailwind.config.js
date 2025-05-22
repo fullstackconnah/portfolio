@@ -7,15 +7,18 @@ module.exports = {
   theme: {
     extend: {
       colors:{      
-        terminalGreen: '#39FF14',
-        terminalBg: '#000000',
-        terminalGray: '#1a1a1a',
+        accent: {
+          DEFAULT: 'var(--accent-color)',
+        },
+        glow: {
+          DEFAULT: 'var(--glow-color)',
+        },
       },
       fontFamily: {
         mono: ['"Fira Code"', 'monospace'],
       },
       boxShadow: {
-        glow: '0 0 10px #39FF14',
+        glow: '0 0 10px var(--glow-color)',
       },
       animation: {
         'fade-in-slow': 'fadeIn 2s ease-out forwards',
@@ -29,8 +32,8 @@ module.exports = {
           '100%': { opacity: 1 },
         },
         flicker: {
-          '0%, 100%': { boxShadow: '0 0 8px #39FF14' },
-          '50%': { boxShadow: '0 0 4px #39FF14' },
+          '0%, 100%': { boxShadow: '0 0 8px var(--glow-color)' },
+          '50%': { boxShadow: '0 0 4px var(--glow-color)' },
         },
         scanlines: {
           '0%': { backgroundPosition: '0 0' },

@@ -13,9 +13,16 @@ import ProtectedRoute from './components/ProtectedRoute';
 import MatrixRain from './components/MatrixRain';
 import BootSplash from './components/BootSplash';
 import NotFound from './pages/404';
+import ScreenShatter from './components/ScreenShatter';
+import './css/doomScreenTear.css';
+
 
 function AppContent({ isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
+    const [isTearing, setIsTearing] = useState(false);
+    const [isShattering, setIsShattering] = useState(false);
+    console.log('[AppContent] isTearing:', isTearing);
+
     const [showBootSplash, setShowBootSplash] = useState(() => {
         return localStorage.getItem('bootPlayed') !== 'true';
       });  
@@ -28,40 +35,57 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
     };
   
     return (
-      <div className="relative min-h-screen bg-white dark:bg-black transition-colors duration-300 flex flex-col overflow-hidden">
-        {showBootSplash ? (
+      <div className={`doom-container ${isTearing ? 'doom-tear' : ''}`}>
+        <div className="relative min-h-screen bg-black transition-colors duration-300 flex flex-col overflow-hidden">
+          {/* BootSplash or App */}
+          {showBootSplash ? (
             <BootSplash onFinish={() => {
-            localStorage.setItem('bootPlayed', 'true');
-            setShowBootSplash(false);
+              localStorage.setItem('bootPlayed', 'true');
+              setShowBootSplash(false);
             }} />
-                ) : (
-          <>
-            <MatrixRain />
-            <div className="dark fixed inset-0 z-0 pointer-events-none bg-[linear-gradient(transparent_95%,#39FF1433_98%,transparent_100%)] bg-[length:100%_2px] animate-scanlines opacity-10" />
-  
-            <Navbar loggedIn={isLoggedIn} onLogout={handleLogout} />
-            <div className="flex-grow relative z-10">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
-                {isLoggedIn && <Route path="/admin" element={<AdminDashboard />} />}
-                <Route
-                  path="/admin"
-                  element={
+          ) : (
+            <>
+              <MatrixRain />
+              <div className="dark fixed inset-0 z-0 pointer-events-none bg-[linear-gradient(transparent_95%,#39FF1433_98%,transparent_100%)] bg-[length:100%_2px] animate-scanlines opacity-10" />
+
+              <Navbar loggedIn={isLoggedIn} onLogout={handleLogout} />
+              <div className="flex-grow relative z-10">
+                <Routes>
+                  <Route path="/" element={
+                    <Home
+                      onReboot={() => {
+                        localStorage.removeItem('bootPlayed');
+                        setShowBootSplash(true);
+                      }}
+                      setIsTearing={setIsTearing}
+                      setIsShattering={setIsShattering}
+                    />
+                  } />
+                  <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+                  {isLoggedIn && <Route path="/admin" element={<AdminDashboard />} />}
+                  <Route path="/admin" element={
                     <ProtectedRoute isLoggedIn={isLoggedIn}>
                       <AdminDashboard />
                     </ProtectedRoute>
-                  }
-                />
-                <Route path="/projects/:id" element={<Projects />} />
-                <Route path="*" element={<NotFound />} />
+                  } />
+                  <Route path="/projects/:id" element={<Projects />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </div>
+              <Footer />
+            </>
+          )}
+        </div>
 
-              </Routes>
-            </div>
-            <Footer />
-          </>
+        {isShattering && (
+          <ScreenShatter onComplete={() => {
+            setIsShattering(false);
+            localStorage.removeItem('bootPlayed');
+            setShowBootSplash(true);
+          }} />
         )}
       </div>
+
     );
   }
   

@@ -14,7 +14,7 @@ const commandList = [
   'clear', 'history', 'echo', 'cd', 'ls'
 ];
 
-export default function TerminalNavigator() {
+export default function TerminalNavigator({ onReboot, setIsTearing, setIsShattering }) {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
 
@@ -65,7 +65,14 @@ export default function TerminalNavigator() {
       'history      → Show command history',
       'echo [msg]   → Repeat a message',
       'cd [route]   → Navigate to route',
-      'ls           → List available routes'
+      'ls           → List available routes',
+      'fortune      → Print a nerdy fortune',
+      'sudo         → Try it... you won’t',
+      'reboot       → Restart terminal',
+      'sysinfo      → View system stats',
+      'whoami       → Reveal identity',
+      'uptime       → Show time since launch',
+      'version      → Print OS version'
     ],
     about: () => navigate('/about'),
     projects: () => navigate('/projects'),
@@ -74,7 +81,114 @@ export default function TerminalNavigator() {
     admin: () => navigate('/admin'),
     clear: () => setLines(['$']),
     history: () => setLines(prev => [...prev.filter(l => l !== '$'), ...history.map((h, i) => `${i + 1}: ${h}`), '$']),
-    ls: () => setLines(prev => [...prev.filter(l => l !== '$'), '> ls', 'about/', 'projects/', 'contact/', 'login/', 'admin/'])
+    ls: () => setLines(prev => [...prev.filter(l => l !== '$'), '> ls', 'about/', 'projects/', 'contact/', 'login/', 'admin/']),
+
+    whoami: () =>
+      setLines(prev => [...prev.filter(l => l !== '$'), '> whoami', 'User: GUEST (conn4h)']),
+  
+    uptime: () => {
+      const seconds = Math.floor((Date.now() - performance.timing.navigationStart) / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const uptime = `${minutes}m ${seconds % 60}s`;
+      setLines(prev => [...prev.filter(l => l !== '$'), '> uptime', `Session Uptime: ${uptime}`]);
+    },
+  
+    version: () =>
+      setLines(prev => [...prev.filter(l => l !== '$'), '> version', 'ConnahOS v1.0.3']),
+  
+    sysinfo: () => {
+      const info = [
+        'System Info:',
+        `OS: ConnahOS`,
+        `CPU: Quantum Cores (4)`,
+        `Memory: 16MB VRAM`,
+        `Uptime: ${(Math.floor(performance.now() / 1000))}s`,
+        `Theme: Matrix Green`,
+        `User: GUEST`
+      ];
+      setLines(prev => [...prev.filter(l => l !== '$'), '> sysinfo', ...info]);
+    },
+  
+    sudo: () =>
+      setLines(prev => [...prev.filter(l => l !== '$'), '> sudo', 'Permission denied. You are not the root.']),
+  
+    fortune: () => {
+      const fortunes = [
+        "A bug in the hand is worth two in production.",
+        "Commit often, push rarely, regret always.",
+        "There is no cloud. It’s just someone else’s computer.",
+        "rm -rf / — because you like danger.",
+        "You had me at undefined is not a function.",
+        "404: Fortune not found."
+      ];
+      const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+      setLines(prev => [...prev.filter(l => l !== '$'), '> fortune', fortune]);
+    },
+  
+    reboot: () => {
+      setLines(prev => [...prev.filter(l => l !== '$'), '> reboot', 'System rebooting...']);
+      setTimeout(() => {
+        if (onReboot) {
+          onReboot();
+        }
+      }, 1000);
+    },
+
+    'rm -rf /': () => {
+      const fakeFiles = [
+        '/boot/initrd.img',
+        '/usr/bin/bash',
+        '/etc/passwd',
+        '/var/www/html',
+        '/home/conn4h/portfolio.js',
+        '/dev/null',
+        '/system32/kernel.sys',
+        '/matrix/core.memory',
+        '/root/.secrets',
+        '/goodbye.txt'
+      ];
+      
+      setLines(prev => [...prev, '> rm -rf /', 'Initiating mass deletion...']);
+      
+      let index = 0;
+      
+      function deleteNext() {
+        if (index < fakeFiles.length) {
+          if (index === 0) {
+            setTimeout(() => {
+              setIsTearing(true);
+              index++;
+              deleteNext();
+            }, 2000);
+          } else {
+            index++;
+            setTimeout(deleteNext, 500);
+          }
+          setLines(prev => [...prev, `deleting ${fakeFiles[index]}...`]);
+
+        } else {
+          setTimeout(() => {
+            setLines([
+              '',
+              '*** SYSTEM FAILURE ***',
+              'Kernel panic: too much swag',
+              'Memory leak detected in sector 69',
+              '',
+              '> rebooting...'
+            ]);
+            setIsTearing(false);
+            setTimeout(() => {
+              setIsShattering(true);
+              setTimeout(() => {
+                setIsShattering(false);
+                if (onReboot) onReboot();
+              }, 5000);
+            }, 1600);
+          }, 3000);
+        }
+      }
+      setTimeout(deleteNext, 500);
+    }
   };
 
   const handleCommand = (cmd) => {
@@ -92,6 +206,11 @@ export default function TerminalNavigator() {
       const path = cmd.slice(3).trim();
       setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, `navigating to /${path}`]);
       navigate(`/${path}`);
+      return;
+    }
+
+    if (cmd.trim() === 'rm -rf /') {
+      commands['rm -rf /']();
       return;
     }
 
@@ -151,7 +270,7 @@ export default function TerminalNavigator() {
   };
 
   return (
-<div className="bg-black text-[#39FF14] p-3 sm:p-4 border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono mt-6 sm:mt-8 h-[40vh] max-h-[50vh] sm:h-[500px] sm:max-h-[500px] overflow-hidden flex flex-col text-xs sm:text-sm">
+  <div className="bg-black text-[#39FF14] p-3 sm:p-4 border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono mt-6 sm:mt-8 h-[40vh] max-h-[50vh] sm:h-[500px] sm:max-h-[500px] overflow-hidden flex flex-col text-xs sm:text-sm">
     <div
     ref={scrollRef}
     className="flex-1 overflow-y-auto whitespace-pre-wrap break-words leading-tight mb-2 pr-2 scrollbar-thin scrollbar-thumb-[#39FF14]/60 scrollbar-track-transparent"
@@ -164,20 +283,24 @@ export default function TerminalNavigator() {
                 animationFillMode: 'forwards'
             };
 
-            if (line.includes("Type help for commands")) {
-                return (
+            if (line === 'Status: Terminal ready. Awaiting input. Type help for commands') {
+              return (
                 <div
-                    key={i}
-                    className={`${baseClass}`}
-                    style={delayStyle}
+                  key={i}
+                  className={`${baseClass}`}
+                  style={delayStyle}
                 >
-                    Status: Terminal ready. Awaiting input. Type{' '}
-                    <span className="text-[#39FF14] underline animate-pulse font-bold drop-shadow-[0_0_5px_#39FF14]">
+                  Status: Terminal ready. Awaiting input. Type{' '}
+                  <button
+                    type="button"
+                    onClick={() => handleCommand('help')}
+                    className="text-[#39FF14] underline animate-pulse font-bold drop-shadow-[0_0_5px_#39FF14] hover:brightness-150 focus:outline-none"
+                  >
                     help
-                    </span>{' '}
-                    for commands
+                  </button>{' '}
+                  for commands
                 </div>
-                );
+              );
             }
             return (
                 <div

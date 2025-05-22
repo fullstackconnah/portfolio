@@ -1,0 +1,30 @@
+@keyframes doom-tear {
+    0% { transform: translateX(0); filter: none; }
+    20% { transform: translateX(-3px); filter: blur(1px); }
+    50% { transform: translateX(5px); filter: brightness(1.4); }
+    80% { transform: translateX(-5px) scaleY(1.02); }
+    100% { transform: translateX(0); filter: none; }
+  }
+  
+  .doom-tear {
+    animation: doom-tear 0.15s ease-in-out infinite;
+  }  
+  
+  .doom-tear::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: repeating-linear-gradient(
+      transparent,
+      transparent 2px,
+      rgba(255, 0, 0, 0.2) 3px,
+      transparent 4px
+    );
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 100;
+    animation: doom-tear 0.1s infinite;
+  }

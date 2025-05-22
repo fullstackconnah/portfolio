@@ -9,11 +9,11 @@ const asciiArt = [
   ' \\____/\\____/_/ /_/_/ /_/\\__,_/_/ /_(_)__,_/\\___/|___/  '
 ];
 
-export default function Hero() {
+export default function HeroSection({ onReboot, setIsTearing, setIsShattering }) {
   return (
     <section className="p-4">
       <AsciiTitle asciiArt={asciiArt} />
-      <TerminalNavigator />
+      <TerminalNavigator  onReboot={onReboot} setIsTearing={ setIsTearing } setIsShattering={ setIsShattering } />
     </section>
   );
 }

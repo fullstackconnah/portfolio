@@ -6,7 +6,7 @@ import AboutSection from '../components/AboutSection';
 import ProjectsSection from '../components/ProjectsSection';
 import TechStackSection from '../components/TechStackSection';
 
-function Home() {
+function Home({ onReboot, setIsTearing, setIsShattering }) {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function Home() {
 
   return (
     <div className="px-6 py-10 max-w-5xl mx-auto font-mono text-[#39FF14]">
-      <HeroSection />
+      <HeroSection onReboot={onReboot} setIsTearing={ setIsTearing } setIsShattering={ setIsShattering }/>
       <AboutSection />
       <TechStackSection />
       <ProjectsSection projects={projects} />
