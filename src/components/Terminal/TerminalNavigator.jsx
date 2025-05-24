@@ -74,14 +74,16 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
       const now = Date.now();
       if (now - lastActivity > 30000) {
         const msg = `[idle] ${idleMessages[Math.floor(Math.random() * idleMessages.length)]}`;
-        const lastLine = lines[lines.length - 1];
-        if (lastLine && lastLine === msg) return;
-
+        
         setLines(prev => {
+          const lastLine = prev[prev.length - 1];
+          if (lastLine && lastLine === msg) return prev;
+  
           const nonIdleLines = prev.filter(line => !line.startsWith('[idle]'));
           const recentIdleLines = prev.filter(line => line.startsWith('[idle]')).slice(-1);
           return [...nonIdleLines, ...recentIdleLines, msg];
         });
+  
         setLastActivity(now);
       }
     }, 5000);
