@@ -1,5 +1,5 @@
 import AsciiTitle from './AsciiTitle';
-import TerminalNavigator from './TerminalNavigator';
+import TerminalNavigator from './Terminal/TerminalNavigator';
 
 const asciiArt = [
   '    ______                        __         __         ',

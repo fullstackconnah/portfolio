@@ -6,3 +6,14 @@
 .hover:animate-terminalFlicker:hover {
   animation: terminalFlicker 0.2s steps(1, end) infinite;
 }
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.fade-idle {
+  animation: fadeInOut 6s ease-in-out forwards;
+}

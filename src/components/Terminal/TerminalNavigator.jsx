@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../css/TerminalCard.css'
 
 const bootSequence = [
   'Authenticating...',
@@ -17,6 +18,7 @@ const commandList = [
 export default function TerminalNavigator({ onReboot, setIsTearing, setIsShattering }) {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
+  const idleTimer = useRef(null);
 
   const [lines, setLines] = useState([]);
   const [input, setInput] = useState('');
@@ -25,6 +27,8 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
   const [autocompleteMatches, setAutocompleteMatches] = useState([]);
   const [autocompleteIndex, setAutocompleteIndex] = useState(0);
   const [isBootComplete, setIsBootComplete] = useState(false);
+  const [lastActivity, setLastActivity] = useState(Date.now());
+
 
   useEffect(() => {
     const idxRef = { current: 0 };
@@ -48,10 +52,46 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
     }
   }, [lines]);
 
+  useEffect(() => {
+    idleTimer.current = setInterval(() => {
+      const now = Date.now();
+      if (now - lastActivity > 10000) {
+        const msg = `[idle] ${idleMessages[Math.floor(Math.random() * idleMessages.length)]}`;
+        const lastLine = lines[lines.length - 1];
+        if (lastLine && lastLine === msg) return;
+
+        setLines(prev => {
+          const nonIdleLines = prev.filter(line => !line.startsWith('[idle]'));
+          const recentIdleLines = prev.filter(line => line.startsWith('[idle]')).slice(-1);
+          return [...nonIdleLines, ...recentIdleLines, msg];
+        });
+        setLastActivity(now);
+      }
+    }, 5000);
+    return () => clearInterval(idleTimer.current);
+  }, [lastActivity]);
+
   const escapeHTML = (str) =>
     str.replace(/[&<>"]'/g, match => (
       { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[match]
     ));
+
+    const idleMessages = [
+      '> scanning subspace noise...',
+      '> memory check complete...',
+      '> link-layer handshake stabilized...',
+      '> buffer overflow averted...',
+      '> recalibrating flux node...',
+      '> uplink handshake secured...',
+      '> entropy levels nominal...',
+      '> bypass capacitor warming...',
+      '> idle circuit engaged...',
+      '> validating memory sectors...',
+      '> spectral scan in progress...',
+      '> ambient interference within limits...',
+      '> harmonizing data pulse...',
+      '> neural latency below threshold...'
+    ];
 
   const commands = {
     help: [

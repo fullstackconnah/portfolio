@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export default function MatrixGridBackground() {
+export default function BackgroundEffects() {
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
 
@@ -34,11 +34,10 @@ export default function MatrixGridBackground() {
     };
 
     const drawCRTScanline = (time) => {
-      const waveHeight = 30;
+      const waveHeight = 60;
       const scrollSpeed = 0.05;
       const offsetY = (time * scrollSpeed) % height;
 
-      // Create gradient for fading wave edges
       const gradient = ctx.createLinearGradient(0, offsetY, 0, offsetY + waveHeight);
       gradient.addColorStop(0, 'rgba(0, 255, 0, 0)');
       gradient.addColorStop(0.3, 'rgba(0, 255, 0, 0.04)');
@@ -48,7 +47,6 @@ export default function MatrixGridBackground() {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, offsetY, width, waveHeight);
 
-      // Interlace effect
       ctx.fillStyle = 'rgba(0, 255, 0, 0.02)';
       for (let y = 0; y < height; y += 2) {
         ctx.fillRect(0, y, width, 1);

@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import Projects from './pages/ProjectDetail';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import MatrixRain from './components/MatrixRain';
+import MatrixRain from './components/BackgroundEffects';
 import BootSplash from './components/BootSplash';
 import NotFound from './pages/404';
 import ScreenShatter from './components/ScreenShatter';
