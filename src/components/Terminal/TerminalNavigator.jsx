@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../css/terminalCard.css';
+import '../../css/TerminalCard.css';
 
 const bootSequence = [
   'Authenticating...',

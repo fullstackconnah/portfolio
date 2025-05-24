@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import '../css/terminalCard.css';
+import '../css/TerminalCard.css';
 
 function ProjectCard({ title, description, tech = [], id }) {
   return (

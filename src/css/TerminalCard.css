@@ -7,17 +7,6 @@
   animation: terminalFlicker 0.2s steps(1, end) infinite;
 }
 
-@keyframes fadeInOut {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-.fade-idle {
-  animation: fadeInOut 6s ease-in-out forwards;
-}
-
 @keyframes flicker {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.8; transform: translateY(-1px); }
