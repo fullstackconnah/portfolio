@@ -15,6 +15,23 @@ const commandList = [
   'clear', 'history', 'echo', 'cd', 'ls'
 ];
 
+const idleMessages = [
+  '> scanning subspace noise...',
+  '> memory check complete...',
+  '> link-layer handshake stabilized...',
+  '> buffer overflow averted...',
+  '> recalibrating flux node...',
+  '> uplink handshake secured...',
+  '> entropy levels nominal...',
+  '> bypass capacitor warming...',
+  '> idle circuit engaged...',
+  '> validating memory sectors...',
+  '> spectral scan in progress...',
+  '> ambient interference within limits...',
+  '> harmonizing data pulse...',
+  '> neural latency below threshold...'
+];
+
 export default function TerminalNavigator({ onReboot, setIsTearing, setIsShattering }) {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
@@ -75,23 +92,6 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
     str.replace(/[&<>"]'/g, match => (
       { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[match]
     ));
-
-    const idleMessages = [
-      '> scanning subspace noise...',
-      '> memory check complete...',
-      '> link-layer handshake stabilized...',
-      '> buffer overflow averted...',
-      '> recalibrating flux node...',
-      '> uplink handshake secured...',
-      '> entropy levels nominal...',
-      '> bypass capacitor warming...',
-      '> idle circuit engaged...',
-      '> validating memory sectors...',
-      '> spectral scan in progress...',
-      '> ambient interference within limits...',
-      '> harmonizing data pulse...',
-      '> neural latency below threshold...'
-    ];
 
   const commands = {
     help: [
