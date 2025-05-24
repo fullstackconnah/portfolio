@@ -10,11 +10,12 @@ import Login from './pages/Login';
 import Projects from './pages/ProjectDetail';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import MatrixRain from './components/BackgroundEffects';
+import BackgroundEffects from './components/BackgroundEffects';
 import BootSplash from './components/BootSplash';
 import NotFound from './pages/404';
 import ScreenShatter from './components/ScreenShatter';
 import './css/doomScreenTear.css';
+import AboutPage from './pages/About';
 
 function AppContent({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
         ) : (
           <>
             <div className="fixed inset-0 z-0 pointer-events-none">
-              <MatrixRain />
+              <BackgroundEffects />
               <div className="absolute inset-0 bg-[linear-gradient(transparent_95%,#39FF1433_98%,transparent_100%)] bg-[length:100%_2px] animate-scanlines opacity-10" />
             </div>
 
@@ -66,6 +67,8 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
                     <AdminDashboard />
                   </ProtectedRoute>
                 } />
+
+                <Route path='/about' element={<AboutPage />}/>
                 <Route path="/projects/:id" element={<Projects />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

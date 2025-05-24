@@ -17,3 +17,19 @@
 .fade-idle {
   animation: fadeInOut 6s ease-in-out forwards;
 }
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; transform: translateY(-1px); }
+}
+.animate-flicker {
+  animation: flicker 0.2s ease-in-out;
+}
+
+@keyframes flickerResume {
+  0%, 100% { text-shadow: 0 0 2px #39FF14; }
+  50% { text-shadow: 0 0 8px #39FF14; }
+}
+.hover-flicker:hover {
+  animation: flickerResume 1.2s ease-in-out infinite;
+}

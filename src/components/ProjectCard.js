@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom';
-import '../css/TerminalCard.css'; // Make sure this includes flicker or scanlines if needed
+import '../css/terminalCard.css';
 
 function ProjectCard({ title, description, tech = [], id }) {
   return (
     <div className="relative group bg-black border border-[#39FF14] text-[#39FF14] font-mono rounded-lg p-5 shadow-[0_0_10px_#39FF14] transition duration-300 hover:shadow-[0_0_20px_#39FF14] hover:scale-[1.015] hover:animate-terminalFlicker overflow-hidden">
 
-      {/* ASCII Terminal-style Header */}
       <div className="flex items-center text-xs text-[#39FF14]/80 mb-3 select-none font-mono">
       <span className="mr-2">┌─[</span>
         <span className="font-bold text-[#39FF14]">PROJECT</span>
         <span className="flex-1 border-1 border-t border-[#39FF14]/40 ml-2" />
       </div>
 
-      {/* Scanline Overlay */}
       <div className="pointer-events-none absolute inset-0 opacity-5 z-0 bg-[linear-gradient(rgba(57,255,20,0.1)_50%,transparent_50%)] bg-[length:100%_2px]" />
 
       <div className="relative z-10">
