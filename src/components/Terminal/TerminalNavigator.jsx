@@ -55,7 +55,7 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
   useEffect(() => {
     idleTimer.current = setInterval(() => {
       const now = Date.now();
-      if (now - lastActivity > 10000) {
+      if (now - lastActivity > 30000) {
         const msg = `[idle] ${idleMessages[Math.floor(Math.random() * idleMessages.length)]}`;
         const lastLine = lines[lines.length - 1];
         if (lastLine && lastLine === msg) return;
