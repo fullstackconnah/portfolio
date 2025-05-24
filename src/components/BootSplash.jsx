@@ -56,7 +56,6 @@ export default function BootSplash({ onFinish }) {
         ))}
       </div>
 
-      {/* Retro-styled CSS loading bar */}
       <div className="w-full max-w-md mt-4 border border-[#39FF14] bg-black h-4 overflow-hidden relative">
         <div
           className="h-full bg-[#39FF14] transition-all duration-200"
@@ -65,8 +64,6 @@ export default function BootSplash({ onFinish }) {
             boxShadow: '0 0 4px #39FF14, 0 0 8px #39FF14',
           }}
         />
-        {/* Optional scanline effect (add keyframes to global CSS if desired) */}
-        {/* <div className="absolute inset-0 pointer-events-none bg-[repeating-linear-gradient(to bottom, transparent, transparent 1px, rgba(0,255,0,0.1) 2px)] animate-[scanline_2s_linear_infinite]" /> */}
       </div>
 
       <div className="text-xs text-green-400 mt-1 animate-pulse">
