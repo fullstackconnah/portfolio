@@ -1,6 +1,6 @@
-import AsciiTitle from '../components/AsciiTitle'
+import AsciiTitle from '../components/AsciiTitle';
 import { useNavigate } from 'react-router-dom';
-import '../css/terminalCard.css'
+import '../css/terminalCard.css';
 
 const asciiArt = [
   '    ____  ____  ____  ____________    ______  _______  __ ______',
