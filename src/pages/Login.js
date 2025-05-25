@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
         onLogin();
         navigate('/admin');
       } catch (err) {
-        setError('Invalid credentials.');
+        setError('Invalid credentials.' + err.error);
       }
     };
 
