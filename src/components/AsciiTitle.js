@@ -3,7 +3,7 @@ import '../css/asciiEffects.css';
 
 export default function AsciiTitleGlitch({ asciiArt }) {
   const containerRef = useRef(null);
-  const [fontSize, setFontSize] = useState(16); // start at 16px
+  const [fontSize, setFontSize] = useState(16);
 
   useEffect(() => {
     const adjustFontSize = () => {

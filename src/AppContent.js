@@ -3,6 +3,8 @@ import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
 import { useState } from 'react';
 
+import './css/doomScreenTear.css';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -14,8 +16,9 @@ import BackgroundEffects from './components/BackgroundEffects';
 import BootSplash from './components/BootSplash';
 import NotFound from './pages/404';
 import ScreenShatter from './components/ScreenShatter';
-import './css/doomScreenTear.css';
 import AboutPage from './pages/About';
+import ProjectsPage from './pages/Projects';
+
 
 function AppContent({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -69,6 +72,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
                 } />
 
                 <Route path='/about' element={<AboutPage />}/>
+                <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/:id" element={<Projects />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

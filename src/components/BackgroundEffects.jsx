@@ -9,16 +9,26 @@ export default function BackgroundEffects() {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
     let frame = 0;
-
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+  
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.scale(dpr, dpr);
-
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+  
+    const resizeCanvas = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+  
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    };
+  
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+  
     const drawGrid = () => {
-      ctx.strokeStyle = 'rgba(0, 255, 0, 0.1)';
+      ctx.strokeStyle = 'rgba(0, 255, 0, 0.15)';
       for (let x = 0; x < width; x += 120) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
@@ -32,27 +42,27 @@ export default function BackgroundEffects() {
         ctx.stroke();
       }
     };
-
+  
     const drawCRTScanline = (time) => {
       const waveHeight = 60;
       const scrollSpeed = 0.05;
       const offsetY = (time * scrollSpeed) % height;
-
+  
       const gradient = ctx.createLinearGradient(0, offsetY, 0, offsetY + waveHeight);
       gradient.addColorStop(0, 'rgba(0, 255, 0, 0)');
       gradient.addColorStop(0.3, 'rgba(0, 255, 0, 0.04)');
       gradient.addColorStop(0.7, 'rgba(0, 255, 0, 0.04)');
       gradient.addColorStop(1, 'rgba(0, 255, 0, 0)');
-
+  
       ctx.fillStyle = gradient;
       ctx.fillRect(0, offsetY, width, waveHeight);
-
+  
       ctx.fillStyle = 'rgba(0, 255, 0, 0.02)';
       for (let y = 0; y < height; y += 2) {
         ctx.fillRect(0, y, width, 1);
       }
     };
-
+  
     const drawCursorEffect = (time) => {
       const { x, y } = mouseRef.current;
       const pulse = 0.5 + 0.5 * Math.sin(time * 0.002);
@@ -61,14 +71,14 @@ export default function BackgroundEffects() {
       const r = startColor[0] + (endColor[0] - startColor[0]) * pulse;
       const g = startColor[1] + (endColor[1] - startColor[1]) * pulse;
       const b = startColor[2] + (endColor[2] - startColor[2]) * pulse;
-
+  
       const gradient = ctx.createRadialGradient(x, y, 0, x, y, 50);
       gradient.addColorStop(0, `rgba(${r},${g},${b},0.2)`);
       gradient.addColorStop(1, `rgba(${r},${g},${b},0)`);
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
     };
-
+  
     const drawGlitch = () => {
       if (frame % 300 === 0) {
         const glitchHeight = 4;
@@ -80,46 +90,38 @@ export default function BackgroundEffects() {
         }
       }
     };
-
-    const drawDiagnosticsLine = () => {
-      if (frame % 900 === 0) {
-        const text = `> sys_check: OK [${new Date().toLocaleTimeString()}]`;
-        ctx.font = '14px monospace';
-        ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
-        ctx.fillText(text, 20, height - 40);
-      }
-    };
-
+  
     const draw = (time) => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
       ctx.fillRect(0, 0, width, height);
-
+  
       if (frame % 4 === 0) drawGrid();
       drawCRTScanline(time);
       drawCursorEffect(time);
       drawGlitch();
-      drawDiagnosticsLine();
-
+  
       frame++;
     };
-
+  
     const render = (time) => {
       draw(time);
       animationFrameId = requestAnimationFrame(render);
     };
-
+  
     render(0);
-
+  
     const handleMouseMove = (e) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
     window.addEventListener('mousemove', handleMouseMove);
-
+  
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', resizeCanvas);
     };
   }, []);
+  
 
   return (
     <canvas
