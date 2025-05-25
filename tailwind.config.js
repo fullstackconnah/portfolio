@@ -21,7 +21,7 @@ module.exports = {
         glow: '0 0 10px var(--glow-color)',
       },
       animation: {
-        'fade-in-slow': 'fadeIn 2s ease-out forwards',
+        'projectsFadeIn': 'projectsFadeIn 0.4s ease-in-out',
         'fadeIn': 'fadeIn 0.3s ease-in forwards',
         'terminal': 'flicker 3s infinite',
         'scanlines': 'scanlines 1s linear infinite',
@@ -38,6 +38,10 @@ module.exports = {
         scanlines: {
           '0%': { backgroundPosition: '0 0' },
           '100%': { backgroundPosition: '0 2px' },
+        },
+        projectsFadeIn: {
+          '0%': { opacity: 0, transform: 'translateY(10px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
         },
       },
     },    

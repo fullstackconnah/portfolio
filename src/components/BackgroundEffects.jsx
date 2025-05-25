@@ -28,7 +28,7 @@ export default function BackgroundEffects() {
     window.addEventListener('resize', resizeCanvas);
   
     const drawGrid = () => {
-      ctx.strokeStyle = 'rgba(0, 255, 0, 0.15)';
+      ctx.strokeStyle = 'rgba(0, 255, 0, 0.10)';
       for (let x = 0; x < width; x += 120) {
         ctx.beginPath();
         ctx.moveTo(x, 0);

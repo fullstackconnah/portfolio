@@ -11,7 +11,7 @@ const asciiArt = [
 
 export default function HeroSection({ onReboot, setIsTearing, setIsShattering }) {
   return (
-    <section className="p-4">
+    <section className="p-4 text-[#39FF14] font-mono">
       <AsciiTitle asciiArt={asciiArt} />
       <TerminalNavigator  onReboot={onReboot} setIsTearing={ setIsTearing } setIsShattering={ setIsShattering } />
     </section>
