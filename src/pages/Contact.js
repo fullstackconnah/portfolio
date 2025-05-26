@@ -10,10 +10,9 @@ const asciiArt = [
 '\\____/_/   /_____/___/_/ |_/_/ |_(_)____/_/ /_/   '                                              
 ]
 
-
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState('idle');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
