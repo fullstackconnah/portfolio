@@ -32,7 +32,6 @@ function Navbar({ loggedIn, onLogout }) {
             <Link to="/" onClick={() => setMenuOpen(false)} className="hover:underline">Home</Link>
             <Link to="/projects" onClick={() => setMenuOpen(false)} className="hover:underline">Projects</Link>
             <Link to="/about" onClick={() => setMenuOpen(false)} className="hover:underline">About</Link>
-            <Link to="/contact" onClick={() => setMenuOpen(false)} className="hover:underline">Contact</Link>
 
             {loggedIn && (
               <Link to="/admin" onClick={() => setMenuOpen(false)} className="hover:underline text-green-400 font-semibold">

@@ -11,6 +11,14 @@ function hashTitle(title) {
 }
 
 function ProjectCard({ title, description, tech = [], id }) {
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) return text;
+    const truncated = text.slice(0, maxLength);
+    const lastSpace = truncated.lastIndexOf(' ');
+    return truncated.slice(0, lastSpace) + '...';
+  };
+  
+  const truncatedDescription = truncateText(description, 150);
   return (
     <div className="relative group bg-black flex flex-col justify-between h-full border border-[#39FF14] text-[#39FF14] font-mono rounded-lg p-5 shadow-[0_0_4px_#39FF14]/40 transition duration-300 hover:shadow-[0_0_16px_#39FF14] hover:scale-[1.015] hover:animate-terminalFlicker overflow-hidden">
 
@@ -28,7 +36,7 @@ function ProjectCard({ title, description, tech = [], id }) {
           <p className="text-xs text-[#39FF14]/50 font-mono italic tracking-wide text-ellipsis overflow-hidden whitespace-nowrap max-w-full">
             ~/projects/{title.split(' ')[0].toLowerCase()}{hashTitle(title)}.proj
           </p>
-          <p className="text-sm text-[#39FF14]/80 mb-4 leading-relaxed">{description}</p>
+          <p className="text-sm text-[#39FF14]/80 mb-4 leading-relaxed">{truncatedDescription}</p>
 
           <div className="flex flex-wrap gap-2 mb-4">
             {tech.map((item, i) => (
