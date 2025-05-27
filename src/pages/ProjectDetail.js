@@ -3,11 +3,15 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 import 'swiper/css';
 
 function ProjectDetail() {
   const { id } = useParams();
   const [project, setProject] = useState(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -51,13 +55,25 @@ function ProjectDetail() {
               <img
                 src={url}
                 alt={`Slide ${i}`}
-                className="rounded-lg w-full object-cover max-h-[400px] border border-[#39FF14] shadow-[0_0_10px_#39FF14]"
-                />
+                onClick={() => {
+                  setLightboxIndex(i);
+                  setLightboxOpen(true);
+                }}
+                className="cursor-zoom-in rounded-lg w-full object-cover max-h-[400px] border border-[#39FF14] shadow-[0_0_10px_#39FF14]"
+              />
             </SwiperSlide>
           ))}
         </Swiper>
       )}
-  
+    {lightboxOpen && (
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        index={lightboxIndex}
+        slides={project.images.map((url) => ({ src: url }))}
+      />
+    )}
+
       <div className="flex gap-6 mt-6">
         {project.demoUrl && (
           <a
