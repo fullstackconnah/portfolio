@@ -14,12 +14,13 @@ function Navbar({ loggedIn, onLogout }) {
   return (
     <nav className="z-50 bg-black border-b border-[#39FF14] px-4 py-2 font-mono text-[#39FF14] text-sm shadow-md">
       <div className="flex justify-between items-center flex-wrap">
+        <Link to="/">
         <span className="text-[#39FF14] tracking-wide mb-2 sm:mb-0">
           ┌─[<span className="font-bold">
             {loggedIn ? 'admin@connah.dev' : 'guest@connah.dev'}
           </span>]──[~]
         </span>
-
+        </Link>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="sm:hidden text-[#39FF14] border border-[#39FF14] px-2 py-1 rounded hover:bg-[#39FF14] hover:text-black transition"
