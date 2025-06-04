@@ -91,7 +91,7 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
   }, [lastActivity]);
 
   const escapeHTML = (str) =>
-    str.replace(/[&<>"]'/g, match => (
+    str.replace(/[&<>"']/g, match => (
       { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[match]
     ));
 
