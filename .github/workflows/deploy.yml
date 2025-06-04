@@ -22,6 +22,7 @@ jobs:
           echo "REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}" >> .env
           echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
           echo "REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}" >> .env
+          echo "REACT_APP_GA_MEASUREMENT_ID=${{ secrets.REACT_APP_GA_MEASUREMENT_ID }}" >> .env
 
       - name: Build the site
         run: |
