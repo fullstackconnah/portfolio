@@ -55,7 +55,7 @@ function ProjectCard({ title, description, tech = [], id }) {
           </div>
 
           <span className="text-sm underline hover:text-green-300 transition inline-block mt-auto">
-            &gt; View Project
+            &gt; View Project 
           </span>
         </div>
       </div>
