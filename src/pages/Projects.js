@@ -4,6 +4,10 @@ import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import ProjectCard from '../components/ProjectCard';
 import AsciiTitle from '../components/AsciiTitle';
+import ReactGA from 'react-ga4';
+
+ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID);
+ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 
 const asciiArt = [
   '   __  ______  __    ____  ___    ____  _____   __    ____  ______',

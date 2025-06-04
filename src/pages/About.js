@@ -1,7 +1,10 @@
 import AsciiTitle from '../components/AsciiTitle';
 import { useNavigate } from 'react-router-dom';
 import '../css/TerminalCard.css';
+import ReactGA from 'react-ga4';
 
+ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID);
+ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 const asciiArt = [
   '    ____  ____  ____  ____________    ______  _______  __ ______',
   '   / __ \\/ __ \\/ __ \\/ ____/  _/ /   / ____/ / ____/ |/ // ____/',

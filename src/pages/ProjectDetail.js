@@ -6,6 +6,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import 'swiper/css';
+import ReactGA from 'react-ga4';
+
+ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID);
+ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 
 function ProjectDetail() {
   const { id } = useParams();

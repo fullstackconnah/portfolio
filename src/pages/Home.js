@@ -5,6 +5,10 @@ import HeroSection from '../components/HeroSection';
 import AboutSection from '../components/AboutSection';
 import ProjectsSection from '../components/ProjectsSection';
 import TechStackSection from '../components/TechStackSection';
+import ReactGA from 'react-ga4';
+
+ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID);
+ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 
 function Home({ onReboot, setIsTearing, setIsShattering }) {
   const [projects, setProjects] = useState([]);
