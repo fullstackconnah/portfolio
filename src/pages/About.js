@@ -95,7 +95,7 @@ export default function AboutPage() {
                       <p>Shell: Terminal UI</p>
                       <p>Uptime: 6+ years</p>
                     </div>
-                    <div className="bg-[#0f0f0f]/70 p-3 rounded border border-[#39FF14]/40 shadow-sm transition-all hover:border-[#39FF14] hover:shadow-[0_0_8px_#39FF14] hover:animate-flicker">
+                    <div className="bg-black/60 p-3 rounded border border-[#39FF14]/40 shadow-sm transition-all hover:border-[#39FF14] hover:shadow-[0_0_8px_#39FF14] hover:animate-flicker">
                       <p>Active Module: Enterprise web apps</p>
                       <p>Focus Mode: ENABLED</p>
                       <p>Error Rate: Negligible</p>
