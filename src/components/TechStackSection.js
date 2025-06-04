@@ -4,7 +4,7 @@ export default function TechStackSection() {
     'Frontend Development': ['React', 'Angular', 'Blazor', 'TailwindCSS', 'HTML/CSS', 'SASS/SCSS', 'Jest'],
     'Backend Development': ['.NET 8 / .NET 9', '.NET Framework 4.8', 'Node.js', 'Entity Framework', 'ASP.NET Core Web API', 'ASP.NET MVC', 'LINQ', 'RESTful API Design', 'PostgreSQL', 'MSSQL Server 2019'],
     'Monitoring & Operations': ['Datadog', 'Azure App Insights', 'IIS', 'Nginx'],
-    'CMS & Web Platforms': ['WordPress', 'Elementor', 'Pods', 'WooComerce']
+    'CMS & Web Platforms': ['WordPress', 'Elementor', 'Pods', 'WooCommerce']
   };
 
   const rightStack = {
