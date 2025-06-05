@@ -2,9 +2,12 @@ import AsciiTitle from '../components/AsciiTitle';
 import { useNavigate } from 'react-router-dom';
 import '../css/TerminalCard.css';
 import ReactGA from 'react-ga4';
+import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
+
 
 ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID);
-ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
+
 const asciiArt = [
   '    ____  ____  ____  ____________    ______  _______  __ ______',
   '   / __ \\/ __ \\/ __ \\/ ____/  _/ /   / ____/ / ____/ |/ // ____/',
@@ -16,9 +19,18 @@ const asciiArt = [
 export default function AboutPage() {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
+  }, []);
+
   return (
-    <div className="min-h-screen text-[#39FF14] font-mono">
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
+        <>
+      <Helmet>
+        <title>About | Connah.dev</title>
+        <meta name="description" content="Get to know Connah Trotman, a full-stack developer experienced in .NET, Angular, SQL, and immersive terminal UI design." />
+      </Helmet>
+      <div className="min-h-screen text-[#39FF14] font-mono">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
 
       <div className="mb-10">
         <AsciiTitle asciiArt={asciiArt} />
@@ -123,5 +135,6 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+      </>
   );
 }

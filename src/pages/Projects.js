@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import ProjectCard from '../components/ProjectCard';
 import AsciiTitle from '../components/AsciiTitle';
 import ReactGA from 'react-ga4';
+import { Helmet } from 'react-helmet-async';
 
 ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID);
-ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 
 const asciiArt = [
   '   __  ______  __    ____  ___    ____  _____   __    ____  ______',
@@ -21,6 +21,11 @@ export default function ProjectsPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Projects | Connah.dev';
+    ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
+  }, []);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -41,6 +46,12 @@ export default function ProjectsPage() {
   }, []);
 
   return (
+    <>
+      <Helmet>
+        <title>Projects | Connah.dev</title>
+        <meta name="description" content="Explore software projects built by Connah Trotman, including enterprise apps, web platforms, and creative interfaces using .NET, React, Blazor, Firebase, SQL, and more." />
+      </Helmet>
+    
     <div className="min-h-screen text-[#39FF14] font-mono">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
 
@@ -87,5 +98,6 @@ export default function ProjectsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
