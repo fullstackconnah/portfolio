@@ -1,9 +1,6 @@
-# robots.txt for https://connah.com.au
-
 User-agent: *
 Disallow:
 
-# Optional: explicitly allow everything (not strictly necessary, but extra clear)
 Allow: /
 
 Sitemap: https://connah.com.au/sitemap.xml
