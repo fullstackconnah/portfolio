@@ -5,6 +5,8 @@ import HeroSection from '../components/HeroSection';
 import AboutSection from '../components/AboutSection';
 import ProjectsSection from '../components/ProjectsSection';
 import TechStackSection from '../components/TechStackSection';
+import ServicesSnapshotSection from '../components/ServicesSnapshotSection';
+import FinalCTA from '../components/FinalCTA';
 import ReactGA from 'react-ga4';
 import { Helmet } from 'react-helmet-async';
 
@@ -37,8 +39,10 @@ function Home({ onReboot, setIsTearing, setIsShattering }) {
       <div className="px-6 py-10 max-w-5xl mx-auto font-mono text-[#39FF14]">
         <HeroSection onReboot={onReboot} setIsTearing={ setIsTearing } setIsShattering={ setIsShattering }/>
         <AboutSection />
+        <ServicesSnapshotSection />
         <TechStackSection />
         <ProjectsSection projects={projects} />
+        <FinalCTA />
       </div>
     </>
   );

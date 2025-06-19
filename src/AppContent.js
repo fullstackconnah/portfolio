@@ -18,6 +18,7 @@ import NotFound from './pages/404';
 import ScreenShatter from './components/ScreenShatter';
 import AboutPage from './pages/About';
 import ProjectsPage from './pages/Projects';
+import ServicesPage from './pages/Services';
 import Contact from './pages/Contact';
 
 
@@ -76,6 +77,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/projects/:id" element={<Projects />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/services" element={<ServicesPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
