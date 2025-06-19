@@ -42,7 +42,7 @@ function Home({ onReboot, setIsTearing, setIsShattering }) {
         <ServicesSnapshotSection />
         <TechStackSection />
         <ProjectsSection projects={projects} />
-        <FinalCTA />
+        {/* <FinalCTA /> */}
       </div>
     </>
   );

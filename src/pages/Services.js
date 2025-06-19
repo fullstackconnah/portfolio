@@ -199,13 +199,8 @@ export default function ServicesPage() {
 
             {/* CTA */}
             <div className="text-center mt-10">
-              <a
-                href="/contact"
-                className="inline-block border border-[#39FF14] px-8 py-4 rounded transition transform flicker hover:bg-[#39FF14] hover:text-black hover:scale-105 hover:shadow-[0_0_20px_#39FF14] hover:translate-y-[-1px] animate-pulse"
-              >
-                <span className="mr-2">&gt;_</span>Get a Free Quote
-              </a>
-              <p className="mt-4 text-sm">Or email: <a href="mailto:hello@connah.dev" className="underline hover:text-green-300">hello@connah.dev</a></p>
+                <p>Get a Free Quote</p>
+                <p className="mt-4 text-sm">Email: <a href="mailto:connah.trotman00@gmail.com" className="underline hover:text-green-300">connah.trotman00@gmail.com</a></p>
             </div>
 
           </div>
