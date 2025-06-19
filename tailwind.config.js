@@ -31,10 +31,6 @@ module.exports = {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 },
         },
-        flicker: {
-          '0%, 100%': { boxShadow: '0 0 8px var(--glow-color)' },
-          '50%': { boxShadow: '0 0 4px var(--glow-color)' },
-        },
         scanlines: {
           '0%': { backgroundPosition: '0 0' },
           '100%': { backgroundPosition: '0 2px' },
@@ -43,6 +39,9 @@ module.exports = {
           '0%': { opacity: 0, transform: 'translateY(10px)' },
           '100%': { opacity: 1, transform: 'translateY(0)' },
         },
+      },
+      animation: {
+        terminal: 'flicker 8s infinite',
       },
     },    
   },

@@ -27,22 +27,81 @@ export default function BackgroundEffects() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
   
-    const drawGrid = () => {
-      ctx.strokeStyle = 'rgba(0, 255, 0, 0.10)';
-      for (let x = 0; x < width; x += 120) {
+    const draw3DGrid = (ctx, width, height, time) => {
+      ctx.lineWidth = 1;
+
+      const horizonY = height * 0.4;
+      const bottomY = height;
+
+      const speedY = -20;
+      const speedX = 10;
+
+      const offsetY = time * speedY * 0.001;
+      const offsetX = time * speedX * 0.001;
+
+      const spread = 3.0;
+      const spacingX = 100;
+
+      const maxWorldX = (width / 2) / spread + spacingX;
+
+      const cameraX = offsetX;
+
+      const minIndex = Math.floor((cameraX - maxWorldX) / spacingX);
+      const maxIndex = Math.ceil((cameraX + maxWorldX) / spacingX);
+
+      for (let i = minIndex; i <= maxIndex; i++) {
+        const worldX = i * spacingX - cameraX;
+
+        const horizonX = width / 2 + worldX;
+
+        const dx = horizonX - width / 2;
+        const bottomX = width / 2 + dx * spread;
+
+        const centerFade = 1 - Math.min(Math.abs(dx) / (width * 0.5), 1);
+
+        const grad = ctx.createLinearGradient(horizonX, horizonY, bottomX, bottomY);
+        grad.addColorStop(0.0, `rgba(0, 255, 0, 0.0)`);
+        grad.addColorStop(0.05, `rgba(0, 255, 0, ${0.02 * centerFade})`);
+        grad.addColorStop(0.2, `rgba(0, 255, 0, ${0.1 * centerFade})`);
+        grad.addColorStop(1.0, `rgba(0, 255, 0, ${0.5 * centerFade})`);
+
+        ctx.strokeStyle = grad;
+
         ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
+        ctx.moveTo(horizonX, horizonY);
+        ctx.lineTo(bottomX, bottomY);
         ctx.stroke();
       }
-      for (let y = 0; y < height; y += 120) {
+
+      const baseSpacing = 100;
+      const fov = 300;
+
+      let z0 = offsetY % baseSpacing;
+      if (z0 < 0) z0 += baseSpacing;
+
+      let z = z0;
+      let safety = 0;
+
+      while (true) {
+        const scale = fov / (fov + z);
+        const y = horizonY + scale * (bottomY - horizonY);
+
+        const fade = (y - horizonY) / (bottomY - horizonY);
+        const smoothFade = fade ** 2; 
+        ctx.strokeStyle = `rgba(0, 255, 0, ${smoothFade * 0.5})`;
+
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(width, y);
         ctx.stroke();
+
+        z += baseSpacing;
+        safety++;
+        if (safety > 500) break;
       }
     };
-  
+
+
     const drawCRTScanline = (time) => {
       const waveHeight = 60;
       const scrollSpeed = 0.05;
@@ -80,26 +139,26 @@ export default function BackgroundEffects() {
     };
   
     const drawGlitch = () => {
-      if (frame % 300 === 0) {
-        const glitchHeight = 4;
-        for (let i = 0; i < 5; i++) {
-          const y = Math.random() * height;
-          const imageData = ctx.getImageData(0, y, width, glitchHeight);
-          const xOffset = Math.random() * 20 - 10;
-          ctx.putImageData(imageData, xOffset, y);
-        }
+      if (frame % 1000 === 0) {
+        ctx.save();
+        ctx.translate(Math.random() * 2 - 1, Math.random() * 2 - 1);
+        // draw grid again if needed
+        ctx.restore();
       }
     };
   
-    const draw = (time) => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+   const draw = (time) => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
       ctx.fillRect(0, 0, width, height);
-  
-      if (frame % 4 === 0) drawGrid();
+
+      if (frame % 4 === 0) {
+        draw3DGrid(ctx, width, height, time);
+      }
+
       drawCRTScanline(time);
       drawCursorEffect(time);
       drawGlitch();
-  
+
       frame++;
     };
   
