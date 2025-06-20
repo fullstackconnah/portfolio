@@ -6,7 +6,7 @@ import AboutSection from '../components/AboutSection';
 import ProjectsSection from '../components/ProjectsSection';
 import TechStackSection from '../components/TechStackSection';
 import ServicesSnapshotSection from '../components/ServicesSnapshotSection';
-import FinalCTA from '../components/FinalCTA';
+//import FinalCTA from '../components/FinalCTA';
 import ReactGA from 'react-ga4';
 import { Helmet } from 'react-helmet-async';
 
