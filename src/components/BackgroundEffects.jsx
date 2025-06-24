@@ -74,7 +74,7 @@ export default function BackgroundEffects() {
       }
 
       const baseSpacing = 100;
-      const fov = 300;
+      const fov = 360;
 
       let z0 = offsetY % baseSpacing;
       if (z0 < 0) z0 += baseSpacing;

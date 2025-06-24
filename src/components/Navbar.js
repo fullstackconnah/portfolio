@@ -31,6 +31,7 @@ function Navbar({ loggedIn, onLogout }) {
         <div className={`w-full sm:w-auto sm:flex items-center gap-4 ${menuOpen ? 'block' : 'hidden'} sm:block`}>
           <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-2 sm:mt-0 text-[#39FF14]">
             <Link to="/" onClick={() => setMenuOpen(false)} className="hover:underline">Home</Link>
+            <Link to="/services" onClick={() => setMenuOpen(false)} className="hover:underline">Services</Link>
             <Link to="/projects" onClick={() => setMenuOpen(false)} className="hover:underline">Projects</Link>
             <Link to="/about" onClick={() => setMenuOpen(false)} className="hover:underline">About</Link>
 
