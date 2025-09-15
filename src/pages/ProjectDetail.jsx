@@ -9,7 +9,6 @@ import 'swiper/css';
 import ReactGA from 'react-ga4';
 import { Helmet } from 'react-helmet-async';
 
-ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID);
 
 function ProjectDetail() {
   const { id } = useParams();

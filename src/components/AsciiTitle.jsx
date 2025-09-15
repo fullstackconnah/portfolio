@@ -31,11 +31,11 @@ export default function AsciiTitleGlitch({ asciiArt }) {
   return (
     <pre
         ref={containerRef}
-        className="ascii-logo font-mono text-[#39FF14] leading-none whitespace-pre text-center sm:text-left animate-glitch px-2"
+        className="ascii-logo font-mono text-[#39FF14] leading-none whitespace-pre text-left animate-glitch px-2"
         style={{
             fontSize: `${fontSize}px`,
             overflow: 'hidden',
-            minWidth: '100%',
+            width: '100%',
             boxSizing: 'border-box',
         }}
         >

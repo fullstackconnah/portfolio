@@ -9,6 +9,7 @@ export default function BackgroundEffects() {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
     let frame = 0;
+    let isVisible = true;
   
     const dpr = window.devicePixelRatio || 1;
     let width = window.innerWidth;
@@ -42,7 +43,7 @@ export default function BackgroundEffects() {
       const spread = 3.0;
       const spacingX = 100;
 
-      const maxWorldX = (width / 2) / spread + spacingX;
+      const maxWorldX = (width / 2) / spread + spacingX * 4;
 
       const cameraX = offsetX;
 
@@ -57,13 +58,13 @@ export default function BackgroundEffects() {
         const dx = horizonX - width / 2;
         const bottomX = width / 2 + dx * spread;
 
-        const centerFade = 1 - Math.min(Math.abs(dx) / (width * 0.5), 1);
+        const centerFade = Math.max(0.3, 1 - Math.min(Math.abs(dx) / (width * 0.7), 1));
 
         const grad = ctx.createLinearGradient(horizonX, horizonY, bottomX, bottomY);
         grad.addColorStop(0.0, `rgba(0, 255, 0, 0.0)`);
-        grad.addColorStop(0.05, `rgba(0, 255, 0, ${0.02 * centerFade})`);
-        grad.addColorStop(0.2, `rgba(0, 255, 0, ${0.1 * centerFade})`);
-        grad.addColorStop(1.0, `rgba(0, 255, 0, ${0.5 * centerFade})`);
+        grad.addColorStop(0.05, `rgba(0, 255, 0, ${0.06 * centerFade})`);
+        grad.addColorStop(0.2, `rgba(0, 255, 0, ${0.2 * centerFade})`);
+        grad.addColorStop(1.0, `rgba(0, 255, 0, ${0.8 * centerFade})`);
 
         ctx.strokeStyle = grad;
 
@@ -88,7 +89,7 @@ export default function BackgroundEffects() {
 
         const fade = (y - horizonY) / (bottomY - horizonY);
         const smoothFade = fade ** 2; 
-        ctx.strokeStyle = `rgba(0, 255, 0, ${smoothFade * 0.5})`;
+        ctx.strokeStyle = `rgba(0, 255, 0, ${smoothFade * 0.8})`;
 
         ctx.beginPath();
         ctx.moveTo(0, y);
@@ -142,18 +143,17 @@ export default function BackgroundEffects() {
       if (frame % 1000 === 0) {
         ctx.save();
         ctx.translate(Math.random() * 2 - 1, Math.random() * 2 - 1);
-        // draw grid again if needed
         ctx.restore();
       }
     };
   
    const draw = (time) => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+      if (!isVisible) return;
+
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
       ctx.fillRect(0, 0, width, height);
 
-      if (frame % 4 === 0) {
-        draw3DGrid(ctx, width, height, time);
-      }
+      draw3DGrid(ctx, width, height, time);
 
       drawCRTScanline(time);
       drawCursorEffect(time);
@@ -172,12 +172,19 @@ export default function BackgroundEffects() {
     const handleMouseMove = (e) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
+
+    const handleVisibilityChange = () => {
+      isVisible = !document.hidden;
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
-  
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', resizeCanvas);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
   

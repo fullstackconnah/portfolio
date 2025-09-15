@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import HeroSection from '../components/HeroSection';
-import AboutSection from '../components/AboutSection';
-import ProjectsSection from '../components/ProjectsSection';
-import TechStackSection from '../components/TechStackSection';
-import ServicesSnapshotSection from '../components/ServicesSnapshotSection';
-//import FinalCTA from '../components/FinalCTA';
+import HeroSection from '../components/HeroSection.jsx';
+import AboutSection from '../components/AboutSection.jsx';
+import ProjectsSection from '../components/ProjectsSection.jsx';
+import TechStackSection from '../components/TechStackSection.jsx';
+import ServicesSnapshotSection from '../components/ServicesSnapshotSection.jsx';
 import ReactGA from 'react-ga4';
 import { Helmet } from 'react-helmet-async';
-
-ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID);
 
 function Home({ onReboot, setIsTearing, setIsShattering }) {
   const [projects, setProjects] = useState([]);
@@ -36,13 +33,24 @@ function Home({ onReboot, setIsTearing, setIsShattering }) {
         <title>Connah Trotman | Software Developer Portfolio</title>
         <meta name="description" content="Welcome to Connah.dev – a terminal-themed portfolio built by Connah Trotman, full-stack software developer with expertise in .NET, Angular, React, and cloud platforms. Explore immersive UIs, clean code, and real-world projects." />
       </Helmet>
-      <div className="px-6 py-10 max-w-5xl mx-auto font-mono text-[#39FF14]">
-        <HeroSection onReboot={onReboot} setIsTearing={ setIsTearing } setIsShattering={ setIsShattering }/>
-        <AboutSection />
-        <ServicesSnapshotSection />
-        <TechStackSection />
-        <ProjectsSection projects={projects} />
-        {/* <FinalCTA /> */}
+      <div className="font-mono text-[#39FF14]">
+        {/* Full Screen Hero Section */}
+        <HeroSection onReboot={onReboot} setIsTearing={setIsTearing} setIsShattering={setIsShattering} />
+
+        {/* Main Content Sections */}
+        <div id="main-content" className="px-6 pt-4 pb-16 max-w-6xl mx-auto space-y-24">
+          {/* Interactive Terminal - Right after hero as originally positioned */}
+          <AboutSection onReboot={onReboot} setIsTearing={setIsTearing} setIsShattering={setIsShattering} />
+
+          {/* Lead with Services - Most Important for Business */}
+          <ServicesSnapshotSection />
+
+          {/* Featured Projects - Show Your Work */}
+          <ProjectsSection projects={projects} />
+
+          {/* Tech Stack - For Technical Credibility */}
+          <TechStackSection />
+        </div>
       </div>
     </>
   );

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #000;
   color: #39FF14;
@@ -19,4 +23,71 @@ body {
 
 .scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes slowBounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40%, 43% {
+    transform: translateY(-10px);
+  }
+  70% {
+    transform: translateY(-5px);
+  }
+  90% {
+    transform: translateY(-2px);
+  }
+}
+
+.animate-slow-bounce {
+  animation: slowBounce 2s ease-in-out infinite;
+}
+
+@keyframes crtTurnOn {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.001) scaleX(0.8);
+    filter: brightness(2);
+  }
+  20% {
+    opacity: 1;
+    transform: scaleY(0.1) scaleX(0.8);
+    filter: brightness(2);
+  }
+  40% {
+    transform: scaleY(0.8) scaleX(1);
+    filter: brightness(1.5);
+  }
+  60% {
+    transform: scaleY(1.05) scaleX(1);
+    filter: brightness(1.2);
+  }
+  80% {
+    transform: scaleY(0.98) scaleX(1);
+    filter: brightness(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1) scaleX(1);
+    filter: brightness(1);
+  }
+}
+
+.animate-crt-turn-on {
+  animation: crtTurnOn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-fill-mode: forwards;
 }

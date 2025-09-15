@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import ProjectCard from '../components/ProjectCard';
-import AsciiTitle from '../components/AsciiTitle';
+import ProjectCard from '../components/ProjectCard.jsx';
+import AsciiTitle from '../components/AsciiTitle.jsx';
 import ReactGA from 'react-ga4';
 import { Helmet } from 'react-helmet-async';
 
-ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID);
 
 const asciiArt = [
   '   __  ______  __    ____  ___    ____  _____   __    ____  ______',

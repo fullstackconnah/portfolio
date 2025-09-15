@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for file in *.js)",
+      "Bash(do mv \"$file\" \"$file%.js.jsx\")",
+      "Bash(done)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

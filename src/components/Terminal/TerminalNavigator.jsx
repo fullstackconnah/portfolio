@@ -65,7 +65,10 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
 
   useEffect(() => {
     if (scrollRef.current) {
+      // Prevent page scroll when terminal auto-scrolls
+      const currentScrollY = window.scrollY;
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      window.scrollTo(0, currentScrollY);
     }
   }, [lines]);
 
@@ -100,7 +103,7 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
       'Available commands:',
       'about        → Learn more about me',
       'projects     → See my project portfolio',
-      'contact      → Get in touch',
+      'contact      → Show contact information',
       'login        → Admin login screen',
       'admin        → Go to admin dashboard',
       'clear        → Clear the terminal',
@@ -109,7 +112,7 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
       'cd [route]   → Navigate to route',
       'ls           → List available routes',
       'fortune      → Print a nerdy fortune',
-      'sudo         → Try it... you won’t',
+      'sudo         → Try it... you won\'t',
       'reboot       → Restart terminal',
       'sysinfo      → View system stats',
       'whoami       → Reveal identity',
@@ -118,25 +121,25 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
     ],
     about: () => navigate('/about'),
     projects: () => navigate('/projects'),
-    contact: () => navigate('/contact'),
+    contact: () => setLines(prev => [...prev.filter(l => l !== '$'), '> contact', 'Contact me at: info@connah.com.au', '$']),
     login: () => navigate('/login'),
     admin: () => navigate('/admin'),
     clear: () => setLines(['$']),
     history: () => setLines(prev => [...prev.filter(l => l !== '$'), ...history.map((h, i) => `${i + 1}: ${h}`), '$']),
-    ls: () => setLines(prev => [...prev.filter(l => l !== '$'), '> ls', 'about/', 'projects/', 'contact/', 'login/', 'admin/']),
+    ls: () => setLines(prev => [...prev.filter(l => l !== '$'), '> ls', 'about/', 'projects/', 'services/', 'login/', 'admin/', '$']),
 
     whoami: () =>
-      setLines(prev => [...prev.filter(l => l !== '$'), '> whoami', 'User: GUEST (conn4h)']),
-  
+      setLines(prev => [...prev.filter(l => l !== '$'), '> whoami', 'User: GUEST (conn4h)', '$']),
+
     uptime: () => {
       const seconds = Math.floor((Date.now() - performance.timing.navigationStart) / 1000);
       const minutes = Math.floor(seconds / 60);
       const uptime = `${minutes}m ${seconds % 60}s`;
-      setLines(prev => [...prev.filter(l => l !== '$'), '> uptime', `Session Uptime: ${uptime}`]);
+      setLines(prev => [...prev.filter(l => l !== '$'), '> uptime', `Session Uptime: ${uptime}`, '$']);
     },
-  
+
     version: () =>
-      setLines(prev => [...prev.filter(l => l !== '$'), '> version', 'ConnahOS v1.0.3']),
+      setLines(prev => [...prev.filter(l => l !== '$'), '> version', 'ConnahOS v1.0.3', '$']),
   
     sysinfo: () => {
       const info = [
@@ -148,23 +151,23 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
         `Theme: Matrix Green`,
         `User: GUEST`
       ];
-      setLines(prev => [...prev.filter(l => l !== '$'), '> sysinfo', ...info]);
+      setLines(prev => [...prev.filter(l => l !== '$'), '> sysinfo', ...info, '$']);
     },
-  
+
     sudo: () =>
-      setLines(prev => [...prev.filter(l => l !== '$'), '> sudo', 'Permission denied. You are not the root.']),
-  
+      setLines(prev => [...prev.filter(l => l !== '$'), '> sudo', 'Permission denied. You are not the root.', '$']),
+
     fortune: () => {
       const fortunes = [
         "A bug in the hand is worth two in production.",
         "Commit often, push rarely, regret always.",
-        "There is no cloud. It’s just someone else’s computer.",
+        "There is no cloud. It's just someone else's computer.",
         "rm -rf / — because you like danger.",
         "You had me at undefined is not a function.",
         "404: Fortune not found."
       ];
       const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-      setLines(prev => [...prev.filter(l => l !== '$'), '> fortune', fortune]);
+      setLines(prev => [...prev.filter(l => l !== '$'), '> fortune', fortune, '$']);
     },
   
     reboot: () => {
@@ -240,13 +243,13 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
 
     if (normalized.startsWith('echo ')) {
       const msg = escapeHTML(cmd.slice(5));
-      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, msg]);
+      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, msg, '$']);
       return;
     }
 
     if (normalized.startsWith('cd ')) {
       const path = cmd.slice(3).trim();
-      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, `navigating to /${path}`]);
+      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, `navigating to /${path}`, '$']);
       navigate(`/${path}`);
       return;
     }
@@ -259,12 +262,12 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
     if (commands[normalized]) {
       if (typeof commands[normalized] === 'function') {
         commands[normalized]();
-        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`]);
+        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, '$']);
       } else {
-        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, ...commands[normalized]]);
+        setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, ...commands[normalized], '$']);
       }
     } else {
-      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, 'Command not found. Try "help".']);
+      setLines(prev => [...prev.filter(l => l !== '$'), `> ${cmd}`, 'Command not found. Try "help".', '$']);
     }
   };
 
@@ -312,7 +315,27 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
   };
 
   return (
-  <div className="bg-black text-[#39FF14] p-3 sm:p-4 border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono mt-6 sm:mt-8 h-[40vh] max-h-[50vh] sm:h-[500px] sm:max-h-[500px] overflow-hidden flex flex-col text-xs sm:text-sm">
+  <div className="bg-black text-[#39FF14] border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono h-[40vh] max-h-[50vh] sm:h-[500px] sm:max-h-[500px] overflow-hidden flex flex-col text-xs sm:text-sm">
+    {/* Terminal Title Bar */}
+    <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 rounded-t-lg px-4 py-2 flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        {/* Window Controls */}
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-red-500 rounded-full opacity-75 hover:opacity-100 transition-opacity cursor-pointer"></div>
+          <div className="w-3 h-3 bg-yellow-500 rounded-full opacity-75 hover:opacity-100 transition-opacity cursor-pointer"></div>
+          <div className="w-3 h-3 bg-green-500 rounded-full opacity-75 hover:opacity-100 transition-opacity cursor-pointer"></div>
+        </div>
+        {/* Terminal Title */}
+        <span className="text-[#39FF14]/90 text-sm font-medium">Terminal - guest@connah.dev</span>
+      </div>
+      {/* Optional: Session info */}
+      <div className="text-[#39FF14]/60 text-xs">
+        Session: 0xC0D3C0NN4H
+      </div>
+    </div>
+
+    {/* Terminal Content */}
+    <div className="flex-1 flex flex-col p-3 sm:p-4">
     <div
     ref={scrollRef}
     className="flex-1 overflow-y-auto whitespace-pre-wrap break-words leading-tight mb-2 pr-2 scrollbar-thin scrollbar-thumb-[#39FF14]/60 scrollbar-track-transparent"
@@ -366,10 +389,10 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
                 onKeyDown={handleKeyDown}
                 className="bg-transparent text-[#39FF14] outline-none flex-1 border-b border-[#39FF14] placeholder:text-[#39FF14]/40 caret-[#39FF14]"
                 placeholder="Enter command..."
-                autoFocus
             />
         </form>
       )}
+    </div>
     </div>
   );
 }

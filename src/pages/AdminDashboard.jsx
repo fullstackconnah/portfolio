@@ -7,8 +7,8 @@ import {
   doc,
   deleteDoc,
 } from 'firebase/firestore';
-import ProjectForm from '../components/ProjectForm';
-import ProjectList from '../components/ProjectList';
+import ProjectForm from '../components/ProjectForm.jsx';
+import ProjectList from '../components/ProjectList.jsx';
 
 const projectsRef = collection(db, 'projects');
 
@@ -61,7 +61,7 @@ function AdminDashboard() {
   return (
     <div className="max-w-4xl mx-auto py-10 px-4 text-[#39FF14] font-mono">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
-      <ProjectForm onProjectAdded={() => console.log('Project added!')} />
+      <ProjectForm onProjectAdded={() => {}} />
       <ProjectList
         projects={projects}
         setProjects={setProjects}

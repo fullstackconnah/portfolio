@@ -5,21 +5,21 @@ import { useState } from 'react';
 
 import './css/doomScreenTear.css';
 
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Projects from './pages/ProjectDetail';
-import AdminDashboard from './pages/AdminDashboard';
-import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar.jsx';
+import Footer from './components/Footer.jsx';
+import Home from './pages/Home.jsx';
+import Login from './pages/Login.jsx';
+import ProjectDetail from './pages/ProjectDetail.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 import BackgroundEffects from './components/BackgroundEffects';
 import BootSplash from './components/BootSplash';
-import NotFound from './pages/404';
+import NotFound from './pages/404.jsx';
 import ScreenShatter from './components/ScreenShatter';
-import AboutPage from './pages/About';
-import ProjectsPage from './pages/Projects';
-import ServicesPage from './pages/Services';
-import Contact from './pages/Contact';
+import AboutPage from './pages/About.jsx';
+import ProjectsPage from './pages/Projects.jsx';
+import ServicesPage from './pages/Services.jsx';
+import Contact from './pages/Contact.jsx';
 
 
 function AppContent({ isLoggedIn, setIsLoggedIn }) {
@@ -66,7 +66,6 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
                   />
                 } />
                 <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
-                {isLoggedIn && <Route path="/admin" element={<AdminDashboard />} />}
                 <Route path="/admin" element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <AdminDashboard />
@@ -75,7 +74,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
 
                 <Route path='/about' element={<AboutPage />}/>
                 <Route path="/projects" element={<ProjectsPage />} />
-                <Route path="/projects/:id" element={<Projects />} />
+                <Route path="/projects/:id" element={<ProjectDetail />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/services" element={<ServicesPage />} />
                 <Route path="*" element={<NotFound />} />

@@ -26,11 +26,11 @@ export default function BootSplash({ onFinish }) {
     const typeNextLine = () => {
       if (current.current >= bootSequence.length) {
         setProgress(100);
-        setTimeout(onFinish, 1000);
+        setTimeout(onFinish, 400);
         return;
       }
 
-      const delay = Math.floor(Math.random() * 400) + 300;
+      const delay = Math.floor(Math.random() * 100) + 150;
 
       setTimeout(() => {
         setLines(prev => [...prev, bootSequence[current.current]]);
