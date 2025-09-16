@@ -37,7 +37,7 @@ jobs:
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.2
         with:
-          server: ftp.connah.com.au
+          server: s06ce.syd5.hostingplatform.net.au
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
