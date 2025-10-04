@@ -40,8 +40,8 @@ export default function BackgroundEffects() {
       const offsetY = time * speedY * 0.001;
       const offsetX = time * speedX * 0.001;
 
-      const spread = 3.0;
-      const spacingX = 100;
+      const spread = 6;
+      const spacingX = 60;
 
       const maxWorldX = (width / 2) / spread + spacingX * 4;
 
@@ -50,56 +50,72 @@ export default function BackgroundEffects() {
       const minIndex = Math.floor((cameraX - maxWorldX) / spacingX);
       const maxIndex = Math.ceil((cameraX + maxWorldX) / spacingX);
 
-      for (let i = minIndex; i <= maxIndex; i++) {
-        const worldX = i * spacingX - cameraX;
+      const chromaticPulse = Math.sin(time * 0.001) * 0.5 + 0.5;
+      const aberrationLayers = [
+        { offsetX: -2, offsetY: 0, color: [255, 100, 0], opacity: 0.3 + chromaticPulse * 0.1 }, 
+        { offsetX: 0, offsetY: 0, color: [0, 255, 0], opacity: 1.0 }, 
+        { offsetX: 2, offsetY: 0, color: [0, 200, 255], opacity: 0.2 + chromaticPulse * 0.1 }  
+      ];
 
-        const horizonX = width / 2 + worldX;
+      aberrationLayers.forEach(layer => {
+        ctx.save();
+        ctx.translate(layer.offsetX, layer.offsetY);
 
-        const dx = horizonX - width / 2;
-        const bottomX = width / 2 + dx * spread;
+        for (let i = minIndex; i <= maxIndex; i++) {
+          const worldX = i * spacingX - cameraX;
+          const horizonX = width / 2 + worldX;
+          const dx = horizonX - width / 2;
+          const bottomX = width / 2 + dx * spread;
 
-        const centerFade = Math.max(0.3, 1 - Math.min(Math.abs(dx) / (width * 0.7), 1));
+          const centerFade = Math.max(0.3, 1 - Math.min(Math.abs(dx) / (width * 0.7), 1));
 
-        const grad = ctx.createLinearGradient(horizonX, horizonY, bottomX, bottomY);
-        grad.addColorStop(0.0, `rgba(0, 255, 0, 0.0)`);
-        grad.addColorStop(0.05, `rgba(0, 255, 0, ${0.06 * centerFade})`);
-        grad.addColorStop(0.2, `rgba(0, 255, 0, ${0.2 * centerFade})`);
-        grad.addColorStop(1.0, `rgba(0, 255, 0, ${0.8 * centerFade})`);
+          const grad = ctx.createLinearGradient(horizonX, horizonY, bottomX, bottomY);
+          const [r, g, b] = layer.color;
 
-        ctx.strokeStyle = grad;
+          grad.addColorStop(0.0, `rgba(${r}, ${g}, ${b}, 0.0)`);
+          grad.addColorStop(0.05, `rgba(${r}, ${g}, ${b}, ${Math.pow(0.05, 2.5) * centerFade * layer.opacity})`);
+          grad.addColorStop(0.3, `rgba(${r}, ${g}, ${b}, ${Math.pow(0.3, 2.5) * centerFade * layer.opacity})`);
+          grad.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${Math.pow(0.6, 2.5) * centerFade * layer.opacity})`);
+          grad.addColorStop(1.0, `rgba(${r}, ${g}, ${b}, ${Math.pow(1.0, 2.5) * centerFade * layer.opacity})`); // Full opacity at bottom
 
-        ctx.beginPath();
-        ctx.moveTo(horizonX, horizonY);
-        ctx.lineTo(bottomX, bottomY);
-        ctx.stroke();
-      }
+          ctx.strokeStyle = grad;
+          ctx.beginPath();
+          ctx.moveTo(horizonX, horizonY);
+          ctx.lineTo(bottomX, bottomY);
+          ctx.stroke();
+        }
 
-      const baseSpacing = 100;
-      const fov = 360;
+        const baseSpacing = 100;
+        const fov = 400;
 
-      let z0 = offsetY % baseSpacing;
-      if (z0 < 0) z0 += baseSpacing;
+        let z0 = offsetY % baseSpacing;
+        if (z0 < 0) z0 += baseSpacing;
+        let z = z0;
+        let safety = 0;
 
-      let z = z0;
-      let safety = 0;
+        while (true) {
+          const scale = fov / (fov + z);
+          const y = horizonY + scale * (bottomY - horizonY);
 
-      while (true) {
-        const scale = fov / (fov + z);
-        const y = horizonY + scale * (bottomY - horizonY);
+          const fade = (y - horizonY) / (bottomY - horizonY);
+          const smoothFade = fade ** 2.5;
 
-        const fade = (y - horizonY) / (bottomY - horizonY);
-        const smoothFade = fade ** 2; 
-        ctx.strokeStyle = `rgba(0, 255, 0, ${smoothFade * 0.8})`;
+          const [r, g, b] = layer.color;
+          ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${smoothFade * 0.8 * layer.opacity})`;
 
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(width, y);
+          ctx.stroke();
 
-        z += baseSpacing;
-        safety++;
-        if (safety > 500) break;
-      }
+          z += baseSpacing * (1 + z * 0.0008);
+
+          safety++;
+          if (safety > 500) break;
+        }
+
+        ctx.restore();
+      });
     };
 
 
