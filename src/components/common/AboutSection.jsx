@@ -1,4 +1,4 @@
-import TerminalNavigator from './Terminal/TerminalNavigator';
+import TerminalNavigator from '../Terminal/TerminalNavigator';
 
 export default function AboutSection({ onReboot, setIsTearing, setIsShattering }) {
   return (

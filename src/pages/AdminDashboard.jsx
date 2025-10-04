@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { db } from '../firebase';
+import { db } from '../config/firebase';
 import {
   collection,
   onSnapshot,
@@ -7,8 +7,8 @@ import {
   doc,
   deleteDoc,
 } from 'firebase/firestore';
-import ProjectForm from '../components/ProjectForm.jsx';
-import ProjectList from '../components/ProjectList.jsx';
+import ProjectForm from '../components/features/projects/ProjectForm.jsx';
+import ProjectList from '../components/features/projects/ProjectList.jsx';
 
 const projectsRef = collection(db, 'projects');
 

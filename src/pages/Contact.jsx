@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import AsciiTitle from '../components/AsciiTitle.jsx';
+import AsciiTitle from '../components/common/AsciiTitle.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const asciiArt = [

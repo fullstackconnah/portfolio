@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../config/firebase';
 import { useNavigate } from 'react-router-dom';
-import ProjectCard from '../components/ProjectCard.jsx';
-import AsciiTitle from '../components/AsciiTitle.jsx';
+import ProjectCard from '../components/features/projects/ProjectCard.jsx';
+import AsciiTitle from '../components/common/AsciiTitle.jsx';
 import ReactGA from 'react-ga4';
 import { Helmet } from 'react-helmet-async';
 

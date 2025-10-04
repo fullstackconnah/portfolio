@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import '../css/asciiEffects.css';
+import '../../css/asciiEffects.css';
 
 export default function AsciiTitleGlitch({ asciiArt }) {
   const containerRef = useRef(null);

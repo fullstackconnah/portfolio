@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
-import HeroSection from '../components/HeroSection.jsx';
-import AboutSection from '../components/AboutSection.jsx';
-import ProjectsSection from '../components/ProjectsSection.jsx';
-import TechStackSection from '../components/TechStackSection.jsx';
-import ServicesSnapshotSection from '../components/ServicesSnapshotSection.jsx';
+import { db } from '../config/firebase';
+import HeroSection from '../components/common/HeroSection.jsx';
+import AboutSection from '../components/common/AboutSection.jsx';
+import ProjectsSection from '../components/features/projects/ProjectsSection.jsx';
+import TechStackSection from '../components/common/TechStackSection.jsx';
+import ServicesSnapshotSection from '../components/common/ServicesSnapshotSection.jsx';
 import ReactGA from 'react-ga4';
 import { Helmet } from 'react-helmet-async';
 

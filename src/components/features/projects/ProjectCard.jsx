@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import '../css/TerminalCard.css';
+import '../../../css/TerminalCard.css';
 
 function hashTitle(title) {
   let hash = 0;

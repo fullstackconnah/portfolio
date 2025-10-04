@@ -1,4 +1,4 @@
-import AsciiTitle from '../components/AsciiTitle.jsx';
+import AsciiTitle from '../components/common/AsciiTitle.jsx';
 import { useNavigate } from 'react-router-dom';
 import '../css/TerminalCard.css';
 import ReactGA from 'react-ga4';

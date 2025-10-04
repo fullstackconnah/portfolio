@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db } from '../firebase';
+import { db } from '../../../config/firebase';
 
 export default function ProjectForm({ onProjectAdded }) {
   const [form, setForm] = useState({

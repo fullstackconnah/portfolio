@@ -1,21 +1,21 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { auth } from './firebase';
+import { auth } from './config/firebase';
 import { useState } from 'react';
 
 import './css/doomScreenTear.css';
 
-import Navbar from './components/Navbar.jsx';
-import Footer from './components/Footer.jsx';
+import Navbar from './components/layout/Navbar.jsx';
+import Footer from './components/layout/Footer.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import ProjectDetail from './pages/ProjectDetail.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
-import ProtectedRoute from './components/ProtectedRoute.jsx';
-import BackgroundEffects from './components/BackgroundEffects';
-import BootSplash from './components/BootSplash';
+import ProtectedRoute from './components/features/auth/ProtectedRoute.jsx';
+import BackgroundEffects from './components/features/effects/BackgroundEffects.jsx';
+import BootSplash from './components/features/effects/BootSplash.jsx';
 import NotFound from './pages/404.jsx';
-import ScreenShatter from './components/ScreenShatter';
+import ScreenShatter from './components/features/effects/ScreenShatter.jsx';
 import AboutPage from './pages/About.jsx';
 import ProjectsPage from './pages/Projects.jsx';
 import ServicesPage from './pages/Services.jsx';
