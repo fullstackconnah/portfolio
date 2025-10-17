@@ -6,16 +6,44 @@ import AboutSection from '../components/common/AboutSection.jsx';
 import ProjectsSection from '../components/features/projects/ProjectsSection.jsx';
 import TechStackSection from '../components/common/TechStackSection.jsx';
 import ServicesSnapshotSection from '../components/common/ServicesSnapshotSection.jsx';
+import QuickStatsTerminal from '../components/common/QuickStatsTerminal.jsx';
+import SocialLinksHub from '../components/common/SocialLinksHub.jsx';
+
 import ReactGA from 'react-ga4';
 import { Helmet } from 'react-helmet-async';
+import '../css/scrollAnimations.css';
 
 function Home({ onReboot, setIsTearing, setIsShattering }) {
   const [projects, setProjects] = useState([]);
+  const [bentoInView, setBentoInView] = useState(false);
 
   useEffect(() => {
     ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
   }, []);
-  
+
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setBentoInView(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const bentoGrid = document.getElementById('bento-grid');
+    if (bentoGrid) {
+      observer.observe(bentoGrid);
+    }
+
+    return () => {
+      if (bentoGrid) {
+        observer.unobserve(bentoGrid);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     const fetchProjects = async () => {
       const snapshot = await getDocs(collection(db, 'projects'));
@@ -27,6 +55,33 @@ function Home({ onReboot, setIsTearing, setIsShattering }) {
     fetchProjects();
   }, []);
 
+  // ASYMMETRIC CASCADE LAYOUT - permanent default
+  const bentoGrid = (
+    <div id="bento-grid" className="flex flex-col gap-6">
+      {/* Top row: About + Stats/Social */}
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-6">
+        <div className={`md:col-span-4 lg:col-span-5 bento-box ${bentoInView ? 'in-view' : ''}`} style={{ height: '506px' }}>
+          <AboutSection onReboot={onReboot} setIsTearing={setIsTearing} setIsShattering={setIsShattering} />
+        </div>
+        <div className="md:col-span-4 lg:col-span-3 flex flex-col gap-6">
+          <div className={`bento-box ${bentoInView ? 'in-view' : ''}`} style={{ height: '200px' }}>
+            <QuickStatsTerminal />
+          </div>
+          <div className={`bento-box ${bentoInView ? 'in-view' : ''}`} style={{ height: '280px' }}>
+            <SocialLinksHub />
+          </div>
+        </div>
+      </div>
+      
+      {/* Services - full width */}
+      <div className="grid grid-cols-1 gap-6">
+        <div className={`bento-box ${bentoInView ? 'in-view' : ''}`} style={{ minHeight: '400px' }}>
+          <ServicesSnapshotSection />
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <Helmet>
@@ -34,21 +89,11 @@ function Home({ onReboot, setIsTearing, setIsShattering }) {
         <meta name="description" content="Welcome to Connah.dev – a terminal-themed portfolio built by Connah Trotman, full-stack software developer with expertise in .NET, Angular, React, and cloud platforms. Explore immersive UIs, clean code, and real-world projects." />
       </Helmet>
       <div className="font-mono text-[#39FF14]">
-        {/* Full Screen Hero Section */}
         <HeroSection onReboot={onReboot} setIsTearing={setIsTearing} setIsShattering={setIsShattering} />
 
-        {/* Main Content Sections */}
-        <div id="main-content" className="px-6 pt-4 pb-16 max-w-6xl mx-auto space-y-24">
-          {/* Interactive Terminal - Right after hero as originally positioned */}
-          <AboutSection onReboot={onReboot} setIsTearing={setIsTearing} setIsShattering={setIsShattering} />
-
-          {/* Lead with Services - Most Important for Business */}
-          <ServicesSnapshotSection />
-
-          {/* Featured Projects - Show Your Work */}
+        <div id="main-content" className="px-6 pt-4 pb-16 max-w-7xl mx-auto space-y-24">
+          {bentoGrid}
           <ProjectsSection projects={projects} />
-
-          {/* Tech Stack - For Technical Credibility */}
           <TechStackSection />
         </div>
       </div>

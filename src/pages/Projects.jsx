@@ -50,7 +50,7 @@ export default function ProjectsPage() {
         <title>Projects | Connah.dev</title>
         <meta name="description" content="Explore software projects built by Connah Trotman, including enterprise apps, web platforms, and creative interfaces using .NET, React, Blazor, Firebase, SQL, and more." />
       </Helmet>
-    
+
     <div className="min-h-screen text-[#39FF14] font-mono">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
 

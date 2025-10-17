@@ -1,0 +1,79 @@
+/* ═══════════════════════════════════════════════════════════
+   ASCII ART BORDERS - Retro box-drawing characters
+   ═══════════════════════════════════════════════════════════ */
+
+/* Classic ASCII box border */
+.ascii-border {
+  border: 2px solid #39FF14;
+  position: relative;
+  box-shadow: 
+    inset 0 0 20px rgba(57, 255, 20, 0.1),
+    0 0 20px rgba(57, 255, 20, 0.2);
+  padding: 1rem;
+}
+
+/* Double-line border effect */
+.ascii-border-double {
+  border: 2px solid #39FF14;
+  outline: 1px solid #39FF14;
+  outline-offset: 2px;
+  box-shadow: 
+    inset 0 0 20px rgba(57, 255, 20, 0.1),
+    0 0 20px rgba(57, 255, 20, 0.2);
+}
+
+/* Corner decorations */
+.ascii-corners::before,
+.ascii-corners::after {
+  position: absolute;
+  color: #39FF14;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.ascii-corners::before {
+  content: '╔';
+  top: -2px;
+  left: -2px;
+}
+
+.ascii-corners::after {
+  content: '╗';
+  top: -2px;
+  right: -2px;
+}
+
+/* Animated border scan */
+.ascii-border-scan {
+  position: relative;
+  border: 2px solid #39FF14;
+}
+
+.ascii-border-scan::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(57, 255, 20, 0.8), 
+    transparent
+  );
+  animation: border-scan 3s linear infinite;
+}
+
+@keyframes border-scan {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    top: 100%;
+    opacity: 1;
+  }
+}

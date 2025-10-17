@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 
-export default function BackgroundEffects() {
+function BackgroundEffects() {
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
 
@@ -10,24 +10,27 @@ export default function BackgroundEffects() {
     let animationFrameId;
     let frame = 0;
     let isVisible = true;
-  
+    let lastFrameTime = 0;
+    const targetFPS = 30; // Reduced from 60fps for better performance
+    const frameInterval = 1000 / targetFPS;
+
     const dpr = window.devicePixelRatio || 1;
     let width = window.innerWidth;
     let height = window.innerHeight;
-  
+
     const resizeCanvas = () => {
       width = window.innerWidth;
       height = window.innerHeight;
-  
+
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
     };
-  
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-  
+
     const draw3DGrid = (ctx, width, height, time) => {
       ctx.lineWidth = 1;
 
@@ -52,9 +55,9 @@ export default function BackgroundEffects() {
 
       const chromaticPulse = Math.sin(time * 0.001) * 0.5 + 0.5;
       const aberrationLayers = [
-        { offsetX: -2, offsetY: 0, color: [255, 100, 0], opacity: 0.3 + chromaticPulse * 0.1 }, 
-        { offsetX: 0, offsetY: 0, color: [0, 255, 0], opacity: 1.0 }, 
-        { offsetX: 2, offsetY: 0, color: [0, 200, 255], opacity: 0.2 + chromaticPulse * 0.1 }  
+        { offsetX: -2, offsetY: -1, color: [255, 80, 0], opacity: 0.5 + chromaticPulse * 0.15 },
+        { offsetX: 0, offsetY: 0, color: [0, 255, 0], opacity: 1.0 },
+        { offsetX: 2, offsetY: 1, color: [0, 150, 255], opacity: 0.4 + chromaticPulse * 0.15 }
       ];
 
       aberrationLayers.forEach(layer => {
@@ -76,7 +79,7 @@ export default function BackgroundEffects() {
           grad.addColorStop(0.05, `rgba(${r}, ${g}, ${b}, ${Math.pow(0.05, 2.5) * centerFade * layer.opacity})`);
           grad.addColorStop(0.3, `rgba(${r}, ${g}, ${b}, ${Math.pow(0.3, 2.5) * centerFade * layer.opacity})`);
           grad.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, ${Math.pow(0.6, 2.5) * centerFade * layer.opacity})`);
-          grad.addColorStop(1.0, `rgba(${r}, ${g}, ${b}, ${Math.pow(1.0, 2.5) * centerFade * layer.opacity})`); // Full opacity at bottom
+          grad.addColorStop(1.0, `rgba(${r}, ${g}, ${b}, ${Math.pow(1.0, 2.5) * centerFade * layer.opacity})`);
 
           ctx.strokeStyle = grad;
           ctx.beginPath();
@@ -123,22 +126,22 @@ export default function BackgroundEffects() {
       const waveHeight = 60;
       const scrollSpeed = 0.05;
       const offsetY = (time * scrollSpeed) % height;
-  
+
       const gradient = ctx.createLinearGradient(0, offsetY, 0, offsetY + waveHeight);
       gradient.addColorStop(0, 'rgba(0, 255, 0, 0)');
       gradient.addColorStop(0.3, 'rgba(0, 255, 0, 0.04)');
       gradient.addColorStop(0.7, 'rgba(0, 255, 0, 0.04)');
       gradient.addColorStop(1, 'rgba(0, 255, 0, 0)');
-  
+
       ctx.fillStyle = gradient;
       ctx.fillRect(0, offsetY, width, waveHeight);
-  
+
       ctx.fillStyle = 'rgba(0, 255, 0, 0.02)';
       for (let y = 0; y < height; y += 2) {
         ctx.fillRect(0, y, width, 1);
       }
     };
-  
+
     const drawCursorEffect = (time) => {
       const { x, y } = mouseRef.current;
       const pulse = 0.5 + 0.5 * Math.sin(time * 0.002);
@@ -147,14 +150,14 @@ export default function BackgroundEffects() {
       const r = startColor[0] + (endColor[0] - startColor[0]) * pulse;
       const g = startColor[1] + (endColor[1] - startColor[1]) * pulse;
       const b = startColor[2] + (endColor[2] - startColor[2]) * pulse;
-  
+
       const gradient = ctx.createRadialGradient(x, y, 0, x, y, 50);
       gradient.addColorStop(0, `rgba(${r},${g},${b},0.2)`);
       gradient.addColorStop(1, `rgba(${r},${g},${b},0)`);
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
     };
-  
+
     const drawGlitch = () => {
       if (frame % 1000 === 0) {
         ctx.save();
@@ -162,7 +165,9 @@ export default function BackgroundEffects() {
         ctx.restore();
       }
     };
-  
+
+
+
    const draw = (time) => {
       if (!isVisible) return;
 
@@ -177,14 +182,20 @@ export default function BackgroundEffects() {
 
       frame++;
     };
-  
+
     const render = (time) => {
-      draw(time);
+      const elapsed = time - lastFrameTime;
+      
+      if (elapsed > frameInterval) {
+        lastFrameTime = time - (elapsed % frameInterval);
+        draw(time);
+      }
+      
       animationFrameId = requestAnimationFrame(render);
     };
-  
+
     render(0);
-  
+
     const handleMouseMove = (e) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
@@ -203,7 +214,7 @@ export default function BackgroundEffects() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
-  
+
 
   return (
     <canvas
@@ -220,3 +231,5 @@ export default function BackgroundEffects() {
     />
   );
 }
+
+export default memo(BackgroundEffects);

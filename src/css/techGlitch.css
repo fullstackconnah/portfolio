@@ -1,0 +1,132 @@
+
+@keyframes tech-glitch {
+  0% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+  5% {
+    transform: translate(-3px, 2px);
+    clip-path: inset(40% 0 30% 0);
+  }
+  10% {
+    transform: translate(3px, -2px);
+    clip-path: inset(10% 0 60% 0);
+  }
+  15% {
+    transform: translate(-2px, -3px);
+    clip-path: inset(70% 0 0 0);
+  }
+  20% {
+    transform: translate(2px, 3px);
+    clip-path: inset(0 0 50% 0);
+  }
+  25% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+  30% {
+    transform: translate(-4px, 0);
+    clip-path: inset(20% 0 40% 0);
+  }
+  35% {
+    transform: translate(4px, 0);
+    clip-path: inset(0);
+  }
+  40% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+  
+  70% {
+    transform: translate(-2px, 1px);
+    clip-path: inset(50% 0 0 0);
+  }
+  75% {
+    transform: translate(2px, -1px);
+    clip-path: inset(0 0 50% 0);
+  }
+  80% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+  100% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+}
+
+.animate-tech-glitch {
+  animation: tech-glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+
+.animate-tech-glitch::before,
+.animate-tech-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+}
+
+.animate-tech-glitch::before {
+  color: #ff0000;
+  animation: glitch-before 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: -1;
+}
+
+.animate-tech-glitch::after {
+  color: #00ffff;
+  animation: glitch-after 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: -1;
+}
+
+@keyframes glitch-before {
+  0%, 100% {
+    transform: translate(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(-2px, 1px);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translate(2px, -1px);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-1px, 2px);
+    opacity: 0.4;
+  }
+  70% {
+    transform: translate(1px, -2px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes glitch-after {
+  0%, 100% {
+    transform: translate(0);
+    opacity: 0;
+  }
+  15% {
+    transform: translate(2px, -1px);
+    opacity: 0.4;
+  }
+  35% {
+    transform: translate(-2px, 1px);
+    opacity: 0.3;
+  }
+  55% {
+    transform: translate(1px, -2px);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(-1px, 2px);
+    opacity: 0.2;
+  }
+}

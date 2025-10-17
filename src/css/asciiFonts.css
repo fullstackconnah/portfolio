@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════════════════════
+   ASCII/RETRO FONTS - Classic terminal and DOS fonts
+   ═══════════════════════════════════════════════════════════ */
+
+/* 1. CLASSIC MONOSPACE (Built-in, no import needed) */
+.font-courier {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.font-consolas {
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.font-monaco {
+  font-family: Monaco, 'Courier New', monospace;
+}
+
+/* 2. MODERN CODING FONTS (Built-in or common) */
+.font-fira-code {
+  font-family: 'Fira Code', monospace;
+}
+
+.font-source-code {
+  font-family: 'Source Code Pro', monospace;
+}
+
+.font-jetbrains {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 3. RETRO/TERMINAL FONTS (Free Google Fonts) */
+/* VT323 - Classic terminal font */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+.font-vt323 {
+  font-family: 'VT323', monospace;
+  letter-spacing: 0;
+}
+
+/* IBM Plex Mono - IBM terminal inspired */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+.font-ibm-plex {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Share Tech Mono - Tech/sci-fi look */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+.font-share-tech {
+  font-family: 'Share Tech Mono', monospace;
+}
+
+/* Courier Prime - Enhanced Courier */
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+.font-courier-prime {
+  font-family: 'Courier Prime', monospace;
+}
+
+/* Inconsolata - Clean monospace */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap');
+.font-inconsolata {
+  font-family: 'Inconsolata', monospace;
+}
+
+/* Overpass Mono - Modern terminal */
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@400;700&display=swap');
+.font-overpass {
+  font-family: 'Overpass Mono', monospace;
+}
+
+/* 4. PIXEL/BITMAP FONTS */
+/* Press Start 2P - 8-bit arcade style */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.font-press-start {
+  font-family: 'Press Start 2P', monospace;
+  letter-spacing: 0;
+}
+
+/* Pixelify Sans - Modern pixel font */
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap');
+.font-pixelify {
+  font-family: 'Pixelify Sans', monospace;
+}
+
+/* Silkscreen - Web-safe pixel font */
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+.font-silkscreen {
+  font-family: 'Silkscreen', monospace;
+}
+
+/* 5. DOS/BIOS STYLE FONTS */
+/* Azeret Mono - DOS-inspired */
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;700&display=swap');
+.font-azeret {
+  font-family: 'Azeret Mono', monospace;
+}
+
+/* Space Mono - Retro space terminal */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+.font-space-mono {
+  font-family: 'Space Mono', monospace;
+}
+
+/* Anonymous Pro - Terminal emulator font */
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&display=swap');
+.font-anonymous {
+  font-family: 'Anonymous Pro', monospace;
+}
+
+/* 6. SPECIAL EFFECTS FONTS */
+/* Orbitron - Futuristic/sci-fi */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Rajdhani - Tech/angular */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap');
+.font-rajdhani {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Audiowide - Retro tech */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+.font-audiowide {
+  font-family: 'Audiowide', sans-serif;
+}

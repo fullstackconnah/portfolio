@@ -1,72 +1,135 @@
 import { Link } from 'react-router-dom';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { use3DTilt } from '../../hooks/use3DTilt';
+import { useState, useEffect } from 'react';
+import { FaCode, FaCloud, FaHeadset, FaShoppingCart, FaNetworkWired, FaShieldAlt } from 'react-icons/fa';
 
 export default function ServicesSnapshotSection() {
+  const [scrollRef, inView] = useScrollAnimation({ threshold: 0.3 });
+  const [tiltRef, tiltStyle, glareStyle] = use3DTilt({ maxTilt: 5, scale: 1.01 });
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const services = [
-    { name: 'Custom websites & web apps' },
-    { name: 'WordPress builds & ongoing care' },
-    { name: 'E-commerce stores with secure payments' },
-    { name: 'Hosting, CI/CD, and deployment pipelines' },
-    { name: 'Technical consulting & performance reviews' }
+    { name: 'Custom Websites', icon: FaCode, desc: 'Full-stack web development' },
+    { name: 'Cloud Hosting', icon: FaCloud, desc: 'Scalable infrastructure' },
+    { name: 'IT Support', icon: FaHeadset, desc: '24/7 technical assistance' },
+    { name: 'E-commerce', icon: FaShoppingCart, desc: 'Online store solutions' },
+    { name: 'Network Solutions', icon: FaNetworkWired, desc: 'Enterprise networking' },
+    { name: 'Security Audits', icon: FaShieldAlt, desc: 'Vulnerability assessment' }
   ];
 
+
+  useEffect(() => {
+    if (!inView) return;
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % services.length);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [inView, services.length]);
+
   return (
-    <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
-      <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center justify-between">
-        <span className="text-[#39FF14]/80 text-sm">services.exe</span>
-        <span className="text-[#39FF14]/60 text-xs">pid: 1337</span>
-      </div>
+    <div
+      ref={scrollRef}
+      className={`scroll-fade-in ${inView ? 'in-view' : ''} h-full`}
+    >
+      <div
+        ref={tiltRef}
+        className="h-full relative"
+        style={{ ...tiltStyle, transformStyle: 'preserve-3d' }}
+      >
+        <section
+          className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden h-full flex flex-col"
+        >
+          { }
+          <div
+            className="absolute inset-0 rounded-lg pointer-events-none"
+            style={{
+              ...glareStyle,
+              mixBlendMode: 'overlay',
+              zIndex: 100
+            }}
+          />
 
-      <div className="p-6">
-        <div className="flex items-center mb-4">
-          <span className="text-[#39FF14] mr-2">$</span>
-          <span className="text-[#39FF14]/80">./services --list --verbose</span>
-        </div>
-
-        <div className="space-y-2 mb-6">
-          <p className="text-[#39FF14]/90 text-sm leading-relaxed">
-            <span className="text-[#39FF14]/60">[INFO]</span> Fast, secure, and easy-to-manage websites — built just for your business.
-          </p>
-          <p className="text-[#39FF14]/90 text-sm leading-relaxed">
-            <span className="text-[#39FF14]/60">[INFO]</span> Simple landing pages to powerful online stores — clear and hassle-free.
-          </p>
-        </div>
-
-        <div className="space-y-3 mb-6">
-          <p className="text-[#39FF14]/80 text-sm font-bold mb-3">Available Services:</p>
-          {services.map((service, index) => (
-            <div key={index} className="flex items-start space-x-3 group">
-              <span className="text-[#39FF14]/60 text-xs mt-1 font-mono">
-                [{(index + 1).toString().padStart(2, '0')}]
-              </span>
-              <div className="flex-1">
-                <span className="text-[#39FF14]/90 text-sm group-hover:text-[#39FF14] transition-colors">
-                  {service.name}
-                </span>
-              </div>
-              <span className="text-[#39FF14]/40 text-xs">✓</span>
+          { }
+          <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-4 py-2.5 flex items-center justify-between relative z-10">
+            <div className="flex items-center space-x-2">
+              <span className="text-[#39FF14] text-sm font-bold">SERVICES</span>
+              <span className="text-[#39FF14]/40 text-xs">v2.1.0</span>
             </div>
-          ))}
-        </div>
-
-        <div className="flex items-center justify-between border-t border-[#39FF14]/20 pt-4">
-          <Link
-            to="/services"
-            className="inline-flex items-center space-x-2 bg-transparent border-2 border-[#39FF14] px-4 py-2 rounded text-[#39FF14] text-sm font-mono transition-all duration-300 hover:bg-[#39FF14] hover:text-black hover:shadow-[0_0_20px_#39FF14]/60 hover:scale-105"
-          >
-            <span>&gt;_</span>
-            <span>Execute --view-all</span>
-          </Link>
-
-          <div className="text-right">
-            <p className="text-[#39FF14]/60 text-xs">
-              Runtime: 5+ years
-            </p>
-            <p className="text-[#39FF14]/60 text-xs">
-              Status: Active across Australia
-            </p>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 rounded-full bg-[#39FF14] animate-pulse"></div>
+              <span className="text-[#39FF14]/70 text-xs font-mono">{services.length} available</span>
+            </div>
           </div>
-        </div>
+
+          {/* Enhanced vertical layout for better space utilization */}
+          <div className="flex-1 p-6 flex flex-col relative z-10">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2 pointer-events-none">
+                <span className="text-[#39FF14] text-base">$</span>
+                <span className="text-[#39FF14]/80 text-sm">ls -la /services</span>
+              </div>
+              <Link
+                to="/services"
+                className="flex items-center space-x-2 bg-transparent border border-[#39FF14]/40 px-4 py-2 rounded text-[#39FF14] text-sm font-mono transition-all duration-300 hover:border-[#39FF14] hover:bg-[#39FF14]/10 group pointer-events-auto"
+              >
+                <span>View All</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+            </div>
+
+            {/* Featured service header - larger */}
+            <div className="mb-6 border-l-4 border-[#39FF14] pl-6 pointer-events-none">
+              <div className="flex items-center space-x-3 mb-2">
+                <span className="text-[#39FF14] text-2xl">◉</span>
+                <h3 className="text-[#39FF14] text-xl font-bold">
+                  {services[activeIndex].name}
+                </h3>
+              </div>
+              <p className="text-[#39FF14]/70 text-sm">
+                {services[activeIndex].desc}
+              </p>
+            </div>
+
+            {/* 3x2 grid of services with larger cards */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pointer-events-auto flex-1">
+              {services.map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <div
+                    key={index}
+                    className={`flex flex-col items-center justify-center p-5 rounded-lg border transition-all duration-300 cursor-pointer ${
+                      index === activeIndex
+                        ? 'bg-[#39FF14]/10 border-[#39FF14] shadow-[0_0_15px_#39FF14]/40'
+                        : 'border-[#39FF14]/30 hover:border-[#39FF14]/60 hover:bg-[#39FF14]/5'
+                    }`}
+                    onClick={() => setActiveIndex(index)}
+                    style={{
+                      animation: inView ? `fadeInUp 0.3s ease-out ${index * 0.08}s both` : 'none'
+                    }}
+                  >
+                    <Icon className={`text-3xl mb-3 transition-transform ${
+                      index === activeIndex ? 'text-[#39FF14] scale-110' : 'text-[#39FF14]/60'
+                    }`} />
+                    <span className={`text-sm font-mono text-center transition-colors ${
+                      index === activeIndex ? 'text-[#39FF14] font-bold' : 'text-[#39FF14]/70'
+                    }`}>
+                      {service.name}
+                    </span>
+                    <span className={`text-xs font-mono text-center mt-1 transition-colors ${
+                      index === activeIndex ? 'text-[#39FF14]/80' : 'text-[#39FF14]/40'
+                    }`}>
+                      {service.desc}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
   );
 }

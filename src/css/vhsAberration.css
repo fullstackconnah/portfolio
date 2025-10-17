@@ -1,0 +1,87 @@
+/* ═══════════════════════════════════════════════════════════
+   VHS CHROMATIC ABERRATION - Tape-style color separation
+   ═══════════════════════════════════════════════════════════ */
+
+/* Base VHS aberration effect */
+.vhs-aberration {
+  position: relative;
+}
+
+.vhs-aberration::before,
+.vhs-aberration::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.vhs-aberration::before {
+  color: #ff0055;
+  transform: translate(-2px, 0);
+}
+
+.vhs-aberration::after {
+  color: #00ffff;
+  transform: translate(2px, 0);
+}
+
+/* Activate on hover */
+.vhs-aberration:hover::before,
+.vhs-aberration:hover::after {
+  opacity: 0.7;
+}
+
+/* Animated VHS aberration */
+.vhs-aberration-animated::before,
+.vhs-aberration-animated::after {
+  opacity: 0.6;
+}
+
+.vhs-aberration-animated::before {
+  animation: vhs-shift-red 3s ease-in-out infinite;
+}
+.vhs-aberration-animated::after {
+  animation: vhs-shift-blue 3s ease-in-out infinite;
+}
+
+@keyframes vhs-shift-red {
+  0%, 100% {
+    transform: translate(-2px, 0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-4px, 1px);
+    opacity: 0.8;
+  }
+}
+
+@keyframes vhs-shift-blue {
+  0%, 100% {
+    transform: translate(2px, 0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(4px, -1px);
+    opacity: 0.8;
+  }
+}
+
+/* Strong VHS effect for dramatic moments */
+.vhs-aberration-strong::before,
+.vhs-aberration-strong::after {
+  opacity: 0.8;
+}
+
+.vhs-aberration-strong::before {
+  transform: translate(-4px, 0);
+}
+
+.vhs-aberration-strong::after {
+  transform: translate(4px, 0);
+}

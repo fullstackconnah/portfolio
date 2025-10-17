@@ -1,0 +1,118 @@
+/* Glitch Text Effect */
+.glitch-text-container {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text {
+  position: relative;
+  color: #39FF14;
+  text-shadow:
+    0 0 10px rgba(57, 255, 20, 0.8),
+    0 0 20px rgba(57, 255, 20, 0.6),
+    0 0 30px rgba(57, 255, 20, 0.4);
+  animation: glitch-pulse 3s ease-in-out infinite;
+}
+
+.glitch-layer-1,
+.glitch-layer-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+}
+
+.glitch-layer-1 {
+  color: #00ffff;
+  animation: glitch-1 0.5s infinite;
+  mix-blend-mode: screen;
+}
+
+.glitch-layer-2 {
+  color: #ff00ff;
+  animation: glitch-2 0.7s infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes glitch-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(57, 255, 20, 0.8),
+      0 0 20px rgba(57, 255, 20, 0.6),
+      0 0 30px rgba(57, 255, 20, 0.4);
+  }
+  50% {
+    text-shadow:
+      0 0 20px rgba(57, 255, 20, 1),
+      0 0 30px rgba(57, 255, 20, 0.8),
+      0 0 40px rgba(57, 255, 20, 0.6);
+  }
+}
+
+@keyframes glitch-1 {
+  0% {
+    transform: translate(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(-2px, 2px);
+    opacity: 0.8;
+  }
+  20% {
+    transform: translate(2px, -2px);
+    opacity: 0;
+  }
+  30%, 100% {
+    transform: translate(0);
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    transform: translate(0);
+    opacity: 0;
+  }
+  15% {
+    transform: translate(3px, -3px);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translate(-3px, 3px);
+    opacity: 0;
+  }
+  35%, 100% {
+    transform: translate(0);
+    opacity: 0;
+  }
+}
+
+/* Glitch bars */
+.glitch-bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #39FF14 20%,
+    #39FF14 80%,
+    transparent 100%);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.8);
+  animation: glitch-bar-sweep 1.5s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes glitch-bar-sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}

@@ -63,7 +63,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Bio Section */}
+        { }
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
             <span className="text-[#39FF14]/80 text-sm">bio.md</span>
@@ -152,7 +152,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Stats Section */}
+        { }
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
             <span className="text-[#39FF14]/80 text-sm">dev-stats.json</span>
@@ -182,7 +182,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Skills Section */}
+        { }
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
             <span className="text-[#39FF14]/80 text-sm">soft-skills.yml</span>
@@ -213,7 +213,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* System Info Section */}
+        { }
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
             <span className="text-[#39FF14]/80 text-sm">system-metrics.cfg</span>

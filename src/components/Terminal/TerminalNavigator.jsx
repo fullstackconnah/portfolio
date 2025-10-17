@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/TerminalCard.css';
+import WireframeGlobe from '../features/effects/WireframeGlobe';
 
 const bootSequence = [
   'Authenticating...',
@@ -65,10 +66,15 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
 
   useEffect(() => {
     if (scrollRef.current) {
-      // Prevent page scroll when terminal auto-scrolls
-      const currentScrollY = window.scrollY;
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-      window.scrollTo(0, currentScrollY);
+
+      requestAnimationFrame(() => {
+        if (scrollRef.current) {
+
+          const currentScrollY = window.scrollY;
+          scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+          window.scrollTo(0, currentScrollY);
+        }
+      });
     }
   }, [lines]);
 
@@ -77,16 +83,16 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
       const now = Date.now();
       if (now - lastActivity > 30000) {
         const msg = `[idle] ${idleMessages[Math.floor(Math.random() * idleMessages.length)]}`;
-        
+
         setLines(prev => {
           const lastLine = prev[prev.length - 1];
           if (lastLine && lastLine === msg) return prev;
-  
+
           const nonIdleLines = prev.filter(line => !line.startsWith('[idle]'));
           const recentIdleLines = prev.filter(line => line.startsWith('[idle]')).slice(-1);
           return [...nonIdleLines, ...recentIdleLines, msg];
         });
-  
+
         setLastActivity(now);
       }
     }, 5000);
@@ -140,7 +146,7 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
 
     version: () =>
       setLines(prev => [...prev.filter(l => l !== '$'), '> version', 'ConnahOS v1.0.3', '$']),
-  
+
     sysinfo: () => {
       const info = [
         'System Info:',
@@ -169,7 +175,7 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
       const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
       setLines(prev => [...prev.filter(l => l !== '$'), '> fortune', fortune, '$']);
     },
-  
+
     reboot: () => {
       setLines(prev => [...prev.filter(l => l !== '$'), '> reboot', 'System rebooting...']);
       setTimeout(() => {
@@ -192,11 +198,11 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
         '/root/.secrets',
         '/goodbye.txt'
       ];
-      
+
       setLines(prev => [...prev, '> rm -rf /', 'Initiating mass deletion...']);
-      
+
       let index = 0;
-      
+
       function deleteNext() {
         if (index < fakeFiles.length) {
           if (index === 0) {
@@ -315,9 +321,14 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
   };
 
   return (
-  <div className="bg-black text-[#39FF14] border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono h-[40vh] max-h-[50vh] sm:h-[500px] sm:max-h-[500px] overflow-hidden flex flex-col text-xs sm:text-sm">
+  <div className="relative bg-black text-[#39FF14] border border-[#39FF14] rounded-lg shadow-[0_0_10px_#39FF14] font-mono h-[40vh] max-h-[50vh] sm:h-[500px] sm:max-h-[500px] overflow-hidden flex flex-col text-xs sm:text-sm">
+    {/* Wireframe Globe Background */}
+    <div className="absolute inset-0 overflow-hidden rounded-lg">
+      <WireframeGlobe />
+    </div>
+
     {/* Terminal Title Bar */}
-    <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 rounded-t-lg px-4 py-2 flex items-center justify-between">
+    <div className="relative z-10 bg-[#1a1a1a] border-b border-[#39FF14]/30 rounded-t-lg px-4 py-2 flex items-center justify-between">
       <div className="flex items-center gap-3">
         {/* Window Controls */}
         <div className="flex items-center gap-2">
@@ -335,10 +346,10 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
     </div>
 
     {/* Terminal Content */}
-    <div className="flex-1 flex flex-col p-3 sm:p-4">
+    <div className="relative z-10 flex-1 flex flex-col p-3 sm:p-4 min-h-0">
     <div
     ref={scrollRef}
-    className="flex-1 overflow-y-auto whitespace-pre-wrap break-words leading-tight mb-2 pr-2 scrollbar-thin scrollbar-thumb-[#39FF14]/60 scrollbar-track-transparent"
+    className="flex-1 overflow-y-auto whitespace-pre-wrap break-words leading-tight mb-2 pr-2 scrollbar-thin scrollbar-thumb-[#39FF14]/60 scrollbar-track-transparent min-h-0"
     >
         {lines.map((line, i) => {
             const baseClass =

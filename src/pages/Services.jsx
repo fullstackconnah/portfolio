@@ -30,12 +30,12 @@ export default function ServicesPage() {
       <div className="min-h-screen text-[#39FF14] font-mono">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
 
-          {/* ASCII Title */}
+          { }
           <div className="mb-10">
             <AsciiTitle asciiArt={asciiArt} />
           </div>
 
-          {/* Return Link */}
+          { }
           <p
             onClick={() => navigate(-1)}
             className="text-green-400 font-mono text-sm underline cursor-pointer hover:text-[#39FF14] transition mb-6"
@@ -64,7 +64,7 @@ export default function ServicesPage() {
               </div>
             </section>
 
-            {/* What I Do Section */}
+            { }
             <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
               <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center justify-between">
                 <span className="text-[#39FF14]/80 text-sm">service-catalog.json</span>
@@ -99,7 +99,7 @@ export default function ServicesPage() {
               </div>
             </section>
 
-            {/* How It Works Section */}
+            { }
             <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
               <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
                 <span className="text-[#39FF14]/80 text-sm">workflow.sh</span>
@@ -131,7 +131,7 @@ export default function ServicesPage() {
               </div>
             </section>
 
-            {/* Project Lifecycle Section */}
+            { }
             <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
               <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center justify-between">
                 <span className="text-[#39FF14]/80 text-sm">project-pipeline.log</span>
@@ -186,7 +186,7 @@ export default function ServicesPage() {
               </div>
             </section>
 
-            {/* Why Choose Me Section */}
+            { }
             <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
               <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
                 <span className="text-[#39FF14]/80 text-sm">competitive-advantages.md</span>
@@ -216,7 +216,7 @@ export default function ServicesPage() {
               </div>
             </section>
 
-            {/* Pricing Section */}
+            { }
             <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
               <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center justify-between">
                 <span className="text-[#39FF14]/80 text-sm">pricing-table.csv</span>
@@ -290,7 +290,7 @@ export default function ServicesPage() {
               </div>
             </section>
 
-            {/* FAQ Section */}
+            { }
             <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
               <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center justify-between">
                 <span className="text-[#39FF14]/80 text-sm">faq-database.sql</span>
@@ -325,7 +325,7 @@ export default function ServicesPage() {
               </div>
             </section>
 
-            {/* Contact Section */}
+            { }
             <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
               <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
                 <span className="text-[#39FF14]/80 text-sm">contact.sh</span>

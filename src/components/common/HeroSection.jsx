@@ -1,93 +1,298 @@
-import AsciiTitle from './AsciiTitle';
-
-const asciiArt = [
-  '    ______                        __         __         ',
-  '   / ____/___  ____  ____  ____ _/ /_   ____/ /__ _   __',
-  '  / /   / __ \\/ __ \\/ __ \\/ __ `/ __ \\ / __  / _ \\ | / /',
-  ' / /___/ /_/ / / / / / / / /_/ / / / // /_/ /  __/ |/ / ',
-  ' \\____/\\____/_/ /_/_/ /_/\\__,_/_/ /_(_)__,_/\\___/|___/  '
-];
+import { useState, useEffect, useMemo } from 'react';
+import '../../css/heroGlitch.css';
+import WireframeGlobe from '../features/effects/WireframeGlobe';
 
 export default function HeroSection({ onReboot, setIsTearing, setIsShattering }) {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [buttonsHidden, setButtonsHidden] = useState(false);
+  const [hasScrolledDown, setHasScrolledDown] = useState(false);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(false);
+  const [lastScrollProgress, setLastScrollProgress] = useState(0);
+  const [lastSnapTime, setLastSnapTime] = useState(0);
+  const [typedService, setTypedService] = useState('');
+  const [serviceIndex, setServiceIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const services = useMemo(() => ['Custom Websites', 'IT Support & Consulting', 'Business Solutions', 'Cloud Hosting', 'E-commerce Solutions', 'Network Solutions'], []);
+
+
+  useEffect(() => {
+    const currentService = services[serviceIndex];
+
+    let delay = isDeleting ? 50 : 100;
+
+
+    if (!isDeleting && typedService.length === currentService.length) {
+      delay = 2000;
+    } else if (isDeleting && typedService.length === 0) {
+      delay = 500;
+    }
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+
+        if (typedService.length < currentService.length) {
+          setTypedService(currentService.substring(0, typedService.length + 1));
+        } else {
+
+          setIsDeleting(true);
+        }
+      } else {
+
+        if (typedService.length > 0) {
+          setTypedService(currentService.substring(0, typedService.length - 1));
+        } else {
+
+          setIsDeleting(false);
+          setServiceIndex((prev) => (prev + 1) % services.length);
+        }
+      }
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [typedService, isDeleting, serviceIndex, services]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isAutoScrolling) return;
+
+      const scrollPosition = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const progress = Math.min(scrollPosition / viewportHeight, 1);
+
+      setLastScrollProgress(scrollProgress);
+      setScrollProgress(progress);
+
+
+      setButtonsHidden(progress >= 0.3);
+
+
+      if (progress >= 0.3) {
+        setHasScrolledDown(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrollProgress, isAutoScrolling]);
+
+
+  useEffect(() => {
+    if (isAutoScrolling) return;
+
+    const now = Date.now();
+    const timeSinceLastSnap = now - lastSnapTime;
+
+
+    if (timeSinceLastSnap < 1500) return;
+
+    const isScrollingDown = scrollProgress > lastScrollProgress;
+    const isScrollingUp = scrollProgress < lastScrollProgress;
+
+
+    const bentoGrid = document.getElementById('bento-grid');
+    const bentoInView = bentoGrid && bentoGrid.getBoundingClientRect().top < window.innerHeight * 0.8;
+
+
+    if (bentoInView && isScrollingDown) return;
+
+
+    if (scrollProgress >= 0.3 && scrollProgress <= 1.0) {
+
+      if (isScrollingDown) {
+        setIsAutoScrolling(true);
+        setLastSnapTime(now);
+
+        const contentElement = document.getElementById('main-content');
+        if (contentElement) {
+          const elementPosition = contentElement.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - (window.innerHeight * 0.15);
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+
+          setTimeout(() => setIsAutoScrolling(false), 1000);
+        }
+      }
+
+      else if (isScrollingUp) {
+        setIsAutoScrolling(true);
+        setLastSnapTime(now);
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+
+        setTimeout(() => setIsAutoScrolling(false), 1000);
+      }
+    }
+  }, [scrollProgress, lastScrollProgress, isAutoScrolling, lastSnapTime]);
+
+
+  useEffect(() => {
+    const mainContent = document.getElementById('main-content');
+    if (!mainContent) return;
+
+    if (scrollProgress < 0.3) {
+
+      mainContent.style.visibility = 'hidden';
+      mainContent.style.pointerEvents = 'none';
+    } else {
+
+      mainContent.style.visibility = 'visible';
+      mainContent.style.pointerEvents = 'auto';
+    }
+  }, [scrollProgress]);
+
   const scrollToContent = () => {
     const contentElement = document.getElementById('main-content');
     if (contentElement) {
-      contentElement.scrollIntoView({ behavior: 'smooth' });
+      const elementPosition = contentElement.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - (window.innerHeight * 0.10);
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
   return (
-    <section className="relative h-[calc(90vh)] flex flex-col justify-center text-[#39FF14] font-mono px-4">
-      <div className="flex-1 flex items-center justify-center w-full max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-center">
+    <section className="relative h-[130vh] flex flex-col justify-center text-[#39FF14] font-mono px-4">
 
-          <div className="space-y-8">
-            <div className="opacity-0 animate-crt-turn-on" style={{ animationDelay: '0.1s' }}>
-              <AsciiTitle asciiArt={asciiArt} />
-            </div>
+      { }
+      <div
+        className="fixed hidden lg:block"
+        style={{
+          top: '50vh',
+          left: '30%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 9996,
+          opacity: scrollProgress >= 0.3 ? 0 : 1,
+          transition: hasScrolledDown ? 'opacity 0.3s ease-out' : 'none',
+          pointerEvents: 'none'
+        }}
+      >
+        <WireframeGlobe />
+      </div>
 
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() => scrollToContent()}
-                className="opacity-0 animate-crt-turn-on px-6 py-3 bg-transparent border-2 border-[#39FF14] text-[#39FF14] font-mono text-sm rounded-md hover:bg-[#39FF14] hover:text-black transition-all duration-300 transform hover:scale-105 shadow-[0_0_10px_#39FF14]/30 hover:shadow-[0_0_20px_#39FF14]/60"
-                style={{ animationDelay: '0.5s' }}
-              >
-                &gt; Explore Portfolio
-              </button>
+      { }
+      <div
+        className="fixed lg:hidden"
+        style={{
+          top: scrollProgress <= 0.3 ? 'calc(38vh + 20px)' : `calc(38vh - ${((scrollProgress - 0.3) / 0.7) * 38}vh + ${(150 * ((scrollProgress - 0.3) / 0.7))}px + 20px)`,
+          left: 'calc(50% + 15px)',
+          transform: 'translate(-50%, -50%) scale(0.9)',
+          zIndex: 9995,
+          opacity: scrollProgress >= 0.3 ? 0 : 1,
+          transition: hasScrolledDown ? 'opacity 0.3s ease-out' : 'none',
+          pointerEvents: 'none',
+          width: '350px',
+          height: '350px'
+        }}
+      >
+        <WireframeGlobe />
+      </div>
 
-              <a
-                href="/projects"
-                className="opacity-0 animate-crt-turn-on px-6 py-3 bg-transparent border-2 border-[#39FF14]/60 text-[#39FF14]/80 font-mono text-sm rounded-md hover:border-[#39FF14] hover:text-[#39FF14] hover:bg-[#39FF14]/10 transition-all duration-300 transform hover:scale-105"
-                style={{ animationDelay: '0.7s' }}
-              >
-                &gt; View Projects
-              </a>
-
-              <a
-                href="/services"
-                className="opacity-0 animate-crt-turn-on px-6 py-3 bg-transparent border-2 border-[#39FF14]/60 text-[#39FF14]/80 font-mono text-sm rounded-md hover:border-[#39FF14] hover:text-[#39FF14] hover:bg-[#39FF14]/10 transition-all duration-300 transform hover:scale-105"
-                style={{ animationDelay: '0.9s' }}
-              >
-                &gt; Services
-              </a>
-            </div>
+      { }
+      <div
+        className="fixed hidden lg:flex flex-col space-y-6 text-right"
+        style={{
+          top: '50vh',
+          right: '10%',
+          transform: 'translateY(-50%)',
+          zIndex: 9998,
+          minWidth: 'max-content',
+          opacity: scrollProgress >= 0.3 ? 0 : 1,
+          transition: hasScrolledDown ? 'opacity 0.3s ease-out' : 'none',
+          pointerEvents: buttonsHidden ? 'none' : 'auto'
+        }}
+      >
+        <div
+          className={`space-y-8 ${!hasScrolledDown ? 'opacity-0 animate-crt-turn-on' : ''}`}
+          style={{
+            animationDelay: !hasScrolledDown ? '1.1s' : '0s'
+          }}
+        >
+          <div className="space-y-1">
+            <h2 className="text-2xl font-bold text-[#39FF14]">Web Developer & IT Services</h2>
+            <p className="text-[#39FF14]/70 text-sm">Custom solutions for small business</p>
           </div>
 
-          <div className="lg:flex hidden justify-end items-center">
-            <div className="opacity-0 animate-crt-turn-on space-y-6 text-right pr-8" style={{ animationDelay: '1.1s' }}>
-              <div className="space-y-2">
-                <h2 className="text-xl font-bold text-[#39FF14]">Web Developer & IT Services</h2>
-                <p className="text-[#39FF14]/80 text-sm">Custom solutions for small business</p>
-              </div>
-
-              <div className="space-y-2">
-                <p className="text-[#39FF14]/60 text-sm font-mono">Services offered:</p>
-                <div className="space-y-1 text-sm text-[#39FF14]/80">
-                  <p>Custom Websites</p>
-                  <p>IT Support & Consulting</p>
-                  <p>Business Solutions</p>
-                </div>
-              </div>
+          <div className="space-y-3">
+            <div className="text-lg text-[#39FF14] min-h-[28px] flex items-center justify-end font-mono">
+              <span>
+                {typedService}
+                <span className="animate-pulse ml-1">_</span>
+              </span>
             </div>
           </div>
-
         </div>
       </div>
 
-      <div className="flex justify-center mb-8">
+      { }
+      <div
+        className="fixed lg:hidden flex flex-col items-center text-center px-4"
+        style={{
+          top: '60vh',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 9998,
+          width: '100%',
+          maxWidth: '320px',
+          opacity: scrollProgress >= 0.3 ? 0 : 1,
+          transition: hasScrolledDown ? 'opacity 0.3s ease-out' : 'none',
+          pointerEvents: buttonsHidden ? 'none' : 'auto'
+        }}
+      >
+        <div
+          className={`space-y-3 ${!hasScrolledDown ? 'opacity-0 animate-crt-turn-on' : ''}`}
+          style={{
+            animationDelay: !hasScrolledDown ? '1.1s' : '0s'
+          }}
+        >
+          <div className="space-y-1">
+            <h2 className="text-base font-bold text-[#39FF14]">Web Developer & IT Services</h2>
+            <p className="text-[#39FF14]/70 text-xs">Custom solutions for small business</p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-sm text-[#39FF14] min-h-[20px] flex items-center justify-center font-mono">
+              <span>
+                {typedService}
+                <span className="animate-pulse ml-1">_</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      { }
+      <div
+        className="fixed bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-9998"
+        style={{
+          opacity: scrollProgress >= 0.3 ? 0 : 1,
+          transition: 'opacity 0.3s ease-out',
+          pointerEvents: buttonsHidden ? 'none' : 'auto'
+        }}
+      >
         <button
           onClick={scrollToContent}
           className="animate-slow-bounce cursor-pointer group"
           aria-label="Scroll to content"
         >
-        <div className="text-center">
-          <div className="text-[#39FF14]/70 group-hover:text-[#39FF14] transition-colors duration-300">
-            <svg className="w-8 h-8 mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M7.41 8.84L12 13.42l4.59-4.58L18 10.25l-6 6-6-6 1.41-1.41z"/>
-            </svg>
-            <div className="text-sm font-mono">Scroll Down</div>
+          <div className="text-center">
+            <div className="text-[#39FF14]/70 group-hover:text-[#39FF14] transition-colors duration-300">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-1 sm:mb-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7.41 8.84L12 13.42l4.59-4.58L18 10.25l-6 6-6-6 1.41-1.41z"/>
+              </svg>
+              <div className="text-xs sm:text-sm font-mono">Scroll Down</div>
+            </div>
           </div>
-        </div>
         </button>
       </div>
 

@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════
+   RETRO/CYBERPUNK EFFECT IMPORTS
+   ═══════════════════════════════════════════════════════════ */
+@import './css/phosphorGlow.css';
+@import './css/vhsAberration.css';
+@import './css/retroLoaders.css';
+@import './css/terminalCursor.css';
+@import './css/asciiBorders.css';
+@import './css/pixelEffects.css';
+@import './css/bootSequence.css';
+@import './css/rainbowText.css';
+@import './css/asciiHeaderEffects.css';
+@import './css/asciiFonts.css';
+
 html {
   scroll-behavior: smooth;
 }
@@ -90,4 +104,29 @@ body {
 .animate-crt-turn-on {
   animation: crtTurnOn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   animation-fill-mode: forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #39FF14;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 3px;
 }

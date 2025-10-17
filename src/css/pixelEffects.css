@@ -1,0 +1,64 @@
+/* ═══════════════════════════════════════════════════════════
+   PIXEL & DOT MATRIX EFFECTS - Retro pixelation
+   ═══════════════════════════════════════════════════════════ */
+
+/* Force pixelated rendering */
+.pixelate {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Pixelate transition effect */
+.pixelate-transition {
+  animation: pixelate-in-out 0.6s ease-in-out;
+}
+
+@keyframes pixelate-in-out {
+  0% {
+    filter: blur(0px);
+  }
+  50% {
+    filter: blur(5px) contrast(150%);
+  }
+  100% {
+    filter: blur(0px);
+  }
+}
+
+/* Dot matrix overlay */
+.dot-matrix {
+  position: relative;
+}
+
+.dot-matrix::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* LCD pixel grid effect */
+.lcd-grid {
+  position: relative;
+}
+
+.lcd-grid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0, 0, 0, 0.1) 2px, rgba(0, 0, 0, 0.1) 4px);
+  pointer-events: none;
+}

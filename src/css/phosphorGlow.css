@@ -1,0 +1,51 @@
+/* ═══════════════════════════════════════════════════════════
+   PHOSPHOR GLOW EFFECTS - Classic CRT Phosphor Afterglow
+   ═══════════════════════════════════════════════════════════ */
+
+/* Base terminal text glow */
+.text-terminal-glow {
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 15px currentColor,
+    0 0 20px rgba(57, 255, 20, 0.5);
+}
+
+/* Strong glow for headings and emphasis */
+.text-glow-strong {
+  text-shadow: 
+    0 0 7px currentColor,
+    0 0 14px currentColor,
+    0 0 21px currentColor,
+    0 0 42px rgba(57, 255, 20, 0.8),
+    0 0 82px rgba(57, 255, 20, 0.6);
+}
+
+/* Subtle glow for body text */
+.text-glow-subtle {
+  text-shadow: 
+    0 0 3px currentColor,
+    0 0 6px rgba(57, 255, 20, 0.3);
+}
+
+/* Pulsing glow animation */
+.text-glow-pulse {
+  animation: phosphor-pulse 2s ease-in-out infinite;
+}
+
+@keyframes phosphor-pulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 15px currentColor,
+      0 0 20px rgba(57, 255, 20, 0.5);
+  }
+  50% {
+    text-shadow: 
+      0 0 8px currentColor,
+      0 0 16px currentColor,
+      0 0 24px currentColor,
+      0 0 32px rgba(57, 255, 20, 0.8);
+  }
+}

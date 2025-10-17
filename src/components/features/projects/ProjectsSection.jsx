@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 import ProjectCard from './ProjectCard';
+import { useScrollAnimation } from '../../../hooks/useScrollAnimation';
 
 export default function ProjectsSection({ projects }) {
+  const [ref, inView] = useScrollAnimation({ threshold: 0.1 });
   return (
-    <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
+    <section
+      ref={ref}
+      className={`relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden scroll-fade-in ${inView ? 'in-view' : ''}`}>
       <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center justify-between">
         <span className="text-[#39FF14]/80 text-sm">projects.db</span>
         <span className="text-[#39FF14]/60 text-xs">featured: {projects.length}</span>
@@ -21,9 +25,16 @@ export default function ProjectsSection({ projects }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} {...project} />
+        { }
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              className={`stagger-item ${inView ? 'in-view' : ''}`}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
+              <ProjectCard {...project} />
+            </div>
           ))}
         </div>
 

@@ -44,11 +44,11 @@ function ProjectDetail() {
       <h1 className="text-3xl font-bold mb-4 border-b border-[#39FF14] pb-2">
         {project.title}
       </h1>
-  
+
       <p className="mb-6 whitespace-pre-line">
         {project.description}
       </p>
-  
+
       <div className="flex flex-wrap gap-2 mb-6">
         {project.tech.map((t, i) => (
           <span
@@ -59,7 +59,7 @@ function ProjectDetail() {
           </span>
         ))}
       </div>
-  
+
       {project.images?.length > 0 && (
         <Swiper spaceBetween={20} slidesPerView={1} className="mb-10">
           {project.images.map((url, i) => (

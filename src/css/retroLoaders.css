@@ -1,0 +1,73 @@
+/* ═══════════════════════════════════════════════════════════
+   RETRO LOADING BARS & PROGRESS INDICATORS
+   ═══════════════════════════════════════════════════════════ */
+
+/* Classic loading bar with scrolling stripes */
+.retro-loader {
+  background: repeating-linear-gradient(
+    90deg,
+    #39FF14 0px,
+    #39FF14 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  animation: loading-scroll 1s linear infinite;
+}
+
+@keyframes loading-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 0; }
+}
+
+/* Pixelated loading bar */
+.retro-loader-pixel {
+  position: relative;
+  background: #1a1a1a;
+  border: 2px solid #39FF14;
+  height: 20px;
+  overflow: hidden;
+}
+
+.retro-loader-pixel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #39FF14 0px,
+    #39FF14 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  animation: pixel-load 2s ease-in-out forwards;
+  box-shadow: inset 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+@keyframes pixel-load {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* DOS-style progress spinner */
+.retro-spinner {
+  display: inline-block;
+  animation: spinner-rotate 1s steps(8) infinite;
+}
+
+@keyframes spinner-rotate {
+  0% { content: '|'; }
+  12.5% { content: '/'; }
+  25% { content: '─'; }
+  37.5% { content: '\\'; }
+  50% { content: '|'; }
+  62.5% { content: '/'; }
+  75% { content: '─'; }
+  87.5% { content: '\\'; }
+  100% { content: '|'; }
+}
+
+.retro-spinner::before {
+  content: '|';
+}

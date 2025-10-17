@@ -35,26 +35,26 @@ function AdminDashboard() {
       featured: form.featured,
       demoUrl: form.demoUrl,
       codeUrl: form.codeUrl,
-      images: form.images || [] 
+      images: form.images || []
     };
-  
+
     if (imageFiles && imageFiles.length > 0) {
       const { getStorage, ref, uploadBytes, getDownloadURL } = await import('firebase/storage');
       const storage = getStorage();
       const newImageUrls = [];
-  
+
       for (const file of imageFiles) {
         if (!(file instanceof File)) continue;
-  
+
         const imgRef = ref(storage, `projects/${Date.now()}_${file.name}`);
         await uploadBytes(imgRef, file);
         const url = await getDownloadURL(imgRef);
         newImageUrls.push(url);
       }
-  
+
       updates.images = [...updates.images, ...newImageUrls];
     }
-  
+
     await updateDoc(doc(db, 'projects', id), updates);
   };
 

@@ -8,11 +8,11 @@ import { useNavigate } from 'react-router-dom';
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-  
+
     const handleLogin = async (e) => {
       e.preventDefault();
       setError('');
-  
+
       try {
         await signInWithEmailAndPassword(auth, email, password);
         onLogin();
@@ -30,7 +30,7 @@ import { useNavigate } from 'react-router-dom';
     >
       <h2 className="text-xl mb-4 text-center">Login</h2>
       {error && <p className="text-red-500 bg-black border border-red-500 p-2 rounded text-xs mb-4">{error}</p>}
-  
+
       <input
         type="email"
         placeholder="Email"
@@ -39,7 +39,7 @@ import { useNavigate } from 'react-router-dom';
         className="w-full mb-4 p-2 bg-black border border-[#39FF14] text-[#39FF14] placeholder:text-[#39FF14]/50 rounded focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
         autoComplete="off"
       />
-  
+
       <input
         type="password"
         placeholder="Password"
@@ -48,7 +48,7 @@ import { useNavigate } from 'react-router-dom';
         className="w-full mb-6 p-2 bg-black border border-[#39FF14] text-[#39FF14] placeholder:text-[#39FF14]/50 rounded focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
         autoComplete="off"
       />
-  
+
       <button
         type="submit"
         className="w-full bg-[#39FF14] text-black font-semibold py-2 rounded hover:bg-green-400 transition"

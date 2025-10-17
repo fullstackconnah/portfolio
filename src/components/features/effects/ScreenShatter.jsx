@@ -86,5 +86,5 @@ export default function CanvasScreenShatter({ onComplete }) {
     });
   }, [onComplete]);
 
-  return null; 
+  return null;
 }

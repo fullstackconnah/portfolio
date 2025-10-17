@@ -1,67 +1,107 @@
+import { useState } from 'react';
+import { useStaggerAnimation } from '../../hooks/useScrollAnimation';
+import '../../css/techGlitch.css';
+import { 
+  FaReact, FaAngular, FaHtml5, FaSass, FaJs, FaNode, FaPython, FaPhp, FaDocker, FaGitAlt, FaWordpress, FaDatabase, FaServer, FaCode, FaCloud
+} from 'react-icons/fa';
+import { 
+  SiDotnet, SiTypescript, SiTailwindcss, SiPostgresql, SiFirebase, SiNginx,
+  SiPostman, SiSwagger, SiVite, SiJest, SiGithubactions, SiDatadog
+} from 'react-icons/si';
+
 export default function TechStackSection() {
-  const leftStack = {
-    'Programming Languages': ['C#', 'JavaScript', 'TypeScript', 'SQL', 'YAML', 'Bash / PowerShell', 'Python', 'PHP'],
-    'Frontend Development': ['React', 'Angular', 'Blazor', 'TailwindCSS', 'HTML/CSS', 'SASS/SCSS', 'Jest'],
-    'Backend Development': ['.NET 8 / .NET 9', '.NET Framework 4.8', 'Node.js', 'Entity Framework', 'ASP.NET Core Web API', 'ASP.NET MVC', 'LINQ', 'RESTful API Design', 'PostgreSQL', 'MSSQL Server 2019'],
-    'Monitoring & Operations': ['Datadog', 'Azure App Insights', 'IIS', 'Nginx'],
-    'CMS & Web Platforms': ['WordPress', 'Elementor', 'Pods', 'WooCommerce']
+  const [glitchingTech, setGlitchingTech] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(null);
+
+  const techIcons = {
+    'React': FaReact,
+    'Angular': FaAngular,
+    'Blazor': FaCode,
+    'TailwindCSS': SiTailwindcss,
+    'HTML/CSS': FaHtml5,
+    'SASS/SCSS': FaSass,
+    'JavaScript': FaJs,
+    'TypeScript': SiTypescript,
+    'Jest': SiJest,
+    '.NET 8/9': SiDotnet,
+    '.NET Framework': SiDotnet,
+    'Node.js': FaNode,
+    'Entity Framework': FaDatabase,
+    'ASP.NET Core': SiDotnet,
+    'RESTful API': FaServer,
+    'PostgreSQL': SiPostgresql,
+    'MSSQL': FaDatabase,
+    'C#': FaCode,
+    'Python': FaPython,
+    'PHP': FaPhp,
+    'Azure Services': FaCloud,
+    'Azure Blob Storage': FaCloud,
+    'Firebase': SiFirebase,
+    'Firestore': SiFirebase,
+    'Azure DevOps': FaCloud,
+    'cPanel': FaServer,
+    'Git': FaGitAlt,
+    'Docker': FaDocker,
+    'CI/CD': FaGitAlt,
+    'GitHub Actions': SiGithubactions,
+    'Azure Pipelines': FaCloud,
+    'Swagger': SiSwagger,
+    'Postman': SiPostman,
+    'Vite': SiVite,
+    'VS 2022': FaCode,
+    'VS Code': FaCode,
+    'Datadog': SiDatadog,
+    'Azure Insights': FaCloud,
+    'IIS': FaServer,
+    'Nginx': SiNginx,
+    'WordPress': FaWordpress,
+    'WooCommerce': FaWordpress
   };
 
-  const rightStack = {
-    'DevOps & CI/CD': ['Git', 'Docker', 'Docker Containerisation', 'CI/CD', 'Github Actions', 'Azure Devops Pipelines', 'Swagger / OpenAPI', 'Postman', 'Vite'],
-    'Cloud & Infrastructure': ['Azure App Services', 'Azure Blob Storage', 'Azure DevOps Boards', 'Firebase', 'Firebase Authentication', 'Firestore', 'cPanel Servers', 'Atlassian Suite'],
-    'Tooling & IDEs': ['VS 2022', 'Visual Studio Code'],
-    'Soft Skills & Practices': [
-      'Test-Driven Development',
-      'Leadership',
-      'Communication',
-      'Problem Solving',
-      'Collaboration',
-      'Initiative',
-      'Stakeholder Engagement',
-    'Agile/Hybrid Methodologies']
+  const techCategories = [
+    {
+      name: 'Frontend',
+      prefix: '[FE]',
+      techs: ['React', 'Angular', 'Blazor', 'TailwindCSS', 'HTML/CSS', 'SASS/SCSS', 'JavaScript', 'TypeScript', 'Jest']
+    },
+    {
+      name: 'Backend',
+      prefix: '[BE]',
+      techs: ['.NET 8/9', '.NET Framework', 'Node.js', 'Entity Framework', 'ASP.NET Core', 'RESTful API', 'PostgreSQL', 'MSSQL', 'C#', 'Python', 'PHP']
+    },
+    {
+      name: 'Cloud',
+      prefix: '[CL]',
+      techs: ['Azure Services', 'Azure Blob Storage', 'Firebase', 'Firestore', 'Azure DevOps', 'cPanel']
+    },
+    {
+      name: 'DevOps',
+      prefix: '[DO]',
+      techs: ['Git', 'Docker', 'CI/CD', 'GitHub Actions', 'Azure Pipelines', 'Swagger', 'Postman', 'Vite']
+    },
+    {
+      name: 'Tools',
+      prefix: '[TL]',
+      techs: ['VS 2022', 'VS Code', 'Datadog', 'Azure Insights', 'IIS', 'Nginx', 'WordPress', 'WooCommerce']
+    }
+  ];
+
+  const totalTechs = techCategories.reduce((sum, cat) => sum + cat.techs.length, 0);
+  const [ref, inView, getDelay] = useStaggerAnimation(totalTechs, { delayIncrement: 30 });
+
+  const handleTechHover = (tech) => {
+    setGlitchingTech(tech);
+    setTimeout(() => setGlitchingTech(null), 400);
   };
 
-  const totalTechs = Object.values(leftStack).flat().length + Object.values(rightStack).flat().length;
-
-  const renderStack = (stack) =>
-    Object.entries(stack).map(([category, techs], index, arr) => (
-      <div key={category} className="group">
-        <div className="flex items-center space-x-2 mb-3">
-          <span className="text-[#39FF14]/60 text-xs font-mono">
-            [{(category.match(/\b\w/g) || []).join('').toUpperCase()}]
-          </span>
-          <div className="flex-1 flex items-center">
-            <span className="text-[#39FF14] text-sm font-bold uppercase tracking-wider">
-              {category}
-            </span>
-            <div className="flex-1 ml-3 h-px bg-gradient-to-r from-[#39FF14]/40 to-transparent"></div>
-          </div>
-          <span className="text-[#39FF14]/60 text-xs">
-            {techs.length} items
-          </span>
-        </div>
-        <div className="flex flex-wrap gap-2 mb-6">
-          {techs.map((tech, techIndex) => (
-            <span
-              key={tech}
-              className="px-3 py-1.5 border border-[#39FF14]/60 rounded bg-black/50 text-[#39FF14]/90 text-xs hover:bg-[#39FF14] hover:text-black transition-all duration-200 shadow-[0_0_5px_#39FF14]/30 hover:shadow-[0_0_15px_#39FF14] hover:scale-105 cursor-default break-words backdrop-blur-sm"
-              style={{
-                animationDelay: `${techIndex * 0.05}s`
-              }}
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-        {index !== arr.length - 1 && (
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#39FF14]/20 to-transparent mb-6"></div>
-        )}
-      </div>
-    ));
+  const handleCategoryClick = (categoryName) => {
+    setActiveCategory(activeCategory === categoryName ? null : categoryName);
+  };
 
   return (
-    <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
+    <section
+      ref={ref}
+      className={`relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden scroll-fade-in ${inView ? 'in-view' : ''}`}>
       <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center justify-between">
         <span className="text-[#39FF14]/80 text-sm">package-manager.sys</span>
         <span className="text-[#39FF14]/60 text-xs">modules: {totalTechs}</span>
@@ -85,9 +125,72 @@ export default function TechStackSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-8">
-          <div className="space-y-6">{renderStack(leftStack)}</div>
-          <div className="space-y-6">{renderStack(rightStack)}</div>
+        { }
+        <div className="mb-8 overflow-x-auto pb-4">
+          <div className="flex items-center space-x-4 min-w-max">
+            {techCategories.map((category, idx) => (
+              <button
+                key={category.name}
+                onClick={() => handleCategoryClick(category.name)}
+                className={`flex flex-col items-center space-y-2 px-6 py-3 border rounded-lg transition-all duration-300 ${
+                  activeCategory === category.name || !activeCategory
+                    ? 'border-[#39FF14] bg-[#39FF14]/10 shadow-[0_0_15px_#39FF14]/40'
+                    : 'border-[#39FF14]/30 bg-black/50'
+                } hover:border-[#39FF14] hover:bg-[#39FF14]/10 cursor-pointer`}
+              >
+                <span className="text-[#39FF14]/60 text-xs font-mono">{category.prefix}</span>
+                <span className="text-[#39FF14] text-sm font-bold whitespace-nowrap">
+                  {category.name}
+                </span>
+                <span className="text-[#39FF14]/60 text-xs">
+                  {category.techs.length}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        { }
+        <div className="space-y-6">
+          {techCategories
+            .filter(cat => !activeCategory || cat.name === activeCategory)
+            .map((category, catIdx) => {
+              let techIndex = 0;
+              return (
+                <div key={category.name} className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-[#39FF14]/60 text-xs font-mono">{category.prefix}</span>
+                    <h4 className="text-[#39FF14] text-sm font-bold uppercase">
+                      {category.name}
+                    </h4>
+                    <div className="flex-1 h-px bg-gradient-to-r from-[#39FF14]/40 to-transparent"></div>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {category.techs.map((tech) => {
+                      const delay = getDelay(techIndex++);
+                      const TechIcon = techIcons[tech];
+                      return (
+                        <span
+                          key={tech}
+                          onMouseEnter={() => handleTechHover(tech)}
+                          className={`px-3 py-1.5 border border-[#39FF14]/60 rounded bg-black/50 text-[#39FF14]/90 text-xs hover:bg-[#39FF14] hover:text-black transition-all duration-200 shadow-[0_0_5px_#39FF14]/30 hover:shadow-[0_0_15px_#39FF14] hover:scale-105 cursor-default break-words backdrop-blur-sm card-3d-hover stagger-item ${
+                            inView ? 'in-view' : ''
+                          } ${glitchingTech === tech ? 'animate-tech-glitch' : ''}`}
+                          style={{
+                            transitionDelay: `${delay}ms`
+                          }}
+                        >
+                          <span className="flex items-center gap-1.5">
+                            {TechIcon && <TechIcon className="text-sm flex-shrink-0" />}
+                            <span>{tech}</span>
+                          </span>
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
         </div>
 
         <div className="border-t border-[#39FF14]/20 pt-4 mt-6 flex items-center justify-between text-xs">
