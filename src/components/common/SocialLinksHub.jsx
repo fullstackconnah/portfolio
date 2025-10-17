@@ -3,7 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import { use3DTilt } from '../../hooks/use3DTilt';
-import { FaGithub, FaLinkedin, FaFileDownload, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 export default function SocialLinksHub() {
   const [scrollRef, inView] = useScrollAnimation({ threshold: 0.3 });

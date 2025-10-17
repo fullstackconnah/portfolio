@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 /**
@@ -158,13 +158,13 @@ const OpenSimplexNoiseASCII = ({
     noiseRef.current = new SimplexNoise(seed);
   }, [seed]);
 
-  const getAsciiChar = (value) => {
+  const getAsciiChar = useCallback((value) => {
     const normalized = (value + 1) / 2;
     const index = Math.floor(normalized * (asciiChars.length - 1));
     return asciiChars[Math.max(0, Math.min(index, asciiChars.length - 1))];
-  };
+  }, [asciiChars]);
 
-  const getColor = (value, x, y) => {
+  const getColor = useCallback((value, x, y) => {
     if (colorMode === 'monochrome') {
       return foregroundColor;
     } else if (colorMode === 'gradient') {
@@ -177,7 +177,7 @@ const OpenSimplexNoiseASCII = ({
       return `hsl(${hue * 360}, 70%, 60%)`;
     }
     return foregroundColor;
-  };
+  }, [colorMode, foregroundColor]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -290,7 +290,7 @@ const OpenSimplexNoiseASCII = ({
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [width, height, scale, timeScale, animationSpeed, asciiChars, colorMode, 
+  }, [width, height, scale, timeScale, animationSpeed, getAsciiChar, getColor, asciiChars, colorMode,
       backgroundColor, foregroundColor, fontSize, letterSpacing, lineHeight, isPaused, hoverEffect, hoverIntensity]);
 
   const togglePause = () => setIsPaused(!isPaused);

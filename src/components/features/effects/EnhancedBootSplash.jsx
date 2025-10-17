@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
 import '../../../css/bootSequence.css';
-import { ASCII_STANDARD } from '../../../data/asciiArtVariants.js';
 
 // ASCII Art Header for CONNAHDOS
 const asciiHeader = `
