@@ -45,12 +45,12 @@ export default function AboutPage() {
       <div className="space-y-12">
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
-            <span className="text-[#39FF14]/80 text-sm">whoami.txt</span>
+            <span className="text-[#39FF14]/80 text-sm">About Me</span>
           </div>
           <div className="p-8">
             <div className="flex items-center mb-6">
-              <span className="text-[#39FF14] mr-2 text-lg">$</span>
-              <span className="text-[#39FF14]/80 text-base">cat whoami.txt</span>
+              <span className="text-[#39FF14] mr-2 text-lg">●</span>
+              <span className="text-[#39FF14]/80 text-base">Who I Am</span>
             </div>
             <div className="bg-black/30 border-l-4 border-[#39FF14]/60 pl-6 py-4">
               <p className="text-[#39FF14] text-xl leading-relaxed font-medium">
@@ -66,12 +66,12 @@ export default function AboutPage() {
         { }
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
-            <span className="text-[#39FF14]/80 text-sm">bio.md</span>
+            <span className="text-[#39FF14]/80 text-sm">My Story</span>
           </div>
           <div className="p-8">
             <div className="flex items-center mb-8">
-              <span className="text-[#39FF14] mr-2 text-lg">$</span>
-              <span className="text-[#39FF14]/80 text-base">markdown bio.md</span>
+              <span className="text-[#39FF14] mr-2 text-lg">●</span>
+              <span className="text-[#39FF14]/80 text-base">Background</span>
             </div>
             <div className="space-y-6 text-base leading-relaxed">
               <p className="text-[#39FF14]/90">
@@ -98,13 +98,13 @@ export default function AboutPage() {
         {/* Career History Section */}
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center justify-between">
-            <span className="text-[#39FF14]/80 text-sm">career-history.log</span>
-            <span className="text-[#39FF14]/60 text-xs">5 entries</span>
+            <span className="text-[#39FF14]/80 text-sm">Experience</span>
+            <span className="text-[#39FF14]/60 text-xs">5 milestones</span>
           </div>
           <div className="p-8">
             <div className="flex items-center mb-8">
-              <span className="text-[#39FF14] mr-2 text-lg">$</span>
-              <span className="text-[#39FF14]/80 text-base">tail -f career-history.log</span>
+              <span className="text-[#39FF14] mr-2 text-lg">●</span>
+              <span className="text-[#39FF14]/80 text-base">Career Timeline</span>
             </div>
             <div className="space-y-6">
               {[
@@ -155,12 +155,12 @@ export default function AboutPage() {
         { }
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
-            <span className="text-[#39FF14]/80 text-sm">dev-stats.json</span>
+            <span className="text-[#39FF14]/80 text-sm">Quick Facts</span>
           </div>
           <div className="p-8">
             <div className="flex items-center mb-8">
-              <span className="text-[#39FF14] mr-2 text-lg">$</span>
-              <span className="text-[#39FF14]/80 text-base">node -p "JSON.stringify(stats, null, 2)"</span>
+              <span className="text-[#39FF14] mr-2 text-lg">●</span>
+              <span className="text-[#39FF14]/80 text-base">By The Numbers</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
@@ -185,12 +185,12 @@ export default function AboutPage() {
         { }
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
-            <span className="text-[#39FF14]/80 text-sm">soft-skills.yml</span>
+            <span className="text-[#39FF14]/80 text-sm">Working With Me</span>
           </div>
           <div className="p-8">
             <div className="flex items-center mb-8">
-              <span className="text-[#39FF14] mr-2 text-lg">$</span>
-              <span className="text-[#39FF14]/80 text-base">cat soft-skills.yml</span>
+              <span className="text-[#39FF14] mr-2 text-lg">●</span>
+              <span className="text-[#39FF14]/80 text-base">How I Work</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
@@ -216,12 +216,12 @@ export default function AboutPage() {
         { }
         <section className="relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden">
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center">
-            <span className="text-[#39FF14]/80 text-sm">system-metrics.cfg</span>
+            <span className="text-[#39FF14]/80 text-sm">Availability</span>
           </div>
           <div className="p-8">
             <div className="flex items-center mb-8">
-              <span className="text-[#39FF14] mr-2 text-lg">$</span>
-              <span className="text-[#39FF14]/80 text-base">systemctl status developer.service</span>
+              <span className="text-[#39FF14] mr-2 text-lg">●</span>
+              <span className="text-[#39FF14]/80 text-base">Current Status</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-black/30 border-2 border-[#39FF14]/30 rounded-lg p-6 hover:border-[#39FF14]/50 transition-colors">

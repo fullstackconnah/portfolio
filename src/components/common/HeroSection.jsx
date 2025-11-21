@@ -13,7 +13,14 @@ export default function HeroSection({ onReboot, setIsTearing, setIsShattering })
   const [serviceIndex, setServiceIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const services = useMemo(() => ['Custom Websites', 'IT Support & Consulting', 'Business Solutions', 'Cloud Hosting', 'E-commerce Solutions', 'Network Solutions'], []);
+  const services = useMemo(() => [
+    'Growing Your Business Online',
+    'Making Technology Work For You',
+    'Professional Websites That Convert',
+    'Reliable Tech Support When You Need It',
+    'Secure & Fast Online Solutions',
+    'Your Business Success Partner'
+  ], []);
 
 
   useEffect(() => {
@@ -219,8 +226,8 @@ export default function HeroSection({ onReboot, setIsTearing, setIsShattering })
           }}
         >
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold text-[#39FF14]">Web Developer & IT Services</h2>
-            <p className="text-[#39FF14]/70 text-sm">Custom solutions for small business</p>
+            <h2 className="text-2xl font-bold text-[#39FF14]">Technology That Works For You</h2>
+            <p className="text-[#39FF14]/70 text-sm">Simple, Reliable Solutions for Small Business Growth</p>
           </div>
 
           <div className="space-y-3">
@@ -256,8 +263,8 @@ export default function HeroSection({ onReboot, setIsTearing, setIsShattering })
           }}
         >
           <div className="space-y-1">
-            <h2 className="text-base font-bold text-[#39FF14]">Web Developer & IT Services</h2>
-            <p className="text-[#39FF14]/70 text-xs">Custom solutions for small business</p>
+            <h2 className="text-base font-bold text-[#39FF14]">Technology That Works For You</h2>
+            <p className="text-[#39FF14]/70 text-xs">Simple, Reliable Solutions for Small Business Growth</p>
           </div>
 
           <div className="space-y-2">

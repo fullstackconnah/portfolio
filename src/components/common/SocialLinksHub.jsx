@@ -30,18 +30,21 @@ export default function SocialLinksHub() {
   const socialLinks = [
     {
       name: 'LinkedIn',
+      description: 'Connect with me',
       icon: FaLinkedin,
       url: 'https://www.linkedin.com/in/connah-trotman',
       color: 'hover:text-blue-400',
     },
     {
       name: 'GitHub',
+      description: 'See my code',
       icon: FaGithub,
       url: 'https://github.com/fullstackconnah',
       color: 'hover:text-gray-300',
     },
     {
       name: 'Email',
+      description: 'Get in touch',
       icon: FaEnvelope,
       url: 'mailto:info@connah.com.au',
       color: 'hover:text-green-400',
@@ -73,7 +76,7 @@ export default function SocialLinksHub() {
 
           {/* Header */}
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-3 py-1.5 flex items-center justify-between relative z-10 pointer-events-none">
-            <span className="text-[#39FF14]/80 text-xs">social.links</span>
+            <span className="text-[#39FF14]/80 text-xs">Get in Touch</span>
             <div className="flex items-center space-x-2">
               <span className="text-[#39FF14]/60 text-xs">[{socialLinks.length}]</span>
             </div>
@@ -81,9 +84,21 @@ export default function SocialLinksHub() {
 
           {/* Content */}
           <div className="flex-1 p-3 flex flex-col relative z-10">
-            <div className="flex items-center mb-2 pointer-events-none">
-              <span className="text-[#39FF14] mr-2 text-xs">$</span>
-              <span className="text-[#39FF14]/80 text-xs">./connect --social</span>
+            {/* Availability Status + Response Time */}
+            <div className="mb-3 pointer-events-none">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                </span>
+                <span className="text-green-400 text-xs font-medium">Available for new projects</span>
+              </div>
+              <p className="text-[#39FF14]/90 text-sm leading-relaxed">
+                Ready to start your next project? I'd love to hear from you!
+              </p>
+              <p className="text-[#39FF14]/60 text-xs mt-1.5">
+                ⚡ I typically respond within 24 hours
+              </p>
             </div>
 
             {/* Redesigned layout - Featured Repos as main focus */}
@@ -98,11 +113,14 @@ export default function SocialLinksHub() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`group relative bg-[#0f0f0f] border border-[#39FF14]/40 rounded-lg p-1.5 flex flex-col items-center justify-center hover:border-[#39FF14] hover:bg-[#39FF14]/10 hover:shadow-[0_0_15px_#39FF14]/40 transition-all duration-300 ${link.color}`}
+                      className={`group relative bg-[#0f0f0f] border border-[#39FF14]/40 rounded-lg p-2 flex flex-col items-center justify-center hover:border-[#39FF14] hover:bg-[#39FF14]/10 hover:shadow-[0_0_15px_#39FF14]/40 transition-all duration-300 ${link.color}`}
                     >
-                      <Icon className="text-[#39FF14] text-sm group-hover:scale-110 transition-transform mb-0.5" />
-                      <span className="text-[#39FF14]/80 text-[9px] group-hover:text-[#39FF14] transition-colors leading-tight">
+                      <Icon className="text-[#39FF14] text-base group-hover:scale-110 transition-transform mb-1" />
+                      <span className="text-[#39FF14] text-[10px] font-medium group-hover:text-[#39FF14] transition-colors leading-tight">
                         {link.name}
+                      </span>
+                      <span className="text-[#39FF14]/60 text-[8px] group-hover:text-[#39FF14]/80 transition-colors leading-tight">
+                        {link.description}
                       </span>
                     </a>
                   );
@@ -114,7 +132,7 @@ export default function SocialLinksHub() {
                 <>
                   <div className="w-full h-px bg-[#39FF14]/20"></div>
                   <div className="flex-1 min-h-0">
-                    <div className="text-[#39FF14] text-xs mb-2.5 pointer-events-none font-bold">Featured Repositories</div>
+                    <div className="text-[#39FF14] text-xs mb-2.5 pointer-events-none font-bold">My Work on GitHub</div>
                     <div className="space-y-2 pointer-events-auto">
                       {githubProjects.map((project, index) => (
                         <a

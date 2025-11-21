@@ -69,21 +69,20 @@ export default function QuickStatsTerminal() {
             }}
           />
         <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-4 py-2 flex items-center justify-between relative z-10">
-          <span className="text-[#39FF14]/80 text-sm">stats.sys</span>
-          <span className="text-[#39FF14]/60 text-xs">realtime</span>
+          <span className="text-[#39FF14]/80 text-sm">Quick Facts</span>
+          <span className="text-[#39FF14]/60 text-xs">live</span>
         </div>
 
         <div className="p-4 flex flex-col h-full relative z-10">
           <div className="flex items-center mb-3">
-            <span className="text-[#39FF14] mr-2 text-sm">$</span>
-            <span className="text-[#39FF14]/80 text-xs">sys --info</span>
+            <span className="text-[#39FF14]/80 text-xs">About My Work</span>
           </div>
 
           {/* Horizontal stats layout */}
           <div className="flex-1 flex items-center justify-between gap-3">
             {/* Experience */}
             <div className="flex-1 text-center">
-              <div className="text-[#39FF14]/60 text-xs mb-1">Experience</div>
+              <div className="text-[#39FF14]/60 text-xs mb-1">In Business</div>
               <div className="text-[#39FF14] text-3xl font-bold tabular-nums">
                 {stats.experience}+
               </div>
@@ -94,29 +93,29 @@ export default function QuickStatsTerminal() {
 
             {/* Projects */}
             <div className="flex-1 text-center">
-              <div className="text-[#39FF14]/60 text-xs mb-1">Projects</div>
+              <div className="text-[#39FF14]/60 text-xs mb-1">Happy Clients</div>
               <div className="text-[#39FF14] text-3xl font-bold tabular-nums">
                 {stats.projects}+
               </div>
-              <div className="text-[#39FF14]/60 text-xs mt-1">active</div>
+              <div className="text-[#39FF14]/60 text-xs mt-1">served</div>
             </div>
 
             <div className="w-px h-16 bg-[#39FF14]/20"></div>
 
             {/* Tech Stack */}
             <div className="flex-1 text-center">
-              <div className="text-[#39FF14]/60 text-xs mb-1">Tech Stack</div>
+              <div className="text-[#39FF14]/60 text-xs mb-1">Skills</div>
               <div className="text-[#39FF14] text-3xl font-bold tabular-nums">
                 {stats.techCount}+
               </div>
-              <div className="text-[#39FF14]/60 text-xs mt-1">technologies</div>
+              <div className="text-[#39FF14]/60 text-xs mt-1">tools</div>
             </div>
           </div>
 
           <div className="pt-3 mt-3 border-t border-[#39FF14]/20">
             <div className="text-[#39FF14]/60 text-xs flex items-center justify-center space-x-2">
               <span className="w-2 h-2 bg-[#39FF14] rounded-full animate-pulse"></span>
-              <span>Status: Online</span>
+              <span>Available for New Projects</span>
             </div>
           </div>
         </div>

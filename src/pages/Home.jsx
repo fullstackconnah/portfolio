@@ -85,8 +85,8 @@ function Home({ onReboot, setIsTearing, setIsShattering }) {
   return (
     <>
       <Helmet>
-        <title>Connah Trotman | Software Developer Portfolio</title>
-        <meta name="description" content="Welcome to Connah.dev – a terminal-themed portfolio built by Connah Trotman, full-stack software developer with expertise in .NET, Angular, React, and cloud platforms. Explore immersive UIs, clean code, and real-world projects." />
+        <title>Connah Trotman | Technology That Works For Your Business</title>
+        <meta name="description" content="Friendly web development and IT support for small businesses. I help you grow online with custom websites, reliable hosting, and tech support you can understand. Based in Australia." />
       </Helmet>
       <div className="font-mono text-[#39FF14]">
         <HeroSection onReboot={onReboot} setIsTearing={setIsTearing} setIsShattering={setIsShattering} />

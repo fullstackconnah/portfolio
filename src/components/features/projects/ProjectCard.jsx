@@ -28,7 +28,7 @@ function ProjectCard({ title, description, tech = [], id, featured = false }) {
 
         <div className="flex items-center text-xs text-[#39FF14]/80 mb-3 select-none font-mono">
           <span className="mr-2">┌─[</span>
-          <span className="font-bold text-[#39FF14]">PROJECT</span>
+          <span className="font-bold text-[#39FF14]">WORK SAMPLE</span>
           <span className="flex-1 border-1 border-t border-[#39FF14]/40 ml-2" />
         </div>
 
@@ -38,7 +38,7 @@ function ProjectCard({ title, description, tech = [], id, featured = false }) {
           <div className="flex-grow">
             <h3 className={`${featured ? 'text-xl' : 'text-lg'} font-bold mb-2`}>{title}</h3>
             <p className="text-xs text-[#39FF14]/50 font-mono italic tracking-wide text-ellipsis overflow-hidden whitespace-nowrap max-w-full">
-              ~/projects/{title.split(' ')[0].toLowerCase()}{hashTitle(title)}.proj
+              Case Study #{hashTitle(title)}
             </p>
             <p className="text-sm text-[#39FF14]/80 mb-4 leading-relaxed">{truncatedDescription}</p>
 
@@ -55,7 +55,7 @@ function ProjectCard({ title, description, tech = [], id, featured = false }) {
           </div>
 
           <span className="text-sm underline hover:text-green-300 transition inline-block mt-auto">
-            &gt; View Project
+            Learn More →
           </span>
         </div>
       </div>

@@ -10,12 +10,12 @@ export default function ServicesSnapshotSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const services = [
-    { name: 'Custom Websites', icon: FaCode, desc: 'Full-stack web development' },
-    { name: 'Cloud Hosting', icon: FaCloud, desc: 'Scalable infrastructure' },
-    { name: 'IT Support', icon: FaHeadset, desc: '24/7 technical assistance' },
-    { name: 'E-commerce', icon: FaShoppingCart, desc: 'Online store solutions' },
-    { name: 'Network Solutions', icon: FaNetworkWired, desc: 'Enterprise networking' },
-    { name: 'Security Audits', icon: FaShieldAlt, desc: 'Vulnerability assessment' }
+    { name: 'Custom Websites', icon: FaCode, desc: 'A professional website that attracts customers' },
+    { name: 'AI Solutions', icon: FaCloud, desc: 'Smart tools to automate and grow your business' },
+    { name: 'Friendly Support', icon: FaHeadset, desc: 'Real help when you need it, in plain English' },
+    { name: 'Online Shop', icon: FaShoppingCart, desc: 'Sell your products online easily' },
+    { name: 'Office Setup', icon: FaNetworkWired, desc: 'Get your team connected and working' },
+    { name: 'Peace of Mind', icon: FaShieldAlt, desc: 'Your business data stays safe and secure' }
   ];
 
 
@@ -55,12 +55,11 @@ export default function ServicesSnapshotSection() {
           { }
           <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-4 py-2.5 flex items-center justify-between relative z-10">
             <div className="flex items-center space-x-2">
-              <span className="text-[#39FF14] text-sm font-bold">SERVICES</span>
-              <span className="text-[#39FF14]/40 text-xs">v2.1.0</span>
+              <span className="text-[#39FF14] text-sm font-bold">HOW I CAN HELP YOUR BUSINESS</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 rounded-full bg-[#39FF14] animate-pulse"></div>
-              <span className="text-[#39FF14]/70 text-xs font-mono">{services.length} available</span>
+              <span className="text-[#39FF14]/70 text-xs font-mono">{services.length} services</span>
             </div>
           </div>
 
@@ -68,8 +67,7 @@ export default function ServicesSnapshotSection() {
           <div className="flex-1 p-6 flex flex-col relative z-10">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2 pointer-events-none">
-                <span className="text-[#39FF14] text-base">$</span>
-                <span className="text-[#39FF14]/80 text-sm">ls -la /services</span>
+                <span className="text-[#39FF14]/80 text-sm">Services for Small Business Owners</span>
               </div>
               <Link
                 to="/services"

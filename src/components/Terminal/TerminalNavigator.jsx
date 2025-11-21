@@ -4,11 +4,11 @@ import '../../css/TerminalCard.css';
 import WireframeGlobe from '../features/effects/WireframeGlobe';
 
 const bootSequence = [
-  'Authenticating...',
-  'User verified: GUEST',
-  'Session ID: 0xC0D3C0NN4H',
-  'Loading environment...',
-  'Status: Terminal ready. Awaiting input. Type help for commands'
+  'Welcome! Great to see you here.',
+  'Loading your options...',
+  'Almost ready...',
+  'All set!',
+  'Status: Ready to explore. Type help to see what I can do for you'
 ];
 
 const commandList = [
@@ -17,20 +17,16 @@ const commandList = [
 ];
 
 const idleMessages = [
-  '> scanning subspace noise...',
-  '> memory check complete...',
-  '> link-layer handshake stabilized...',
-  '> buffer overflow averted...',
-  '> recalibrating flux node...',
-  '> uplink handshake secured...',
-  '> entropy levels nominal...',
-  '> bypass capacitor warming...',
-  '> idle circuit engaged...',
-  '> validating memory sectors...',
-  '> spectral scan in progress...',
-  '> ambient interference within limits...',
-  '> harmonizing data pulse...',
-  '> neural latency below threshold...'
+  '> checking for updates...',
+  '> all systems running smoothly...',
+  '> ready when you are...',
+  '> standing by to help...',
+  '> everything looks good...',
+  '> waiting for your input...',
+  '> services available...',
+  '> feel free to explore...',
+  '> here if you need anything...',
+  '> ready to assist...'
 ];
 
 export default function TerminalNavigator({ onReboot, setIsTearing, setIsShattering }) {
@@ -106,36 +102,28 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
 
   const commands = {
     help: [
-      'Available commands:',
-      'about        → Learn more about me',
-      'projects     → See my project portfolio',
-      'contact      → Show contact information',
-      'login        → Admin login screen',
-      'admin        → Go to admin dashboard',
-      'clear        → Clear the terminal',
-      'history      → Show command history',
-      'echo [msg]   → Repeat a message',
-      'cd [route]   → Navigate to route',
-      'ls           → List available routes',
-      'fortune      → Print a nerdy fortune',
-      'sudo         → Try it... you won\'t',
-      'reboot       → Restart terminal',
-      'sysinfo      → View system stats',
-      'whoami       → Reveal identity',
-      'uptime       → Show time since launch',
-      'version      → Print OS version'
+      'Here\'s what you can do:',
+      'about        → Learn about me and how I help businesses',
+      'projects     → See examples of my work',
+      'contact      → Get in touch for a free chat',
+      'services     → View my services and pricing',
+      'clear        → Start fresh',
+      'fortune      → Get an inspiring quote',
+      '',
+      'Just type a command and press Enter!'
     ],
     about: () => navigate('/about'),
     projects: () => navigate('/projects'),
-    contact: () => setLines(prev => [...prev.filter(l => l !== '$'), '> contact', 'Contact me at: info@connah.com.au', '$']),
+    contact: () => setLines(prev => [...prev.filter(l => l !== '$'), '> contact', 'Email: info@connah.com.au', 'Phone: Happy to chat - just ask!', "I'd love to hear about your business goals!", '$']),
     login: () => navigate('/login'),
     admin: () => navigate('/admin'),
     clear: () => setLines(['$']),
     history: () => setLines(prev => [...prev.filter(l => l !== '$'), ...history.map((h, i) => `${i + 1}: ${h}`), '$']),
-    ls: () => setLines(prev => [...prev.filter(l => l !== '$'), '> ls', 'about/', 'projects/', 'services/', 'login/', 'admin/', '$']),
+    services: () => navigate('/services'),
+    ls: () => setLines(prev => [...prev.filter(l => l !== '$'), '> ls', 'about/', 'projects/', 'services/', 'contact/', '$']),
 
     whoami: () =>
-      setLines(prev => [...prev.filter(l => l !== '$'), '> whoami', 'User: GUEST (conn4h)', '$']),
+      setLines(prev => [...prev.filter(l => l !== '$'), '> whoami', 'Connah Trotman - Your Technology Partner', 'I help small businesses succeed online with websites, support, and smart solutions', '$']),
 
     uptime: () => {
       const seconds = Math.floor((Date.now() - performance.timing.navigationStart) / 1000);
@@ -145,17 +133,15 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
     },
 
     version: () =>
-      setLines(prev => [...prev.filter(l => l !== '$'), '> version', 'ConnahOS v1.0.3', '$']),
+      setLines(prev => [...prev.filter(l => l !== '$'), '> version', 'Website v2.0 - Fast, secure, and built to last', '$']),
 
     sysinfo: () => {
       const info = [
-        'System Info:',
-        `OS: ConnahOS`,
-        `CPU: Quantum Cores (4)`,
-        `Memory: 16MB VRAM`,
-        `Uptime: ${(Math.floor(performance.now() / 1000))}s`,
-        `Theme: Matrix Green`,
-        `User: GUEST`
+        'About Me:',
+        `Location: Australia`,
+        `What I do: Websites, Online Shops, IT Support`,
+        `Experience: 5+ years helping businesses grow`,
+        `Specialty: Making technology simple for you`
       ];
       setLines(prev => [...prev.filter(l => l !== '$'), '> sysinfo', ...info, '$']);
     },
@@ -359,14 +345,14 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
                 animationFillMode: 'forwards'
             };
 
-            if (line === 'Status: Terminal ready. Awaiting input. Type help for commands') {
+            if (line === 'Status: Ready to explore. Type help to get started') {
               return (
                 <div
                   key={i}
                   className={`${baseClass}`}
                   style={delayStyle}
                 >
-                  Status: Terminal ready. Awaiting input. Type{' '}
+                  Status: Ready to explore. Type{' '}
                   <button
                     type="button"
                     onClick={() => handleCommand('help')}
@@ -374,7 +360,7 @@ export default function TerminalNavigator({ onReboot, setIsTearing, setIsShatter
                   >
                     help
                   </button>{' '}
-                  for commands
+                  to get started
                 </div>
               );
             }

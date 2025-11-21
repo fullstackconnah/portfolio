@@ -109,9 +109,9 @@ function ProjectDetail() {
         )}
       </div>
       <div className="mt-8 text-xs text-[#39FF14]">
-            <p>&gt; cat README.md</p>
-            <p>Project by Connah — built with React and Firebase</p>
-            <p>&gt; run deploy.sh — Success ✅</p>
+            <p>● About This Project</p>
+            <p>Created by Connah — built with React and Firebase</p>
+            <p>● Status: Live ✅</p>
         </div>
     </div>
     </>

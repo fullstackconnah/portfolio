@@ -60,28 +60,28 @@ export default function TechStackSection() {
 
   const techCategories = [
     {
-      name: 'Frontend',
-      prefix: '[FE]',
+      name: 'Website Building',
+      prefix: '[WEB]',
       techs: ['React', 'Angular', 'Blazor', 'TailwindCSS', 'HTML/CSS', 'SASS/SCSS', 'JavaScript', 'TypeScript', 'Jest']
     },
     {
-      name: 'Backend',
-      prefix: '[BE]',
+      name: 'Behind the Scenes',
+      prefix: '[SRV]',
       techs: ['.NET 8/9', '.NET Framework', 'Node.js', 'Entity Framework', 'ASP.NET Core', 'RESTful API', 'PostgreSQL', 'MSSQL', 'C#', 'Python', 'PHP']
     },
     {
-      name: 'Cloud',
-      prefix: '[CL]',
+      name: 'Cloud & Hosting',
+      prefix: '[HOST]',
       techs: ['Azure Services', 'Azure Blob Storage', 'Firebase', 'Firestore', 'Azure DevOps', 'cPanel']
     },
     {
-      name: 'DevOps',
-      prefix: '[DO]',
+      name: 'Automation',
+      prefix: '[AUTO]',
       techs: ['Git', 'Docker', 'CI/CD', 'GitHub Actions', 'Azure Pipelines', 'Swagger', 'Postman', 'Vite']
     },
     {
-      name: 'Tools',
-      prefix: '[TL]',
+      name: 'Platforms',
+      prefix: '[PLAT]',
       techs: ['VS 2022', 'VS Code', 'Datadog', 'Azure Insights', 'IIS', 'Nginx', 'WordPress', 'WooCommerce']
     }
   ];
@@ -103,8 +103,8 @@ export default function TechStackSection() {
       ref={ref}
       className={`relative bg-black border border-[#39FF14] rounded-lg shadow-[0_0_20px_#39FF14]/40 font-mono overflow-hidden scroll-fade-in ${inView ? 'in-view' : ''}`}>
       <div className="bg-[#1a1a1a] border-b border-[#39FF14]/30 px-6 py-2 flex items-center justify-between">
-        <span className="text-[#39FF14]/80 text-sm">package-manager.sys</span>
-        <span className="text-[#39FF14]/60 text-xs">modules: {totalTechs}</span>
+        <span className="text-[#39FF14]/80 text-sm">Tools I Use To Build Your Solutions</span>
+        <span className="text-[#39FF14]/60 text-xs">{totalTechs} tools</span>
       </div>
 
       <div className="absolute inset-0 bg-[#0d0d0d] opacity-50 z-0 pointer-events-none"
@@ -114,14 +114,10 @@ export default function TechStackSection() {
            }} />
 
       <div className="relative z-10 p-6">
-        <div className="flex items-center mb-4">
-          <span className="text-[#39FF14] mr-2">$</span>
-          <span className="text-[#39FF14]/80">npm list --depth=0 --global</span>
-        </div>
-
         <div className="mb-6">
+          <p className="text-[#39FF14]/80 text-base mb-2">Professional Tools for Professional Results</p>
           <p className="text-[#39FF14]/60 text-sm">
-            <span className="text-[#39FF14]/80">System scan complete</span> • {totalTechs} packages indexed
+            I use industry-leading tools to build fast, secure, and reliable solutions for your business
           </p>
         </div>
 
@@ -195,10 +191,10 @@ export default function TechStackSection() {
 
         <div className="border-t border-[#39FF14]/20 pt-4 mt-6 flex items-center justify-between text-xs">
           <div className="text-[#39FF14]/60">
-            Package audit: 0 vulnerabilities found
+            Always staying up-to-date with the latest and best tools
           </div>
           <div className="text-[#39FF14]/60">
-            Last updated: {new Date().toLocaleDateString()}
+            Updated: {new Date().toLocaleDateString()}
           </div>
         </div>
       </div>

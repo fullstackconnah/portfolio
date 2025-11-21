@@ -67,7 +67,7 @@ export default function ProjectsPage() {
 
         <div className="rounded-lg border border-[#39FF14] p-6 md:p-6 shadow-[0_0_25px_#39FF14] bg-[#0f0f0f]/80 backdrop-blur-sm">
         <p className="text-[#39FF14] font-mono text-sm mb-4 select-none">
-          guest@connah.dev:~$ <span className="text-[#39FF14]/60">tail -f uploads.log</span>
+          ● <span className="text-[#39FF14]/60">Browse My Work</span>
         </p>
         <div className='p-6 md:p-3'>
           {loading ? (

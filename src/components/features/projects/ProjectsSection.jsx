@@ -15,8 +15,8 @@ export default function ProjectsSection({ projects }) {
 
       <div className="p-6">
         <div className="flex items-center mb-6">
-          <span className="text-[#39FF14] mr-2">$</span>
-          <span className="text-[#39FF14]/80">SELECT * FROM projects WHERE featured = true;</span>
+          <span className="text-[#39FF14] mr-2">●</span>
+          <span className="text-[#39FF14]/80">Featured Work</span>
         </div>
 
         <div className="mb-6">
